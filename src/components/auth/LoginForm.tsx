@@ -29,7 +29,7 @@ const LoginForm: React.FC = () => {
         toast.success("Succsessfuly logged in");
 
         dispatch(loadCurrentUser());
-        router.push("/recipes");
+        router.push("/posts");
       }
     } catch (error) {
       setIsLoading(false);

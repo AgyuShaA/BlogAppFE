@@ -1,7 +1,7 @@
-import { UserModel } from "@/models/user.model";
+import { UserDto } from "@/models/user.model";
 import { API_URL, LOCAL_STORAGE_TOKEN } from "../../api";
 
-export const getCurrentUser = async (): Promise<UserModel> => {
+export const getCurrentUser = async (): Promise<UserDto> => {
   const response = await fetch(`${API_URL}/auth/currentUser`, {
     method: "GET",
     headers: {

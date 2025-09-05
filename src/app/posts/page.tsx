@@ -1,31 +1,31 @@
 "use client";
 
-import { getAllRecipes } from "@/api/recipe-api";
+import { getAllPosts } from "@/api/posts-api";
+import PostList from "@/components/PostList/PostsList";
 import PrivateRoute from "@/components/PrivateRoute";
-import RecipeList from "@/components/RecipeList/RecipeList";
 
-import { RecipeDto } from "@/models/recipe";
+import { PostDto } from "@/models/post.model";
 
 import { useAppSelector } from "@/store/hooks";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 function DashboardContent() {
-  const [recipes, setRecipes] = useState<RecipeDto[]>([]);
+  const [posts, setPosts] = useState<PostDto[]>([]);
   const user = useAppSelector((state) => state.user.data);
   useEffect(() => {
-    const FetchRecipes = async () => {
+    const FetchPosts = async () => {
       if (user?.id) {
-        const recipes = await getAllRecipes();
+        const posts = await getAllPosts();
 
-        if (recipes.length) {
-          setRecipes(recipes);
+        if (posts.length) {
+          setPosts(posts);
         }
       }
     };
     if (!user) return;
 
-    FetchRecipes();
+    FetchPosts();
   }, [user?.id, user]);
   const router = useRouter();
   if (!user) return;
@@ -42,7 +42,7 @@ function DashboardContent() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex items-center">
-              <h1 className="text-xl font-bold text-gray-900">FlavorAI</h1>
+              <h1 className="text-xl font-bold text-gray-900">BlogApp</h1>
             </div>
             <div className="flex items-center">
               <h1 className="text-xl font-bold text-gray-900">{user?.name}</h1>
@@ -61,11 +61,7 @@ function DashboardContent() {
 
       <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div className="px-4 py-6 sm:px-0">
-          <RecipeList
-            recipes={recipes}
-            setRecipes={setRecipes}
-            currentUserId={user.id}
-          />
+          <PostList posts={posts} setPosts={setPosts} currentUserId={user.id} />
         </div>
       </main>
     </div>

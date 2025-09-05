@@ -9,7 +9,7 @@ export default function Home() {
   useEffect(() => {
     const token = localStorage.getItem("access_token");
     if (token) {
-      router.push("/recipes");
+      router.push("/posts");
     } else {
       router.push("/auth");
     }
