@@ -1,15 +1,15 @@
 import { getCurrentUser } from "@/api/user-api";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { UserModel } from "../../models/user.model";
+import { UserDto } from "../../models/user.model";
 import { RootState } from "../index";
 
 const initialState: {
-  data: UserModel | null;
+  data: UserDto | null;
 } = {
   data: null,
 };
 
-export const loadCurrentUser = createAsyncThunk<UserModel>(
+export const loadCurrentUser = createAsyncThunk<UserDto>(
   "user/fetchCurrentUser",
   async () => {
     const userData = await getCurrentUser();
