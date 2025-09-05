@@ -48,6 +48,7 @@ export const updatePost = async (
   const formData = new FormData();
   Object.entries(updatePostDto).forEach(([key, value]) => {
     if (value !== undefined && value !== null)
+      // eslint-disable-next-line
       formData.append(key, value as any);
   });
   if (imageFile) formData.append("image", imageFile);

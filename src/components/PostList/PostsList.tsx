@@ -64,11 +64,8 @@ const PostList: React.FC<PostListProps> = ({
   }, [posts, searchQuery, showMyPostsOnly, currentUserId]);
 
   const toggleCreateModal = () => setIsCreateOpen((prev) => !prev);
-  const toggleUpdateModal = () => setIsUpdateOpen((prev) => !prev);
-  const toggleDeleteModal = () => setIsDeleteOpen((prev) => !prev);
 
   const onCreatePost = async (post: CreatePostDto) => {
-    console.log("132");
     try {
       const response = await createPost(post);
       toast.success("Post created successfully");
@@ -234,7 +231,6 @@ const PostList: React.FC<PostListProps> = ({
         searchQuery={searchQuery}
         handleEditClick={handleEditClick}
         handleDeleteClick={handleDeleteClick}
-        setPosts={setPosts}
       />
 
       {searchError && (

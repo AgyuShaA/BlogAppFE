@@ -2,8 +2,8 @@ import { createComment, deleteComment } from "@/api/comments-api";
 import { CommentDto, CreateCommentDto } from "@/models/comment.model";
 import { PostDto } from "@/models/post.model";
 import Image from "next/image";
-import React, { SetStateAction, useState } from "react";
-import { Dispatch } from "react";
+import React, { useState } from "react";
+
 import { toast } from "react-toastify";
 
 interface PostDetailsModalProps {
@@ -11,14 +11,12 @@ interface PostDetailsModalProps {
   onClose: () => void;
   currentPost: PostDto;
   currentUserId: number;
-  setPosts: React.Dispatch<React.SetStateAction<PostDto[]>>; // <-- correct
 }
 
 const PostDetailsModal: React.FC<PostDetailsModalProps> = ({
   isOpen,
   onClose,
   currentPost,
-  setPosts,
   currentUserId,
 }) => {
   const [commentText, setCommentText] = useState("");
@@ -26,7 +24,7 @@ const PostDetailsModal: React.FC<PostDetailsModalProps> = ({
 
   const handleAddComment = async () => {
     if (commentText.trim()) {
-      post.id, commentText.trim();
+      commentText.trim();
 
       const comment: CreateCommentDto = {
         text: commentText,

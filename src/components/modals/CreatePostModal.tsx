@@ -3,7 +3,7 @@ import { useAppSelector } from "@/store/hooks";
 import { postValidationSchema } from "@/validationSchemas/postValidationSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 
 interface CreatePostModalProps {
@@ -36,7 +36,7 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({
 
   const router = useRouter();
   const userId = useAppSelector((state) => state.user.data?.id);
-  const [imageFile, setImageFile] = useState<File | null>(null);
+
   if (!isOpen) return null;
 
   const onSubmit: SubmitHandler<CreatePostDto> = (data) => {

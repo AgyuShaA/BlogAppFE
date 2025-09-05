@@ -1,7 +1,8 @@
 import { PostDto } from "@/models/post.model";
 import { Edit, Trash2 } from "lucide-react";
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { useState } from "react";
 import PostDetailsModal from "../modals/PostDetailModal";
+import Image from "next/image";
 
 interface PostTableProps {
   posts: PostDto[];
@@ -9,7 +10,6 @@ interface PostTableProps {
   handleEditClick: (post: PostDto) => void;
   handleDeleteClick: (post: PostDto) => void;
   currentUserId: number;
-  setPosts: Dispatch<SetStateAction<PostDto[]>>;
 }
 
 const PostTable: React.FC<PostTableProps> = ({
@@ -18,7 +18,6 @@ const PostTable: React.FC<PostTableProps> = ({
   handleEditClick,
   handleDeleteClick,
   currentUserId,
-  setPosts,
 }) => {
   const [selectedPost, setSelectedPost] = useState<PostDto | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -46,9 +45,10 @@ const PostTable: React.FC<PostTableProps> = ({
           {/* Image */}
           <div className="h-48 bg-gray-200 flex items-center justify-center">
             {post.photoUrl ? (
-              <img
+              <Image
                 src={`http://localhost:3000${post.photoUrl}`}
                 alt={post.title}
+                fill
                 className="object-cover w-full h-full"
               />
             ) : (
@@ -97,7 +97,6 @@ const PostTable: React.FC<PostTableProps> = ({
           onClose={() => setIsModalOpen(false)}
           currentPost={selectedPost}
           currentUserId={currentUserId}
-          setPosts={setPosts}
         />
       )}
     </div>
