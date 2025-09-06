@@ -143,7 +143,7 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({
                   accept="image/*"
                   onChange={(e) => {
                     if (e.target.files && e.target.files[0]) {
-                      field.onChange(e.target.files[0]); // ✅ Register file with react-hook-form
+                      field.onChange(e.target.files[0]);
                     }
                   }}
                   className="mt-1 block w-full border border-gray-300 p-2 rounded-md"

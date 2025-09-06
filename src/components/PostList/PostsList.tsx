@@ -13,9 +13,6 @@ import PostTable from "../RecipeItem/PostsTable";
 import CreatePostModal from "../modals/CreatePostModal";
 import UpdatePostModal from "../modals/UpdatePostModal";
 import DeletePostModal from "../modals/DeletePostModal";
-// import CreatePostModal from "@/components/modals/CreatePostModal";
-// import UpdatePostModal from "@/components/modals/UpdatePostModal";
-// import DeletePostModal from "@/components/modals/DeletePostModal";
 
 interface PostListProps {
   posts: PostDto[];

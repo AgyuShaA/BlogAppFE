@@ -8,8 +8,8 @@ export const updatePostValidationSchema = yup.object({
     .mixed<File>()
     .required()
     .test("fileSize", "Image must be less than 5MB", (value) => {
-      if (!value) return true; // image is optional
-      return value.size <= 5 * 1024 * 1024; // 5MB limit
+      if (!value) return true;
+      return value.size <= 5 * 1024 * 1024;
     })
     .test("fileType", "Only JPG, PNG, or GIF files are allowed", (value) => {
       if (!value) return true;

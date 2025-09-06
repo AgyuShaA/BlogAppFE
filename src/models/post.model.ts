@@ -6,11 +6,11 @@ export interface PostDto {
   title: string;
   description: string;
   content?: string;
-  photoUrl?: string; // optional
-  author: UserDto; // who created the post
-  comments: CommentDto[]; // all comments for this post
-  createdAt: string; // ISO date string
-  updatedAt: string; // ISO date string
+  photoUrl?: string;
+  author: UserDto;
+  comments: CommentDto[];
+  createdAt: string;
+  updatedAt: string;
 }
 export interface CreatePostDto {
   title: string;

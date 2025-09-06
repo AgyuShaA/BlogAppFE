@@ -33,7 +33,6 @@ export const signIn = async ({
   } catch (err) {
     console.log(err);
 
-    // Return undefined or handle it differently if needed
     return undefined;
   }
 };

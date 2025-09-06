@@ -5,7 +5,6 @@ import {
 } from "@/models/comment.model";
 import { API_URL, LOCAL_STORAGE_TOKEN } from "../../api";
 
-// Helper to get token
 const getToken = () => {
   if (typeof window === "undefined") return null;
   return localStorage.getItem(LOCAL_STORAGE_TOKEN);
@@ -29,11 +28,6 @@ const fetchWithAuth = async (url: string, options: RequestInit) => {
   return await response.json();
 };
 
-// --------------------
-// Comments API
-// --------------------
-
-// Create a comment
 export const createComment = async (
   createCommentDto: CreateCommentDto
 ): Promise<CommentDto> => {
@@ -43,7 +37,6 @@ export const createComment = async (
   });
 };
 
-// Update a comment
 export const updateComment = async (
   commentId: number,
   updateCommentDto: UpdateCommentDto
@@ -54,14 +47,12 @@ export const updateComment = async (
   });
 };
 
-// Delete a comment
 export const deleteComment = async (commentId: number) => {
   return fetchWithAuth(`${API_URL}/comments/${commentId}`, {
     method: "DELETE",
   });
 };
 
-// Get comments for a post
 export const getCommentsForPost = async (
   postId: number
 ): Promise<CommentDto[]> => {

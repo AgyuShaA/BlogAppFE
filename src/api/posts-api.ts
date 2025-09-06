@@ -39,7 +39,6 @@ export const createPost = async (data: CreatePostDto) => {
   });
 };
 
-// Update a post (with optional new image)
 export const updatePost = async (
   postId: number,
   updatePostDto: UpdatePostDto,
@@ -59,12 +58,10 @@ export const updatePost = async (
   });
 };
 
-// Delete a post
 export const deletePost = async (postId: number) => {
   return fetchWithAuth(`${API_URL}/posts/${postId}`, { method: "DELETE" });
 };
 
-// Get all posts
 export const getAllPosts = async (): Promise<PostDto[]> => {
   return fetchWithAuth(`${API_URL}/posts`, {
     method: "GET",
@@ -72,7 +69,6 @@ export const getAllPosts = async (): Promise<PostDto[]> => {
   });
 };
 
-// Get posts by user
 export const getPostsByUserId = async (userId: number): Promise<PostDto[]> => {
   return fetchWithAuth(`${API_URL}/posts/user/${userId}`, {
     method: "GET",
@@ -80,7 +76,6 @@ export const getPostsByUserId = async (userId: number): Promise<PostDto[]> => {
   });
 };
 
-// Search posts
 export const searchPosts = async (query: string): Promise<PostDto[]> => {
   return fetchWithAuth(`${API_URL}/posts?search=${encodeURIComponent(query)}`, {
     method: "GET",
