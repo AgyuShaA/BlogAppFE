@@ -82,8 +82,8 @@ export const getPostsByUserId = async (userId: number): Promise<PostDto[]> => {
 
 // Search posts
 export const searchPosts = async (query: string): Promise<PostDto[]> => {
-  return fetchWithAuth(
-    `${API_URL}/posts/search?query=${encodeURIComponent(query)}`,
-    { method: "GET", headers: { "Content-Type": "application/json" } }
-  );
+  return fetchWithAuth(`${API_URL}/posts?search=${encodeURIComponent(query)}`, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  });
 };

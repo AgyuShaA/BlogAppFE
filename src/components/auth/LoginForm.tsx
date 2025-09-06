@@ -33,8 +33,10 @@ const LoginForm: React.FC = () => {
       }
     } catch (error) {
       setIsLoading(false);
-
       console.error("Error logging in:", error);
+    } finally {
+      setIsLoading(false);
+      toast.error("Login or password invalid");
     }
   };
 

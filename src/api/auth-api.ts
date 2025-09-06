@@ -32,7 +32,7 @@ export const signIn = async ({
     return await response.json();
   } catch (err) {
     console.log(err);
-    toast.error("Failed to login");
+
     // Return undefined or handle it differently if needed
     return undefined;
   }
