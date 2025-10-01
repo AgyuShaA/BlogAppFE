@@ -1,37 +1,21 @@
-"use client";
-
-import { store } from "@/store";
-import { Geist, Geist_Mono } from "next/font/google";
-import { Provider as ReduxProvider } from "react-redux";
-import { ToastContainer } from "react-toastify";
+import Footer from "@/components/footer/footer";
+import Header from "@/components/header/header";
 import "./globals.css";
-import PagesWrapper from "./pagesWrapper";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-export default function RootLayout({
+export default async function LocaleLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <ReduxProvider store={store}>
-          <PagesWrapper>{children}</PagesWrapper>
-        </ReduxProvider>
+  const locale = "en";
 
-        <ToastContainer position="top-right" autoClose={5000} />
+  return (
+    <html>
+      <body>
+        {" "}
+        <Header locale={locale} />
+        {children}
+        <Footer />
       </body>
     </html>
   );

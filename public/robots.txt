@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://bouw-store.vercel.app
+
+# Sitemaps
+Sitemap: https://bouw-store.vercel.app/sitemap.xml

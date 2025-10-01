@@ -1,26 +1,205 @@
+/* ===== Import Tailwind and Fonts ===== */
 @import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=PT+Mono&display=swap");
 
+/* Note: @theme is non-standard — 
+   if not supported, remove or replace it with :root or other selectors */
+
+@theme {
+}
+
+/* ===== Root Variables (Default / Dark Theme) ===== */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Base colors */
+
+  --text-stroke: none;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ===== Body and HTML Base Styles ===== */
+body,
+html {
+  font-family: Arial, Helvetica, sans-serif;
+  letter-spacing: 0.5px;
+  max-width: 1280px;
+  font-weight: 400;
+  font-style: normal;
+  margin: 0 auto;
+  background: var(--background);
+  color: var(--foreground);
+  overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ===== Utility Class to Prevent Scroll ===== */
+.no-scroll {
+  overflow: hidden;
+  height: 100vh;
+}
+
+.fade-in-up,
+.fade-in-left,
+.fade-in-right,
+.fade-in-down {
+  opacity: 0;
+}
+
+/* Fade up from bottom */
+.fade-in-up.visible {
+  animation: fadeUp 1.5s ease-out forwards;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Fade left */
+.fade-in-left.visible {
+  animation: fadeLeft 1s ease-out forwards;
+}
+
+@keyframes fadeLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Fade right */
+.fade-in-right.visible {
+  animation: fadeRight 1s ease-out forwards;
+}
+
+@keyframes fadeRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.fade-in-down.visible {
+  animation: fadeDown 1.5s ease-out forwards;
+}
+
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Slide in from left */
+.fade-in-left-cubic {
+  opacity: 0;
+  transform: translateX(-100px);
+}
+
+.fade-in-left-cubic.visible {
+  animation: slideLeft 1s cubic-bezier(0.33, 1, 0.68, 1) forwards;
+}
+
+@keyframes slideLeft {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Slide in from right */
+.fade-in-right-cubic {
+  opacity: 0;
+  transform: translateX(100px);
+}
+
+.fade-in-right-cubic.visible {
+  animation: slideRight 1s cubic-bezier(0.33, 1, 0.68, 1) forwards;
+}
+
+@keyframes slideRight {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Fade in from top-left */
+.fade-in-left-top {
+  opacity: 0;
+  transform: translate(-50px, -50px);
+}
+
+.fade-in-left-top.visible {
+  animation: fadeInLeftTopAnim 0.8s ease-out forwards;
+}
+
+@keyframes fadeInLeftTopAnim {
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+.text-stroke {
+  color: white; /* fill color */
+  -webkit-text-stroke: 0.3px #f0c37f; /* stroke width & color */
+  text-stroke: 1px #c72323; /* for some other browsers */
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+}
+
+input[type="date"]::-moz-calendar-picker-indicator,
+input[type="time"]::-moz-calendar-picker-indicator {
+  display: none;
+}
+/* Default arrow styles */
+.swiper-button-prev,
+.swiper-button-next {
+  color: white !important;
+  width: 1.5rem !important;
+  height: 1.5rem !important;
+}
+
+.swiper-button-next {
+  right: 1rem !important;
+}
+
+.swiper-button-prev {
+  left: 1rem !important;
+}
+/* Hide arrows on small screens */
+@media (max-width: 640px) {
+  .swiper-button-prev,
+  .swiper-button-next {
+    display: none !important;
+  }
+}
+
+/* Swiper pagination dots */
+.swiper-pagination-bullet {
+  background: rgba(255, 255, 255, 0.5) !important; /* semi-transparent */
+}
+
+.swiper-pagination-bullet-active {
+  background: white !important; /* active dot color */
 }

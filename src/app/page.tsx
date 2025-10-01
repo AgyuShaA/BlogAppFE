@@ -1,23 +1,16 @@
-"use client";
+import FirstSection from "@/components/MainPage/FirstSection/FirstSection";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import SecondSection from "@/components/MainPage/second-section/second-section";
+import AboutSection from "@/components/MainPage/about-section/about-section";
+import WhyUs from "@/components/MainPage/why-us/why-us";
 
-export default function Home() {
-  const router = useRouter();
-
-  useEffect(() => {
-    const token = localStorage.getItem("access_token");
-    if (token) {
-      router.push("/posts");
-    } else {
-      router.push("/auth");
-    }
-  }, [router]);
-
+export default function HomePage() {
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center p-24">
-      <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-600"></div>
-    </main>
+    <div className="relative">
+      <FirstSection />
+      <SecondSection />
+      <AboutSection />
+      <WhyUs />
+    </div>
   );
 }
