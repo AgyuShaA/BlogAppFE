@@ -2,12 +2,12 @@ import Image from "next/image";
 
 const SecondSection = () => {
   const collections = [
-    { title: "Shine & Glossy", color: "#581010", img: "1.png" },
-    { title: "Classic Marbles", color: "#282828", img: "2.png" },
-    { title: "Stones & Mixes", color: "#282828", img: "3.png" },
-    { title: "Other", color: "#581010", img: "4.png" },
-    { title: "Wood Tiles", color: "#282828", img: "5.png" },
-    { title: "Modern Patterns", color: "#282828", img: "8.png" },
+    { title: "Shine & Glossy", color: "#581010", img: "1.webp" },
+    { title: "Classic Marbles", color: "#282828", img: "2.webp" },
+    { title: "Stones & Mixes", color: "#282828", img: "3.webp" },
+    { title: "Other", color: "#581010", img: "4.webp" },
+    { title: "Wood Tiles", color: "#282828", img: "5.webp" },
+    { title: "Modern Patterns", color: "#282828", img: "8.webp" },
   ];
 
   return (

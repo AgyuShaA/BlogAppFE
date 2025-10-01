@@ -11,7 +11,7 @@ const FirstSection = () => {
       {/* Background image with gradient */}
       <div className="relative w-full rounded-[4px]  overflow-hidden">
         <Image
-          src="/main-page/1.png"
+          src="/main-page/1.webp"
           alt="Background"
           width={1280}
           height={600}
@@ -19,7 +19,7 @@ const FirstSection = () => {
         />
 
         <Image
-          src="/main-page/1.png"
+          src="/main-page/1.webp"
           alt="Background"
           width={1280}
           height={600}

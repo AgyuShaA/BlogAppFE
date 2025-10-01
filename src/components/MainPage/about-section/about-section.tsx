@@ -42,7 +42,7 @@ const AboutSection = () => {
 
           {/* Background image */}
           <Image
-            src="/main-page/about-us-photo.png"
+            src="/main-page/about-us-photo.webp"
             alt="Catalogue"
             fill
             className="object-cover"
