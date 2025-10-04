@@ -1,6 +1,7 @@
 /* ===== Import Tailwind and Fonts ===== */
 @import "tailwindcss";
 @import url("https://fonts.googleapis.com/css2?family=PT+Mono&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap");
 
 /* Note: @theme is non-standard — 
    if not supported, remove or replace it with :root or other selectors */
@@ -8,9 +9,15 @@
 @theme {
 }
 
+.font-sans {
+  font-family: var(--font-sans);
+  font-weight: 400;
+}
+
 /* ===== Root Variables (Default / Dark Theme) ===== */
 :root {
   /* Base colors */
+  --font-sans: "DM Sans", sans-serif;
 
   --text-stroke: none;
 }
@@ -202,4 +209,14 @@ input[type="time"]::-moz-calendar-picker-indicator {
 
 .swiper-pagination-bullet-active {
   background: white !important; /* active dot color */
+}
+
+.Toastify__toast--success {
+  background: #272121 !important;
+  color: #fff;
+}
+
+.Toastify__toast--error {
+  background: #262020 !important;
+  color: #fff;
 }

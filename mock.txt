@@ -1,0 +1,137 @@
+const collections = [
+  { name: "SHINE G-GLOSSY" },
+  { name: "CLASSIC MARBLES" },
+  { name: "STONES G-MIXES" },
+  { name: "URBAN STYLE" },
+  { name: "WOOD SELECTION" },
+  { name: "470 x 470" },
+  { name: "300 x 900" },
+  // Add more names as needed
+];
+
+for (const collection of collections) {
+  await prisma.collection.upsert({
+    where: { name: collection.name },
+    update: {},
+    create: { name: collection.name },
+  });
+}
+
+const sizes = [
+  { name: "1200x600x8" },
+  { name: "150x900x8" },
+  { name: "198x1200x8" },
+  { name: "225x900x8" },
+  { name: "300x1200x8" },
+  { name: "300x600x8" },
+  { name: "300x900x8" },
+  { name: "470x470x8" },
+  { name: "600x600x8" },
+];
+
+const surfaces = [
+  { name: "Satin" },
+  { name: "Mat" },
+  { name: "Nat" },
+  { name: "Semi lappto" },
+  { name: "Full lappato" },
+  { name: "Sugar" },
+
+  // Add more surface types if needed
+];
+
+for (const surface of surfaces) {
+  await prisma.surface.upsert({
+    where: { name: surface.name },
+    update: {},
+    create: { name: surface.name },
+  });
+}
+
+for (const size of sizes) {
+  await prisma.size.upsert({
+    where: { name: size.name },
+    update: {},
+    create: { name: size.name },
+  });
+}
+
+const colors = [
+  { name: "Dark Gray", hex: "#303030" },
+  { name: "Beige", hex: "#F5F5DC" },
+  { name: "Black", hex: "#000000" },
+  { name: "Blue", hex: "#0000FF" },
+  { name: "Bronze", hex: "#CD7F32" },
+  { name: "Saddle Brown", hex: "#8B4513" },
+  { name: "Saddle Brown 2", hex: "#8B4513" }, // duplicate, can skip
+  { name: "Red", hex: "#D2042D" },
+  { name: "Royal Blue", hex: "#0047AB" },
+  { name: "Cream", hex: "#FFFDD0" },
+  { name: "Dark Gray 2", hex: "#A9A9A9" },
+  { name: "Gold", hex: "#FFD700" },
+  { name: "Slate Gray", hex: "#474A51" },
+  { name: "Beige 2", hex: "#BEB9A7" },
+  { name: "Gray", hex: "#808080" },
+  { name: "Yellow", hex: "#FFC30B" },
+  { name: "Ivory", hex: "#FFFFF0" },
+  { name: "Light Gray", hex: "#D3D3D3" },
+  { name: "Navy", hex: "#000080" },
+  { name: "Brown", hex: "#964B00" },
+  { name: "Ecru", hex: "#EAE0C8" },
+  { name: "Rust", hex: "#B7410E" },
+  { name: "Silver", hex: "#C0C0C0" },
+  { name: "Sky Blue", hex: "#87CEEB" },
+  { name: "Snow", hex: "#FFFAFA" },
+  { name: "Dark Brown", hex: "#483C32" },
+  { name: "White", hex: "#FFFFFF" },
+  { name: "Olive Green", hex: "#B6BE9E" },
+];
+
+for (const color of colors) {
+  await prisma.color.upsert({
+    where: { hex: color.hex },
+    update: {},
+    create: { name: color.name, hex: color.hex },
+  });
+}
+
+const inout = [{ name: "Outdoor and indoor" }, { name: "For indoor use only" }];
+
+for (const inou of inout) {
+  await prisma.outdoorIndoor.upsert({
+    where: { name: inou.name },
+    update: {},
+    create: { name: inou.name },
+  });
+}
+
+const features = [
+  "Rectified",
+  "Not rectified",
+  "Frost resistant",
+  "Relief surface",
+  "Flat surface",
+  '"Carving" effect',
+  "New collection 2025",
+  '"Sugar" surface',
+  '"Soft touch" satin',
+  "Structured mat surface",
+  "Nature mat surface",
+  "Glossy surface",
+  "Semi-lappato surface",
+  '"Super shine" lappato',
+  "Stone effect",
+  "Wood effect",
+  "Marble effect",
+  "Mix effect",
+  "Marble effect", // duplicated? Maybe remove one
+  "Metal / oxide effect",
+];
+
+for (const name of features) {
+  await prisma.tileFeature.upsert({
+    where: { name },
+    update: {},
+    create: { name },
+  });
+}

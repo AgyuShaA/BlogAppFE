@@ -7,6 +7,7 @@ import { ArrowDownIcon } from "@/assets/icons/arrow-down";
 import { SearchIcon } from "@/assets/icons/search";
 import { StoreIcon } from "@/assets/icons/store";
 import useWindowSize from "@/hooks/UseWindowsSize";
+import Link from "next/link";
 
 interface HeaderProps {
   locale: string;
@@ -15,7 +16,6 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ locale }) => {
   const { isMobile } = useWindowSize();
   console.log(locale);
-
   return (
     <header className=" mx-auto sticky   top-0 h-[172px] flex flex-col gap-5 ">
       <div className="relative flex items-center justify-between gap-2 h-[74px] px-[5%] md:px-[2%]">
@@ -67,9 +67,12 @@ const Header: React.FC<HeaderProps> = ({ locale }) => {
             key={idx}
             className="relative w-[130px] h-[54px] flex items-center justify-center"
           >
-            <span className="text-[16px] w-full text-[#282828] font-normal">
+            <Link
+              href={"/catalogue"}
+              className="text-[16px] w-full text-[#282828] font-normal"
+            >
               {item}
-            </span>
+            </Link>
 
             <ArrowDownIcon />
           </div>
