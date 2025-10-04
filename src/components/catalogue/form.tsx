@@ -288,7 +288,7 @@ export default function CreatePostForm({
       </form>
 
       <h2 className="text-lg font-semibold mb-2">Tiles</h2>
-      <TileList tiles={filteredTiles ? filteredTiles : tiles} />
+      <TileList tiles={filteredTiles.length > 0 ? filteredTiles : tiles} />
     </div>
   );
 }
