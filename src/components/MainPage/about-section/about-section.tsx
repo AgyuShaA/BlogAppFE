@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const AboutSection = () => {
   return (
@@ -43,7 +44,7 @@ const AboutSection = () => {
           {/* Background image */}
           <Image
             src="/main-page/about-us-photo.webp"
-            alt="Catalogue"
+            alt="catalog"
             fill
             className="object-cover"
           />
@@ -55,14 +56,14 @@ const AboutSection = () => {
                 Browse all our collections in
               </h3>
               <h2 className="text-2xl md:text-3xl text-white font-normal">
-                Our Catalogue
+                <Link href={"/catalog"}>Our catalog</Link>
               </h2>
             </div>
             <a
               href="#"
               className="px-6 py-2 bg-[#F03939] text-white rounded-md text-sm hover:bg-[#c91e1e] transition self-start md:self-auto"
             >
-              Go to Catalogue
+              Go to catalog
             </a>
           </div>
         </div>

@@ -167,7 +167,7 @@ export default function CreatePostForm({
 
   return (
     <div className="p-4 w-full font-sans space-y-4">
-      <h2 className="text-center text-4xl">Tile Form</h2>
+      <h2 className="text-center text-4xl">Catalog</h2>
 
       <form
         onSubmit={handleSubmit}
@@ -275,7 +275,6 @@ export default function CreatePostForm({
           )}
         </div>
 
-        {/* Submit Button */}
         <div className="w-full flex items-center justify-center px-5">
           <button
             type="submit"

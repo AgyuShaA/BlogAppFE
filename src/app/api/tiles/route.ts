@@ -2,6 +2,8 @@ import { prisma } from "@/lib/prisma-client";
 import { uploadImageToGCP } from "@/lib/upload-image";
 import { NextResponse } from "next/server";
 
+export const revalidate = false;
+
 export async function GET() {
   const posts = await prisma.tile.findMany({
     include: {
@@ -20,7 +22,12 @@ export async function GET() {
     },
   });
 
-  return NextResponse.json(posts);
+  return NextResponse.json(posts, {
+    headers: {
+      // Cache forever (1 year in seconds)
+      "Cache-Control": "public, max-age=31536000, immutable",
+    },
+  });
 }
 
 export async function POST(req: Request) {

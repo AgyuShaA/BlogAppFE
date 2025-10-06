@@ -1,13 +1,13 @@
 "use client";
 
 import React from "react";
-import { LogoIconWithText } from "../../../public/header/logo";
 
 import { ArrowDownIcon } from "@/assets/icons/arrow-down";
 import { SearchIcon } from "@/assets/icons/search";
 import { StoreIcon } from "@/assets/icons/store";
 import useWindowSize from "@/hooks/UseWindowsSize";
 import Link from "next/link";
+import { LogoIconWithText } from "../../../public/header/logo";
 
 interface HeaderProps {
   locale: string;
@@ -21,10 +21,12 @@ const Header: React.FC<HeaderProps> = ({ locale }) => {
       <div className="relative flex items-center justify-between gap-2 h-[74px] px-[5%] md:px-[2%]">
         {/* Logo */}
         <div className="flex items-center h-[50px]">
-          <LogoIconWithText
-            width={isMobile ? 160 : 189}
-            height={isMobile ? 50 : 50}
-          />
+          <Link href={"/"}>
+            <LogoIconWithText
+              width={isMobile ? 160 : 189}
+              height={isMobile ? 50 : 50}
+            />
+          </Link>
         </div>
 
         {/* Search */}
@@ -62,13 +64,13 @@ const Header: React.FC<HeaderProps> = ({ locale }) => {
       </div>
       {/* Navigation */}
       <nav className=" justify-between h-[54px] hidden md:flex px-[5%] md:px-[2%] ">
-        {["Ceramic", "Wood", "Catalogue", "About us"].map((item, idx) => (
+        {["Ceramic", "Wood", "catalog", "About us"].map((item, idx) => (
           <div
             key={idx}
             className="relative w-[130px] h-[54px] flex items-center justify-center"
           >
             <Link
-              href={"/catalogue"}
+              href={"/catalog"}
               className="text-[16px] w-full text-[#282828] font-normal"
             >
               {item}

@@ -1,9 +1,9 @@
-import CreatePostForm from "@/components/catalogue/form";
-import TileFilters from "@/components/catalogue/tile-filters";
+import CreatePostForm from "@/components/catalog/form";
+import TileFilters from "@/components/catalog/tile-filters";
 
 import { prisma } from "@/lib/prisma-client";
 
-export default async function CataloguePage() {
+export default async function catalogPage() {
   const [collections, surfaces, sizes, features, color, outdoorIndoor] =
     await Promise.all([
       prisma.collection.findMany({ orderBy: { name: "asc" } }),
