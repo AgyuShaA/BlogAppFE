@@ -1,11 +1,10 @@
 "use client";
-import { useState, useTransition, useEffect } from "react";
+import { useState, useTransition, useEffect, useRef } from "react";
 import { TileList } from "./tile-list";
 import { ColorOption, Option } from "@/types/types";
 import Image from "next/image";
 import { toast } from "react-toastify";
 import { useTileStore } from "@/store/useTileStore";
-import { useFilterStore } from "@/store/useFilterStore";
 
 interface CreatePostFormProps {
   collections: Option[];
@@ -28,12 +27,12 @@ export default function CreatePostForm({
   colors,
   outdoorIndoor,
 }: CreatePostFormProps) {
-  const { tiles, setTiles, addTile } = useTileStore();
-  const { filteredTiles } = useFilterStore();
+  const { addTile } = useTileStore();
 
   const [name, setName] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [isPending, startTransition] = useTransition();
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   const [selectedCollections, setSelectedCollections] = useState<number[]>([]);
   const [selectedSizes, setSelectedSizes] = useState<number[]>([]);
@@ -43,19 +42,23 @@ export default function CreatePostForm({
   const [selectedOutdoorIndoor, setSelectedOutdoorIndoor] = useState<number[]>(
     []
   );
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    // fetch tiles from API once
-    const fetchPosts = async () => {
-      const res = await fetch("/api/tiles");
-      const data = await res.json();
-      setTiles(data);
-    };
-    fetchPosts();
-  }, [setTiles]);
+    if (!file) {
+      setPreviewUrl(null);
+      return;
+    }
+
+    const url = URL.createObjectURL(file);
+    setPreviewUrl(url);
+
+    return () => URL.revokeObjectURL(url); // cleanup previous preview
+  }, [file]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    console.log(name, file);
     if (!name || !file) {
       toast.error("Name and image are required");
       return;
@@ -86,7 +89,6 @@ export default function CreatePostForm({
         const newTile = await res.json();
         addTile(newTile);
 
-        // reset form
         setName("");
         setFile(null);
         setSelectedCollections([]);
@@ -95,6 +97,7 @@ export default function CreatePostForm({
         setSelectedFeatures([]);
         setSelectedColors([]);
         setSelectedOutdoorIndoor([]);
+        if (fileInputRef.current) fileInputRef.current.value = "";
 
         toast.success("Tile created successfully!");
         // eslint-disable-next-line
@@ -188,13 +191,14 @@ export default function CreatePostForm({
         <div className="w-full md:w-5/12">
           <input
             type="file"
+            ref={fileInputRef}
             accept="image/*"
             onChange={(e) => setFile(e.target.files?.[0] || null)}
             className="border px-2 py-1 rounded w-full"
           />
-          {file && (
+          {previewUrl && (
             <Image
-              src={URL.createObjectURL(file)}
+              src={previewUrl}
               width={500}
               height={500}
               alt="Preview"
@@ -287,7 +291,7 @@ export default function CreatePostForm({
       </form>
 
       <h2 className="text-lg font-semibold mb-2">Tiles</h2>
-      <TileList tiles={filteredTiles.length > 0 ? filteredTiles : tiles} />
+      <TileList />
     </div>
   );
 }

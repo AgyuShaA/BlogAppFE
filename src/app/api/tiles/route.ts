@@ -2,8 +2,6 @@ import { prisma } from "@/lib/prisma-client";
 import { uploadImageToGCP } from "@/lib/upload-image";
 import { NextResponse } from "next/server";
 
-export const revalidate = false;
-
 export async function GET() {
   const posts = await prisma.tile.findMany({
     include: {
@@ -21,13 +19,7 @@ export async function GET() {
       outdoorIndoor: true,
     },
   });
-
-  return NextResponse.json(posts, {
-    headers: {
-      // Cache forever (1 year in seconds)
-      "Cache-Control": "public, max-age=31536000, immutable",
-    },
-  });
+  return NextResponse.json(posts);
 }
 
 export async function POST(req: Request) {
@@ -139,13 +131,35 @@ export async function PATCH(req: Request) {
   }
 }
 
-// ---------------- DELETE ----------------
 export async function DELETE(req: Request) {
   const { searchParams } = new URL(req.url);
   const id = searchParams.get("id");
+
   if (!id)
     return NextResponse.json({ error: "Missing tile id" }, { status: 400 });
 
-  await prisma.tile.delete({ where: { id: Number(id) } });
-  return NextResponse.json({ success: true });
+  const tileId = Number(id);
+
+  try {
+    // Delete related records first (many-to-many)
+    await prisma.tileColor.deleteMany({ where: { tileId } });
+    await prisma.tileFeature.deleteMany({ where: { tileId } });
+    await prisma.tileSize.deleteMany({ where: { tileId } });
+
+    // Delete tile itself safely using deleteMany
+    console.log("Attempting to delete tile with ID:", tileId);
+    const deleted = await prisma.tile.deleteMany({ where: { id: tileId } });
+
+    if (deleted.count === 0) {
+      return NextResponse.json({ error: "Tile not found" }, { status: 404 });
+    }
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error("Failed to delete tile:", error);
+    return NextResponse.json(
+      { error: "Failed to delete tile" },
+      { status: 500 }
+    );
+  }
 }

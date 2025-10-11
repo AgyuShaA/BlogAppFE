@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 
 import { ArrowDownIcon } from "@/assets/icons/arrow-down";
 import { SearchIcon } from "@/assets/icons/search";
@@ -8,6 +8,8 @@ import { StoreIcon } from "@/assets/icons/store";
 import useWindowSize from "@/hooks/UseWindowsSize";
 import Link from "next/link";
 import { LogoIconWithText } from "../../../public/header/logo";
+import { useCartStore } from "@/store/useCartStore";
+import { CartSidebar } from "../sidebar/sidebar";
 
 interface HeaderProps {
   locale: string;
@@ -15,6 +17,8 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ locale }) => {
   const { isMobile } = useWindowSize();
+  const { items } = useCartStore();
+  const [isCartOpen, setIsCartOpen] = useState(false);
   console.log(locale);
   return (
     <header className=" mx-auto sticky   top-0 h-[172px] flex flex-col gap-5 ">
@@ -42,11 +46,14 @@ const Header: React.FC<HeaderProps> = ({ locale }) => {
         </div>
 
         {/* Cart */}
-        <button className="flex items-center gap-2 h-[40px] md:h-[50px] px-6 bg-[#212C34] text-white rounded">
+        <button
+          onClick={() => setIsCartOpen(true)}
+          className="flex cursor-pointer items-center gap-2 h-[40px] md:h-[50px] px-6 bg-[#212C34] text-white rounded"
+        >
           <div className="relative">
             <StoreIcon />
             <div className="absolute -top-1 -right-1 w-4 h-4 bg-red-600 rounded-full flex items-center justify-center text-[12px] font-light">
-              <span className="translate-y-[1px]">0</span>
+              <span className="translate-y-[1px]">{items.length}</span>
             </div>
           </div>
           <span>Cart</span>
@@ -64,19 +71,30 @@ const Header: React.FC<HeaderProps> = ({ locale }) => {
       </div>
       {/* Navigation */}
       <nav className=" justify-between h-[54px] hidden md:flex px-[5%] md:px-[2%] ">
-        {["Ceramic", "Wood", "catalog", "About us"].map((item, idx) => (
+        {["Ceramic", "Wood"].map((item, idx) => (
+          <div
+            key={idx}
+            className="relative w-[130px] h-[54px] flex items-center justify-center"
+          >
+            <span className="text-[16px] w-full text-[#282828] font-normal">
+              {item}
+            </span>
+
+            <ArrowDownIcon />
+          </div>
+        ))}
+
+        {["Catalog", "About us"].map((item, idx) => (
           <div
             key={idx}
             className="relative w-[130px] h-[54px] flex items-center justify-center"
           >
             <Link
-              href={"/catalog"}
+              href={idx === 0 ? "/catalog" : "/about"}
               className="text-[16px] w-full text-[#282828] font-normal"
             >
               {item}
             </Link>
-
-            <ArrowDownIcon />
           </div>
         ))}
 
@@ -87,6 +105,8 @@ const Header: React.FC<HeaderProps> = ({ locale }) => {
           </button>
         </div>
       </nav>
+
+      <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </header>
   );
 };

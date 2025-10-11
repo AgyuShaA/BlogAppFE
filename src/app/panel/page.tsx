@@ -1,5 +1,5 @@
+import CreatePostForm from "@/components/catalog/form";
 import TileFilters from "@/components/catalog/tile-filters";
-import { TileList } from "@/components/catalog/tile-list";
 
 import { prisma } from "@/lib/prisma-client";
 
@@ -27,7 +27,14 @@ export default async function catalogPage() {
         />
       </div>
 
-      <TileList />
+      <CreatePostForm
+        outdoorIndoor={outdoorIndoor}
+        colors={color}
+        collections={collections}
+        surfaces={surfaces}
+        sizes={sizes}
+        features={features}
+      />
     </div>
   );
 }

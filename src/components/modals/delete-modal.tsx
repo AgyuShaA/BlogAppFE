@@ -23,7 +23,12 @@ export const DeleteTileModal = ({
   const handleDelete = async () => {
     setLoading(true);
     try {
-      await deleteTile(tile.id); // call the delete function
+      const res = await fetch(`/api/tiles/?id=${tile.id}`, {
+        method: "DELETE",
+      });
+
+      if (!res.ok) throw new Error("Failed to update tile");
+
       deleteTile(tile.id);
       toast.success("Tile deleted");
       onClose();
