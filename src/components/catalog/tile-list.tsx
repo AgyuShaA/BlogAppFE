@@ -60,7 +60,7 @@ export const TileList = () => {
   const displayTiles = filteredTiles.length > 0 ? filteredTiles : tiles;
 
   return (
-    <div className="flex flex-wrap justify-center gap-6 px-10 w-full items-start self-start">
+    <div className="flex flex-wrap justify-center gap-6 px-2 w-full items-start self-start">
       <h1 className="text-center w-full text-3xl md:text-5xl">Catalog</h1>
       {displayTiles.map((tile) => {
         const inCart = isInCart(tile.id);
@@ -68,7 +68,7 @@ export const TileList = () => {
         return (
           <div
             key={tile.id}
-            className="flex  flex-col border p-4 max-h-[500px] md:w-[330px]  w-[335px] border-gray-300 rounded shadow-sm"
+            className="flex  flex-col border p-4 max-h-[500px] md:w-[330px] lg:w-[280px] w-[335px] border-gray-300 rounded shadow-sm"
           >
             {/* Tile Image fills width */}
             {tile.imageUrl && (
