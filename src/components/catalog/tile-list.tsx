@@ -60,7 +60,7 @@ export const TileList = () => {
   const displayTiles = filteredTiles.length > 0 ? filteredTiles : tiles;
 
   return (
-    <div className="flex flex-wrap justify-start gap-6 px-10 w-full items-start self-start">
+    <div className="flex flex-wrap justify-center gap-6 px-10 w-full items-start self-start">
       <h1 className="text-center w-full text-3xl md:text-5xl">Catalog</h1>
       {displayTiles.map((tile) => {
         const inCart = isInCart(tile.id);
@@ -68,7 +68,7 @@ export const TileList = () => {
         return (
           <div
             key={tile.id}
-            className="flex  flex-col border p-4 max-h-[500px] md:w-[330px] lg:w-[280] w-[335px] border-gray-300 rounded shadow-sm"
+            className="flex  flex-col border p-4 max-h-[500px] md:w-[330px]  w-[335px] border-gray-300 rounded shadow-sm"
           >
             {/* Tile Image fills width */}
             {tile.imageUrl && (
@@ -104,7 +104,7 @@ export const TileList = () => {
             </div>
 
             {/* Colors */}
-            {tile.colors && tile.colors.length > 0 && (
+            {tile.colors && tile.colors.length > 0 ? (
               <div className="flex gap-2 mt-2 px-2">
                 {tile.colors.map((c) => (
                   <span
@@ -115,6 +115,10 @@ export const TileList = () => {
                   />
                 ))}
               </div>
+            ) : (
+              <>
+                <span className="w-5 h-5 mt-2 px-2" />
+              </>
             )}
 
             {/* Action Buttons */}
