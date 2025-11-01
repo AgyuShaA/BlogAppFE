@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/prisma-client";
 import { uploadImageToGCP } from "@/lib/upload-image";
 import { NextResponse } from "next/server";
+import path from "path";
+import fs from "fs";
 
 export async function GET() {
   const posts = await prisma.tile.findMany({
@@ -9,7 +11,9 @@ export async function GET() {
       sizes: {
         include: { size: true }, // assuming join table has 'feature' relation
       },
-      surface: true,
+      surfaces: {
+        include: { surface: true }, // assuming join table has 'feature' relation
+      },
       features: {
         include: { feature: true }, // assuming join table has 'feature' relation
       },
@@ -19,6 +23,7 @@ export async function GET() {
       outdoorIndoor: true,
     },
   });
+
   return NextResponse.json(posts);
 }
 
@@ -43,8 +48,8 @@ export async function POST(req: Request) {
   }
 
   const imageUrl = await uploadImageToGCP(file);
+  console.log(formData);
 
-  // Create the tile
   const tile = await prisma.tile.create({
     data: {
       name,
@@ -56,12 +61,16 @@ export async function POST(req: Request) {
           size: { connect: { id: sizeId } },
         })),
       },
-      surfaceId: surfaces[0] || null,
       outdoorIndoorId: outdoorIndoor[0] || null,
-      // Many-to-many relations
+
       features: {
         create: features.map((featureId: number) => ({
           feature: { connect: { id: featureId } },
+        })),
+      },
+      surfaces: {
+        create: surfaces.map((id: number) => ({
+          surface: { connect: { id: id } },
         })),
       },
       colors: {
@@ -73,15 +82,29 @@ export async function POST(req: Request) {
     include: {
       features: { include: { feature: true } },
       colors: { include: { color: true } },
+      surfaces: { include: { surface: true } },
     },
   });
+  const englishName = formData.get("englishName") as string;
+  const niderlandName = formData.get("niderlandName") as string;
+
+  const localesDir = path.join(process.cwd(), "src/i18n/text");
+
+  const updateTranslation = (locale: string, value: string) => {
+    const filePath = path.join(localesDir, `${locale}.json`);
+    const translations = JSON.parse(fs.readFileSync(filePath, "utf8"));
+    translations[name] = value;
+    fs.writeFileSync(filePath, JSON.stringify(translations, null, 2));
+  };
+
+  updateTranslation("en", englishName);
+  updateTranslation("nl", niderlandName);
 
   return NextResponse.json(tile);
 }
-
 export async function PATCH(req: Request) {
   const { searchParams } = new URL(req.url);
-  const id = searchParams.get("id");
+  const id = searchParams.get("id") ? Number(searchParams.get("id")) : null;
   if (!id)
     return NextResponse.json({ error: "Missing tile id" }, { status: 400 });
 
@@ -92,27 +115,72 @@ export async function PATCH(req: Request) {
     const collection = formData.get("collection")
       ? Number(formData.get("collection"))
       : null;
-    const surface = formData.get("surface")
-      ? Number(formData.get("surface"))
-      : null;
     const outdoorIndoor = formData.get("outdoorIndoor")
       ? Number(formData.get("outdoorIndoor"))
       : null;
+    console.log(collection);
 
     const imageUploadPromise = file
       ? uploadImageToGCP(file)
       : Promise.resolve(null);
+
+    const colorIds = formData.get("colors")
+      ? JSON.parse(String(formData.get("colors")))
+      : [];
+
+    const surfaceIds = formData.get("surfaces")
+      ? JSON.parse(String(formData.get("surfaces")))
+      : [];
+
+    const featureIds = formData.get("features")
+      ? JSON.parse(String(formData.get("features")))
+      : [];
+
+    const sizeIds = formData.get("sizes")
+      ? JSON.parse(String(formData.get("sizes")))
+      : [];
 
     const updatedTile = await prisma.tile.update({
       where: { id: Number(id) },
       data: {
         name,
         collectionId: collection,
-        surfaceId: surface,
         outdoorIndoorId: outdoorIndoor,
+
+        colors: {
+          deleteMany: {},
+          create: colorIds.map((id: number) => ({
+            color: { connect: { id: id } },
+          })),
+        },
+        surfaces: {
+          deleteMany: {},
+          create: surfaceIds.map((id: number) => ({
+            surface: { connect: { id: id } },
+          })),
+        },
+        features: {
+          deleteMany: {},
+          create: featureIds.map((id: number) => ({
+            feature: { connect: { id: id } },
+          })),
+        },
+
+        sizes: {
+          deleteMany: {},
+          create: sizeIds.map((id: number) => ({
+            size: { connect: { id: id } },
+          })),
+        },
+      },
+      include: {
+        colors: { include: { color: true } },
+        surfaces: { include: { surface: true } },
+        features: { include: { feature: true } },
+        sizes: { include: { size: true } },
       },
     });
-
+    console.log(updatedTile);
     const imageUrl = await imageUploadPromise;
     if (imageUrl) {
       await prisma.tile.update({
@@ -120,7 +188,9 @@ export async function PATCH(req: Request) {
         data: { imageUrl },
       });
     }
+    console.log(formData);
 
+    console.log(updatedTile);
     return NextResponse.json(updatedTile);
   } catch (err) {
     console.error(err);
@@ -145,6 +215,7 @@ export async function DELETE(req: Request) {
     await prisma.tileColor.deleteMany({ where: { tileId } });
     await prisma.tileFeature.deleteMany({ where: { tileId } });
     await prisma.tileSize.deleteMany({ where: { tileId } });
+    await prisma.tileSurface.deleteMany({ where: { tileId } });
 
     // Delete tile itself safely using deleteMany
     console.log("Attempting to delete tile with ID:", tileId);

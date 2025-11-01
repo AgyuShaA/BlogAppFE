@@ -7,7 +7,7 @@ import sharp from "sharp";
  */
 export async function uploadImageToGCP(file: File): Promise<string> {
   // Convert file to ArrayBuffer
-  console.log("file log:", file);
+
   const arrayBuffer = await file.arrayBuffer();
 
   // Convert to WebP

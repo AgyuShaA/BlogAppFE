@@ -29,16 +29,23 @@ const sizes = [
   { name: "600x600x8" },
 ];
 
-const surfaces = [
-  { name: "Satin" },
-  { name: "Mat" },
-  { name: "Nat" },
-  { name: "Semi lappto" },
-  { name: "Full lappato" },
-  { name: "Sugar" },
 
-  // Add more surface types if needed
-];
+  // --- Surfaces ---
+  const surfaces = [
+    '"Soft touch" satin',
+    '"Super shine" lappato',
+    "Flat",
+    "Full lappato",
+    "Glossy",
+    "Mat",
+    "Nat",
+    "Nature mat",
+    "Relief",
+    "Satin",
+    "Semi-lappato",
+    "Structured mat",
+    "Sugar",
+  ];
 
 for (const surface of surfaces) {
   await prisma.surface.upsert({
@@ -106,30 +113,20 @@ for (const inou of inout) {
 }
 
 const features = [
-  "Rectified",
-  "Not rectified",
-  "Frost resistant",
-  "Relief surface",
-  "Flat surface",
   '"Carving" effect',
-  "New collection 2025",
-  '"Sugar" surface',
-  '"Soft touch" satin',
-  "Structured mat surface",
-  "Nature mat surface",
-  "Glossy surface",
-  "Semi-lappato surface",
-  '"Super shine" lappato',
-  "Stone effect",
-  "Wood effect",
-  "Marble effect",
-  "Mix effect",
-  "Marble effect", // duplicated? Maybe remove one
-  "Metal / oxide effect",
+  'Frost resistant',
+  'Marble effect',
+  'Metal / oxide effect',
+  'Mix effect',
+  'New collection 2025',
+  'Not rectified',
+  'Rectified',
+  'Stone effect',
+  'Wood effect',
 ];
 
 for (const name of features) {
-  await prisma.tileFeature.upsert({
+  await prisma.feature.upsert({
     where: { name },
     update: {},
     create: { name },

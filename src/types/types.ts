@@ -10,7 +10,7 @@ export type Tile = {
   imageUrl?: string;
   collection?: Option;
   sizes?: { sizeId: number; tileId: number; size: Option }[];
-  surface?: Option;
+  surfaces?: { surfaceId: number; tileId: number; surface: Option }[];
   outdoorIndoor?: Option;
   features?: { featureId: number; tileId: number; feature: Option }[];
   colors?: { tileId: number; colorId: number; color: ColorOption }[];
@@ -23,7 +23,7 @@ export type UpdateTile = {
   imageUrl?: string;
   collection?: Option;
   sizes?: { sizeId: number; tileId: number; size: Option }[];
-  surface?: Option;
+  surface?: { surfaceId: number; tileId: number; surface: Option }[];
   outdoorIndoor?: Option;
   features?: { featureId: number; tileId: number; feature: Option }[];
   colors?: { tileId: number; colorId: number; color: ColorOption }[];

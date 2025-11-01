@@ -31,6 +31,9 @@ export default function CreatePostForm({
 
   const [name, setName] = useState("");
   const [file, setFile] = useState<File | null>(null);
+  const [englishName, setEnglishName] = useState<string>("");
+  const [niderlandName, setNiderlandName] = useState<string>("");
+
   const [isPending, startTransition] = useTransition();
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
@@ -58,7 +61,7 @@ export default function CreatePostForm({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(name, file);
+
     if (!name || !file) {
       toast.error("Name and image are required");
       return;
@@ -71,6 +74,11 @@ export default function CreatePostForm({
     formData.append("sizes", JSON.stringify(selectedSizes));
     formData.append("surfaces", JSON.stringify(selectedSurfaces));
     formData.append("features", JSON.stringify(selectedFeatures));
+    formData.append("colors", JSON.stringify(selectedColors));
+    formData.append("outdoorIndoor", JSON.stringify(selectedOutdoorIndoor));
+    formData.append("englishName", englishName);
+    formData.append("niderlandName", niderlandName);
+
     formData.append("colors", JSON.stringify(selectedColors));
     formData.append("outdoorIndoor", JSON.stringify(selectedOutdoorIndoor));
 
@@ -91,12 +99,7 @@ export default function CreatePostForm({
 
         setName("");
         setFile(null);
-        setSelectedCollections([]);
-        setSelectedSizes([]);
-        setSelectedSurfaces([]);
-        setSelectedFeatures([]);
-        setSelectedColors([]);
-        setSelectedOutdoorIndoor([]);
+
         if (fileInputRef.current) fileInputRef.current.value = "";
 
         toast.success("Tile created successfully!");
@@ -228,7 +231,7 @@ export default function CreatePostForm({
         </div>
         <div className="w-full md:w-5/12">
           {renderSelectWithTags(
-            true,
+            false,
             "Surface",
             surfaces,
             selectedSurfaces,
@@ -279,6 +282,25 @@ export default function CreatePostForm({
           )}
         </div>
 
+        <div className="w-full md:w-5/12">
+          <input
+            type="text"
+            placeholder="English Name"
+            value={englishName}
+            onChange={(e) => setEnglishName(e.target.value)}
+            className="border px-2 py-1 rounded w-full"
+          />
+        </div>
+
+        <div className="w-full md:w-5/12">
+          <input
+            type="text"
+            placeholder="Dutch Name"
+            value={niderlandName}
+            onChange={(e) => setNiderlandName(e.target.value)}
+            className="border px-2 py-1 rounded w-full"
+          />
+        </div>
         <div className="w-full flex items-center justify-center px-5">
           <button
             type="submit"

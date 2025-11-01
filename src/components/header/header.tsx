@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 import { ArrowDownIcon } from "@/assets/icons/arrow-down";
 import { SearchIcon } from "@/assets/icons/search";
@@ -10,6 +10,9 @@ import Link from "next/link";
 import { LogoIconWithText } from "../../../public/header/logo";
 import { useCartStore } from "@/store/useCartStore";
 import { CartSidebar } from "../sidebar/sidebar";
+import { useRouter } from "next/navigation";
+import { routing } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 
 interface HeaderProps {
   locale: string;
@@ -19,7 +22,16 @@ const Header: React.FC<HeaderProps> = ({ locale }) => {
   const { isMobile } = useWindowSize();
   const { items } = useCartStore();
   const [isCartOpen, setIsCartOpen] = useState(false);
-  console.log(locale);
+  const router = useRouter();
+  const [open, setOpen] = useState(false);
+
+  const t = useTranslations();
+
+  const handleLocaleChange = (loc: "en" | "nl") => {
+    router.push(`/${loc}`);
+  };
+  const dropdownRef = useRef<HTMLUListElement>(null);
+
   return (
     <header className=" mx-auto sticky   top-0 h-[172px] flex flex-col gap-5 ">
       <div className="relative flex items-center justify-between gap-2 h-[74px] px-[5%] md:px-[2%]">
@@ -44,7 +56,46 @@ const Header: React.FC<HeaderProps> = ({ locale }) => {
             <SearchIcon />
           </div>
         </div>
+        <div className="relative flex flex-col gap-4 md:items-end">
+          <button
+            onClick={() => setOpen(!open)}
+            className="text-small relative inline-flex h-10 cursor-pointer items-center gap-2 rounded-md border-2 border-gray-400 bg-transparent px-4 font-normal text-grey outline-none"
+          >
+            <span className="max-w-full truncate text-black">
+              {t("language")}
+            </span>
+            <span className="ml-2 transition-transform duration-200 text-gray-400">
+              {open ? "▲" : "▼"}
+            </span>
+          </button>
 
+          <ul
+            ref={dropdownRef}
+            className={`absolute top-full z-10 w-36 origin-bottom border-1 border-gray-300 transform rounded-md bg-white shadow-lg transition-all duration-300 ease-out ${
+              open
+                ? "translate-y-1 opacity-100"
+                : "pointer-events-none -translate-2-2 opacity-0"
+            }`}
+          >
+            {routing.locales.map((loc) => (
+              <li key={loc}>
+                <button
+                  className="block  py-2 text-black hover:bg-gray-200 w-full"
+                  onClick={() => {
+                    handleLocaleChange(loc);
+                    setOpen(false);
+                  }}
+                >
+                  {loc === "en"
+                    ? "English"
+                    : loc === "nl"
+                    ? "Нідерландська"
+                    : loc}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
         {/* Cart */}
         <button
           onClick={() => setIsCartOpen(true)}
@@ -69,6 +120,7 @@ const Header: React.FC<HeaderProps> = ({ locale }) => {
           <SearchIcon />
         </div>
       </div>
+
       {/* Navigation */}
       <nav className=" justify-between h-[54px] hidden md:flex px-[5%] md:px-[2%] ">
         {["Ceramic", "Wood"].map((item, idx) => (
@@ -83,7 +135,7 @@ const Header: React.FC<HeaderProps> = ({ locale }) => {
             <ArrowDownIcon />
           </div>
         ))}
-
+        s
         {["Catalog", "About us"].map((item, idx) => (
           <div
             key={idx}
@@ -97,7 +149,6 @@ const Header: React.FC<HeaderProps> = ({ locale }) => {
             </Link>
           </div>
         ))}
-
         {/* Contact Button */}
         <div className="relative w-[126px] h-[38px]">
           <button className="absolute w-[126px] h-[38px] left-0 top-0 border-2 border-red-600 rounded-[4px] flex items-center justify-center text-red-600 text-[16px]">

@@ -11,16 +11,42 @@ import { useCartStore } from "@/store/useCartStore";
 import { useFilterStore } from "@/store/useFilterStore";
 import { useTileStore } from "@/store/useTileStore";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 export const TileList = () => {
   const [selectedTile, setSelectedTile] = useState<Tile | null>(null);
   const [isUpdateOpen, setIsUpdateOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const { addToCart, removeFromCart, isInCart } = useCartStore();
-
+  const t = useTranslations("names");
   const { filteredTiles } = useFilterStore();
   const { setTiles, tiles } = useTileStore();
   const pathname = usePathname();
+  const [activeTip, setActiveTip] = useState<number | null>(null);
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  const handleTipToggle = (index: number) => {
+    if (isMobile) {
+      setActiveTip(activeTip === index ? null : index);
+    }
+  };
+
+  const icons = [
+    { src: "/1.png", tip: "Marble effect" },
+    { src: "/2.png", tip: '"Super shine" lappato surface' },
+    { src: "/3.png", tip: "For outdoor and indoor use" },
+  ];
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -68,7 +94,7 @@ export const TileList = () => {
         return (
           <div
             key={tile.id}
-            className="flex  flex-col border p-4 max-h-[500px] md:w-[330px] lg:w-[280px] w-[335px] border-gray-300 rounded shadow-sm"
+            className="flex  flex-col border p-4 max-h-[500px] md:w-[330px] lg:w-[283px] w-[335px] border-gray-300 rounded shadow-sm"
           >
             {/* Tile Image fills width */}
             {tile.imageUrl && (
@@ -76,15 +102,45 @@ export const TileList = () => {
                 <Image
                   src={tile.imageUrl}
                   alt={tile.name}
-                  fill
-                  className="object-cover"
+                  width={250}
+                  height={250}
+                  className="object-contain"
                 />
               </div>
             )}
 
             {/* Tile Name */}
-            <h4 className="mt-2 font-sans px-2 font-semibold text-base text-[#282828]">
-              {tile.name}
+            <h4 className="mt-2 flex gap-2 font-sans px-2 font-semibold text-base text-[#282828]">
+              {t(tile.name)}
+              <div className="flex items-center gap-4">
+                {icons.map((icon, i) => (
+                  <div
+                    key={i}
+                    className="relative group"
+                    onClick={() => handleTipToggle(i)}
+                  >
+                    <Image
+                      alt="icon"
+                      className="w-6 h-6 rounded cursor-pointer"
+                      src={icon.src}
+                      width={24}
+                      height={24}
+                    />
+
+                    {/* Tooltip */}
+                    <div
+                      className={`
+              absolute bottom-full mb-2 left-1/2 -translate-x-1/2 
+              whitespace-nowrap bg-gray-800 text-white text-xs py-1 px-2 rounded 
+              opacity-0 group-hover:opacity-100 transition-opacity duration-200
+              ${activeTip === i ? "opacity-100" : ""}
+            `}
+                    >
+                      {icon.tip}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </h4>
 
             {/* Info Row */}

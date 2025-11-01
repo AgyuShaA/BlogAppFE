@@ -22,15 +22,15 @@ export const UpdateTileModal = ({
 }: UpdateTileModalProps) => {
   const [name, setName] = useState(tile.name);
   const [file, setFile] = useState<File | null>(null);
-
   const collections = useFilterStore((state) => state.collectionsList);
   const sizes = useFilterStore((state) => state.sizesList);
   const surfaces = useFilterStore((state) => state.surfacesList);
+
   const features = useFilterStore((state) => state.featuresList);
   const colors = useFilterStore((state) => state.colorsList);
   const outdoorIndoor = useFilterStore((state) => state.outdoorIndoorList);
   const [loading, setLoading] = useState(false);
-
+  console.log(tile);
   const { updateTile } = useTileStore();
 
   const [selectedCollection, setSelectedCollection] = useState<number[]>(
@@ -40,8 +40,9 @@ export const UpdateTileModal = ({
     tile.sizes?.map((s: any) => s.size.id) || [] // FIXED
   );
   const [selectedSurface, setSelectedSurface] = useState<number[]>(
-    tile.surface ? [tile.surface.id] : []
+    tile.surfaces?.map((f: any) => f.surface.id) || [] // FIXED
   );
+
   const [selectedFeatures, setSelectedFeatures] = useState<number[]>(
     tile.features?.map((f: any) => f.feature.id) || [] // FIXED
   );
@@ -52,12 +53,11 @@ export const UpdateTileModal = ({
     tile.outdoorIndoor ? [tile.outdoorIndoor.id] : []
   );
 
-  // sync on prop change
   useEffect(() => {
     setName(tile.name);
     setSelectedCollection(tile.collection ? [tile.collection.id] : []);
     setSelectedSizes(tile.sizes?.map((s: any) => s.size.id) || []);
-    setSelectedSurface(tile.surface ? [tile.surface.id] : []);
+    setSelectedSurface(tile.surfaces?.map((f: any) => f.surface.id) || []);
     setSelectedFeatures(tile.features?.map((f: any) => f.feature.id) || []);
     setSelectedColors(tile.colors?.map((c: any) => c.color.id) || []);
     setSelectedOutdoorIndoor(tile.outdoorIndoor ? [tile.outdoorIndoor.id] : []);
@@ -124,15 +124,25 @@ export const UpdateTileModal = ({
     setLoading(true);
 
     const formData = new FormData();
+    formData.append("id", tile.id.toString());
+
     formData.append("name", name);
     if (file) formData.append("file", file);
     if (selectedCollection.length)
       formData.append("collection", selectedCollection[0].toString());
-    formData.append("sizes", JSON.stringify(selectedSizes));
+
+    if (selectedSizes.length)
+      formData.append("sizes", JSON.stringify(selectedSizes));
+
     if (selectedSurface.length)
-      formData.append("surface", selectedSurface[0].toString());
-    formData.append("features", JSON.stringify(selectedFeatures));
-    formData.append("colors", JSON.stringify(selectedColors));
+      formData.append("surfaces", JSON.stringify(selectedSurface));
+
+    if (selectedFeatures.length)
+      formData.append("features", JSON.stringify(selectedFeatures));
+
+    if (selectedColors.length)
+      formData.append("colors", JSON.stringify(selectedColors));
+
     if (selectedOutdoorIndoor.length)
       formData.append("outdoorIndoor", selectedOutdoorIndoor[0].toString());
 
@@ -161,8 +171,19 @@ export const UpdateTileModal = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded shadow-lg w-[400px] relative overflow-y-auto max-h-[90vh]">
+    <div
+      className="fixed inset-0 bg-black/40 flex items-center justify-center z-50"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose(); // only close when background itself clicked
+      }}
+    >
+      {" "}
+      <div
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+        className="bg-white p-6 rounded shadow-lg w-[400px] relative overflow-y-auto max-h-[90vh]"
+      >
         <button
           className="absolute top-3 right-3 text-gray-500 hover:text-gray-800"
           onClick={onClose}
@@ -224,7 +245,7 @@ export const UpdateTileModal = ({
             setSelectedSizes
           )}
           {renderSelectWithTags(
-            true,
+            false,
             "Surface",
             surfaces,
             selectedSurface,
@@ -271,7 +292,6 @@ export const UpdateTileModal = ({
 
           <button
             type="submit"
-            disabled={loading}
             className="w-full bg-blue-600 cursor-pointer text-white py-2 rounded hover:bg-blue-700"
           >
             {loading ? "Updating..." : "Update Tile"}

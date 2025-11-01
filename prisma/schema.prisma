@@ -20,17 +20,18 @@ model Tile {
   imageUrl        String?
 
   collectionId    Int?
-  surfaceId       Int?
+
   outdoorIndoorId Int?
 
   collection      Collection?     @relation(fields: [collectionId], references: [id])
 
-  surface         Surface?        @relation(fields: [surfaceId], references: [id])
+
   outdoorIndoor   OutdoorIndoor?  @relation(fields: [outdoorIndoorId], references: [id])
 
   colors          TileColor[]     // Many-to-many
   features        TileFeature[]   // Many-to-many
-    sizes           TileSize[]      // Many-to-many
+  sizes           TileSize[]      // Many-to-many
+  surfaces        TileSurface[]   // <-- new many-to-many
 
 }
 
@@ -50,17 +51,28 @@ model Size {
   tiles TileSize[]
 }
 
-model Surface {
-  id    Int    @id @default(autoincrement())
-  name  String @unique
-  tiles Tile[]
-}
 
 model OutdoorIndoor {
   id    Int    @id @default(autoincrement())
   name  String @unique
   tiles Tile[]
 }
+
+model Surface {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  tiles TileSurface[]
+}
+
+model TileSurface {
+  tileId    Int
+  surfaceId Int
+  tile      Tile    @relation(fields: [tileId], references: [id])
+  surface   Surface @relation(fields: [surfaceId], references: [id])
+
+  @@id([tileId, surfaceId])
+}
+
 
 model Color {
   id    Int    @id @default(autoincrement())
