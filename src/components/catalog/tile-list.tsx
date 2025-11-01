@@ -22,7 +22,7 @@ export const TileList = () => {
   const t = useTranslations("names");
   const { filteredTiles, setFilteredTiles } = useFilterStore();
   const { setTiles, tiles } = useTileStore();
-
+  console.log(filteredTiles);
   const pathname = usePathname();
   const [activeTip, setActiveTip] = useState<number | null>(null);
 

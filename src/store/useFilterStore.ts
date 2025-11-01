@@ -158,7 +158,7 @@ export const useFilterStore = create<FilterStore>((set, get) => ({
         tile.surfaces?.some(
           (f) =>
             f.surfaceId !== undefined &&
-            state.selectedFeatures.includes(f.surfaceId)
+            state.selectedSurfaces.includes(f.surfaceId)
         );
 
       const matchFeature =
