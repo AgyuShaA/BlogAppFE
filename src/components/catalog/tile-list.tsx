@@ -19,8 +19,10 @@ export const TileList = () => {
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const { addToCart, removeFromCart, isInCart } = useCartStore();
   const t = useTranslations("names");
-  const { filteredTiles } = useFilterStore();
+  const { filteredTiles, setFilteredTiles } = useFilterStore();
   const { setTiles, tiles } = useTileStore();
+  console.log(tiles);
+
   const pathname = usePathname();
   const [activeTip, setActiveTip] = useState<number | null>(null);
 
@@ -35,6 +37,11 @@ export const TileList = () => {
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
+
+  useEffect(() => {
+    console.log(tiles);
+    setFilteredTiles(tiles);
+  }, [tiles]);
 
   const handleTipToggle = (index: number) => {
     if (isMobile) {
@@ -57,7 +64,7 @@ export const TileList = () => {
       setTiles(data);
     };
     fetchPosts();
-  }, [setTiles]);
+  }, []);
 
   const handleOpenUpdate = (tile: Tile) => {
     setSelectedTile(tile);
@@ -83,12 +90,10 @@ export const TileList = () => {
     setSelectedTile(null);
   };
 
-  const displayTiles = filteredTiles.length > 0 ? filteredTiles : tiles;
-
   return (
     <div className="flex flex-wrap justify-center gap-6 px-2 w-full items-start self-start">
       <h1 className="text-center w-full text-3xl md:text-5xl">Catalog</h1>
-      {displayTiles.map((tile) => {
+      {filteredTiles.map((tile) => {
         const inCart = isInCart(tile.id);
 
         return (

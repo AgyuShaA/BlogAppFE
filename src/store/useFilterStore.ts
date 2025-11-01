@@ -18,6 +18,7 @@ interface FilterStore {
   colorsList: ColorOption[];
   outdoorIndoorList: Option[];
   recalcFilteredTiles: (tiles: Tile[]) => void;
+  setFilteredTiles: (tiles: Tile[]) => void;
 
   selectedCollections: number[];
   selectedSizes: number[];
@@ -75,6 +76,7 @@ export const useFilterStore = create<FilterStore>((set, get) => ({
   setFeaturesList: (list) => set({ featuresList: list }),
   setColorsList: (list) => set({ colorsList: list }),
   setOutdoorIndoorList: (list) => set({ outdoorIndoorList: list }),
+  setFilteredTiles: (tiles: Tile[]) => set({ filteredTiles: tiles }),
 
   toggleCollection: (id, tiles) => {
     set((state) => {
