@@ -12,6 +12,7 @@ import { useFilterStore } from "@/store/useFilterStore";
 import { useTileStore } from "@/store/useTileStore";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { Spinner } from "../spinner";
 
 export const TileList = () => {
   const [selectedTile, setSelectedTile] = useState<Tile | null>(null);
@@ -21,12 +22,12 @@ export const TileList = () => {
   const t = useTranslations("names");
   const { filteredTiles, setFilteredTiles } = useFilterStore();
   const { setTiles, tiles } = useTileStore();
-  console.log(tiles);
 
   const pathname = usePathname();
   const [activeTip, setActiveTip] = useState<number | null>(null);
 
   const [isMobile, setIsMobile] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -41,6 +42,7 @@ export const TileList = () => {
   useEffect(() => {
     console.log(tiles);
     setFilteredTiles(tiles);
+    setIsLoading(false);
   }, [tiles]);
 
   const handleTipToggle = (index: number) => {
@@ -56,11 +58,10 @@ export const TileList = () => {
   ];
 
   useEffect(() => {
+    setIsLoading(true);
     const fetchPosts = async () => {
       const res = await fetch("/api/tiles", { cache: "no-store" });
-
       const data = await res.json();
-
       setTiles(data);
     };
     fetchPosts();
@@ -93,6 +94,9 @@ export const TileList = () => {
   return (
     <div className="flex flex-wrap justify-center gap-6 px-2 w-full items-start self-start">
       <h1 className="text-center w-full text-3xl md:text-5xl">Catalog</h1>
+
+      {isLoading ? <Spinner /> : null}
+
       {filteredTiles.map((tile) => {
         const inCart = isInCart(tile.id);
 
@@ -103,15 +107,13 @@ export const TileList = () => {
           >
             {/* Tile Image fills width */}
             {tile.imageUrl && (
-              <div className="w-full h-[250px] relative">
-                <Image
-                  src={tile.imageUrl}
-                  alt={tile.name}
-                  width={250}
-                  height={250}
-                  className="object-contain"
-                />
-              </div>
+              <Image
+                src={tile.imageUrl}
+                alt={tile.name}
+                width={250}
+                height={250}
+                className="object-contain"
+              />
             )}
 
             {/* Tile Name */}
