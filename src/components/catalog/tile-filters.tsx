@@ -104,8 +104,11 @@ export default function TileFilters({
         type === "surface"
           ? true
           : state.selectedSurfaces.length === 0 ||
-            (tile.surface?.id != null &&
-              state.selectedSurfaces.includes(tile.surface.id));
+            tile.surfaces?.some(
+              (s) =>
+                s.surfaceId != null &&
+                state.selectedFeatures.includes(s.surfaceId)
+            );
 
       const matchFeature =
         type === "feature"
@@ -143,7 +146,9 @@ export default function TileFilters({
           matchesTypeId = tile.sizes?.some((s) => s.size.id === id) ?? false;
           break;
         case "surface":
-          matchesTypeId = tile.surface?.id === id;
+          matchesTypeId =
+            tile.surfaces?.some((s) => s.surface.id === id) ?? false;
+
           break;
         case "feature":
           matchesTypeId =

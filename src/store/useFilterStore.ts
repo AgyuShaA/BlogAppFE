@@ -153,8 +153,11 @@ export const useFilterStore = create<FilterStore>((set, get) => ({
 
       const matchSurface =
         state.selectedSurfaces.length === 0 ||
-        (tile.surface?.id !== undefined &&
-          state.selectedSurfaces.includes(tile.surface.id));
+        tile.surfaces?.some(
+          (f) =>
+            f.surfaceId !== undefined &&
+            state.selectedFeatures.includes(f.surfaceId)
+        );
 
       const matchFeature =
         state.selectedFeatures.length === 0 ||
