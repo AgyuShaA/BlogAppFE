@@ -1,7 +1,14 @@
 import CreatePostForm from "@/components/catalog/form";
 import TileFilters from "@/components/catalog/tile-filters";
+import { routing } from "@/i18n/routing";
 
 import { prisma } from "@/lib/prisma-client";
+
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
+export const revalidate = 600;
 
 export default async function catalogPage() {
   const [collections, surfaces, sizes, features, color, outdoorIndoor] =
