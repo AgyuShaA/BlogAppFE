@@ -18,7 +18,7 @@ interface HeaderProps {
   locale: string;
 }
 
-const Header: React.FC<HeaderProps> = ({ locale }) => {
+const Header: React.FC<HeaderProps> = () => {
   const { isMobile } = useWindowSize();
   const { items } = useCartStore();
   const [isCartOpen, setIsCartOpen] = useState(false);
