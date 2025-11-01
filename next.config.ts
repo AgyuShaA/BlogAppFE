@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
     domains: ["falvoraiback.onrender.com", "localhost"], // add your hostname here
     unoptimized: true,
   },
-
+  productionBrowserSourceMaps: true,
   experimental: {
     serverActions: {
       bodySizeLimit: "10mb", // or larger, e.g., '50mb'

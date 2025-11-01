@@ -135,7 +135,7 @@ const Header: React.FC<HeaderProps> = () => {
             <ArrowDownIcon />
           </div>
         ))}
-        s
+
         {["Catalog", "About us"].map((item, idx) => (
           <div
             key={idx}

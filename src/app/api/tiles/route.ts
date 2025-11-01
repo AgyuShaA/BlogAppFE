@@ -7,9 +7,9 @@ import fs from "fs";
 export async function GET() {
   const posts = await prisma.tile.findMany({
     include: {
-      collection: true, // assuming relation name is 'collections'
+      collection: true,
       sizes: {
-        include: { size: true }, // assuming join table has 'feature' relation
+        include: { size: true },
       },
       surfaces: {
         include: { surface: true }, // assuming join table has 'feature' relation
