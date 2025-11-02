@@ -30,9 +30,7 @@ const Header: React.FC<HeaderProps> = ({ locale }: HeaderProps) => {
   const t = useTranslations("header");
 
   const handleLocaleChange = (loc: "en" | "nl") => {
-    router.push({
-      pathname: pathname,
-    });
+    router.replace(pathname, { locale: loc });
   };
 
   const dropdownRef = useRef<HTMLUListElement>(null);
@@ -82,8 +80,8 @@ const Header: React.FC<HeaderProps> = ({ locale }: HeaderProps) => {
                 : "pointer-events-none -translate-2-2 opacity-0"
             }`}
           >
-            {routing.locales.map((loc) => (
-              <Link key={loc} href={pathname} locale={loc}>
+            {routing.locales.map((loc, idx) => (
+              <div key={idx}>
                 <button
                   className="block  py-2 text-black hover:bg-gray-200 w-full"
                   onClick={() => {
@@ -93,7 +91,7 @@ const Header: React.FC<HeaderProps> = ({ locale }: HeaderProps) => {
                 >
                   {t(`languages.${loc}`)}
                 </button>
-              </Link>
+              </div>
             ))}
           </ul>
         </div>

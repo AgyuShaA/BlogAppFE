@@ -9,7 +9,12 @@ import { SafeIcon } from "@/assets/icons/safe";
 const WhyUs = () => {
   const t = useTranslations("whyUs");
 
-  const icons = [<SafeIcon />, <Car />, <DirectIcon />, <ClockIcon />];
+  const icons = [
+    <SafeIcon key="safe" />,
+    <Car key="car" />,
+    <DirectIcon key="direct" />,
+    <ClockIcon key="clock" />,
+  ];
   const cards = t.raw("cards") as { title: string; description: string }[];
 
   return (
