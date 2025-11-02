@@ -4,8 +4,6 @@ import { NextResponse } from "next/server";
 import path from "path";
 import fs from "fs";
 
-export const revalidate = 6000;
-
 export async function GET() {
   const tiles = await prisma.tile.findMany({
     include: {

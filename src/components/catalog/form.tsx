@@ -27,7 +27,7 @@ export default function CreatePostForm({
   colors,
   outdoorIndoor,
 }: CreatePostFormProps) {
-  const { addTile } = useTileStore();
+  const { addTile, tiles } = useTileStore();
 
   const [name, setName] = useState("");
   const [file, setFile] = useState<File | null>(null);
@@ -312,7 +312,7 @@ export default function CreatePostForm({
       </form>
 
       <h2 className="text-lg font-semibold mb-2">Tiles</h2>
-      <TileList />
+      <TileList data={tiles} />
     </div>
   );
 }
