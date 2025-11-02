@@ -97,7 +97,6 @@ export default function CreatePostForm({
         const newTile = await res.json();
         addTile(newTile);
 
-        setName("");
         setFile(null);
 
         if (fileInputRef.current) fileInputRef.current.value = "";

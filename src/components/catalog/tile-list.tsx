@@ -13,59 +13,54 @@ import { useTileStore } from "@/store/useTileStore";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Spinner } from "../spinner";
+import { Figtree } from "next/font/google";
 
-export const TileList = () => {
+type Props = {
+  data: Tile[];
+};
+
+const figtree = Figtree({ subsets: ["latin"], weight: "300" });
+
+export const TileList = ({ data }: Props) => {
   const [selectedTile, setSelectedTile] = useState<Tile | null>(null);
   const [isUpdateOpen, setIsUpdateOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const { addToCart, removeFromCart, isInCart } = useCartStore();
   const t = useTranslations("names");
   const { filteredTiles, setFilteredTiles } = useFilterStore();
-  const { setTiles, tiles } = useTileStore();
-  console.log(filteredTiles);
-  const pathname = usePathname();
-  const [activeTip, setActiveTip] = useState<number | null>(null);
+  const { setTiles } = useTileStore();
+  const tp = useTranslations("pagination");
 
-  const [isMobile, setIsMobile] = useState(false);
+  const pathname = usePathname();
+
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    checkMobile();
+  const [currentPage, setCurrentPage] = useState(1);
 
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+  const tilesPerPage = 20;
+  const totalPages = Math.ceil(filteredTiles.length / tilesPerPage);
+  const startIndex = (currentPage - 1) * tilesPerPage;
+  const currentTiles = filteredTiles.slice(
+    startIndex,
+    startIndex + tilesPerPage
+  );
 
-  useEffect(() => {
-    console.log(tiles);
-    setFilteredTiles(tiles);
-    setIsLoading(false);
-  }, [tiles]);
-
-  const handleTipToggle = (index: number) => {
-    if (isMobile) {
-      setActiveTip(activeTip === index ? null : index);
-    }
+  const handlePageChange = (page: number) => {
+    if (page < 1 || page > totalPages) return;
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
-
-  const icons = [
-    { src: "/1.png", tip: "Marble effect" },
-    { src: "/2.png", tip: '"Super shine" lappato surface' },
-    { src: "/3.png", tip: "For outdoor and indoor use" },
-  ];
 
   useEffect(() => {
     setIsLoading(true);
-    const fetchPosts = async () => {
-      const res = await fetch("/api/tiles", { cache: "no-store" });
-      const data = await res.json();
-      setTiles(data);
-    };
-    fetchPosts();
-  }, []);
+    setTiles(data);
+    setFilteredTiles(data);
+    setIsLoading(false);
+  }, [data]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filteredTiles]);
 
   const handleOpenUpdate = (tile: Tile) => {
     setSelectedTile(tile);
@@ -91,63 +86,51 @@ export const TileList = () => {
     setSelectedTile(null);
   };
 
+  const start = (currentPage - 1) * tilesPerPage + 1;
+  const end = Math.min(start + tilesPerPage - 1, filteredTiles.length);
+
   return (
     <div className="flex flex-wrap justify-center gap-6 px-2 w-full items-start self-start">
-      <h1 className="text-center w-full text-3xl md:text-5xl">Catalog</h1>
+      <div className="w-full flex flex-col gap-10 p-6">
+        <h1
+          className={`text-left w-full text-3xl md:text-5xl ${figtree.className}`}
+        >
+          {" "}
+          {t("title")}
+        </h1>
 
-      {isLoading ? <Spinner /> : null}
+        <div className="flex items-center justify-start text-[#888888]">
+          <h2>{tp("showing", { start, end, total: filteredTiles.length })}</h2>
+        </div>
+      </div>
 
-      {filteredTiles.map((tile) => {
+      {isLoading && filteredTiles.length === 0 ? <Spinner /> : null}
+
+      {currentTiles.map((tile) => {
         const inCart = isInCart(tile.id);
 
         return (
           <div
             key={tile.id}
-            className="flex  flex-col border p-4 max-h-[500px] md:w-[330px] lg:w-[283px] w-[335px] border-gray-300 rounded shadow-sm"
+            className="flex  flex-col border p-4 max-h-[500px] md:w-[230px] lg:w-[283px] w-[255px] border-gray-300 rounded shadow-sm"
           >
             {/* Tile Image fills width */}
             {tile.imageUrl && (
-              <Image
-                src={tile.imageUrl}
-                alt={tile.name}
-                width={250}
-                height={250}
-                className="object-contain"
-              />
+              <div className="flex w-full min-h-[250px] items-center justify-center ">
+                <Image
+                  src={tile.imageUrl}
+                  alt={tile.name}
+                  width={250}
+                  height={250}
+                  quality={100}
+                  className="object-contain border-1 border-amber-50"
+                />
+              </div>
             )}
 
             {/* Tile Name */}
             <h4 className="mt-2 flex gap-2 font-sans px-2 font-semibold text-base text-[#282828]">
               {t(tile.name)}
-              <div className="flex items-center gap-4">
-                {icons.map((icon, i) => (
-                  <div
-                    key={i}
-                    className="relative group"
-                    onClick={() => handleTipToggle(i)}
-                  >
-                    <Image
-                      alt="icon"
-                      className="w-6 h-6 rounded cursor-pointer"
-                      src={icon.src}
-                      width={24}
-                      height={24}
-                    />
-
-                    {/* Tooltip */}
-                    <div
-                      className={`
-              absolute bottom-full mb-2 left-1/2 -translate-x-1/2 
-              whitespace-nowrap bg-gray-800 text-white text-xs py-1 px-2 rounded 
-              opacity-0 group-hover:opacity-100 transition-opacity duration-200
-              ${activeTip === i ? "opacity-100" : ""}
-            `}
-                    >
-                      {icon.tip}
-                    </div>
-                  </div>
-                ))}
-              </div>
             </h4>
 
             {/* Info Row */}
@@ -186,7 +169,7 @@ export const TileList = () => {
 
             {/* Action Buttons */}
 
-            {pathname === "/panel" && (
+            {pathname.endsWith("/panel") && (
               <div className="flex gap-2 mt-4 px-2">
                 {/* Edit button opens update modal page */}
                 <button
@@ -210,14 +193,14 @@ export const TileList = () => {
               onClick={() =>
                 inCart ? removeFromCart(tile.id) : addToCart(tile.id)
               }
-              className="flex mt-2 items-center justify-center mb-2 w-[90%] h-[42px] bg-gray-900 text-white rounded text-sm font-medium self-center"
+              className="flex mt-2 items-center justify-center mb-2 w-[99%] h-[42px] bg-gray-900 text-white rounded text-sm font-medium self-center"
             >
               {inCart ? (
-                <>Remove from cart</>
+                <>{t("removeFromCart")}</>
               ) : (
                 <>
                   <StoreIcon />
-                  Add to cart
+                  {t("addToCart")}
                 </>
               )}
             </button>
@@ -225,7 +208,43 @@ export const TileList = () => {
         );
       })}
 
-      {selectedTile && pathname === "/panel" && (
+      <div className="w-full flex justify-center items-c">
+        {totalPages > 1 && (
+          <div className="flex items-center gap-2 mt-6 mb-8">
+            <button
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              className="px-3 py-1 text-md  border rounded disabled:opacity-50"
+            >
+              ← {tp("prev")}
+            </button>
+
+            {Array.from({ length: totalPages }, (_, i) => (
+              <button
+                key={i}
+                onClick={() => handlePageChange(i + 1)}
+                className={`px-3 py-1 rounded-lg text-md ${
+                  currentPage === i + 1
+                    ? "border-1 border-black text-black"
+                    : "bg-gray-100"
+                }`}
+              >
+                {i + 1}
+              </button>
+            ))}
+
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              className="px-3 text-md py-1 border rounded disabled:opacity-50"
+            >
+              {" "}
+              {tp("next")} →
+            </button>
+          </div>
+        )}
+      </div>
+      {selectedTile && pathname.endsWith("/panel") && (
         <>
           <UpdateTileModal
             tile={selectedTile}

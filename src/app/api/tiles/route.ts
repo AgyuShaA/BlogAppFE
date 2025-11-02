@@ -4,8 +4,10 @@ import { NextResponse } from "next/server";
 import path from "path";
 import fs from "fs";
 
+export const revalidate = 6000;
+
 export async function GET() {
-  const posts = await prisma.tile.findMany({
+  const tiles = await prisma.tile.findMany({
     include: {
       collection: true,
       sizes: {
@@ -24,7 +26,7 @@ export async function GET() {
     },
   });
 
-  return NextResponse.json(posts);
+  return NextResponse.json(tiles);
 }
 
 export async function POST(req: Request) {
@@ -48,7 +50,6 @@ export async function POST(req: Request) {
   }
 
   const imageUrl = await uploadImageToGCP(file);
-  console.log(formData);
 
   const tile = await prisma.tile.create({
     data: {
@@ -83,6 +84,8 @@ export async function POST(req: Request) {
       features: { include: { feature: true } },
       colors: { include: { color: true } },
       surfaces: { include: { surface: true } },
+      outdoorIndoor: true,
+      collection: true,
     },
   });
   const englishName = formData.get("englishName") as string;
@@ -90,16 +93,26 @@ export async function POST(req: Request) {
 
   const localesDir = path.join(process.cwd(), "src/i18n/text");
 
-  const updateTranslation = (locale: string, value: string) => {
+  const updateTranslation = (locale: string, key: string, value: string) => {
     const filePath = path.join(localesDir, `${locale}.json`);
     const translations = JSON.parse(fs.readFileSync(filePath, "utf8"));
-    translations[name] = value;
+
+    // Ensure "names" object exists
+    if (!translations.names) {
+      translations.names = {};
+    }
+
+    // Add or update the key inside the "names" object
+    translations.names[key] = value;
+
+    // Write back pretty JSON with indentation
     fs.writeFileSync(filePath, JSON.stringify(translations, null, 2));
   };
 
-  updateTranslation("en", englishName);
-  updateTranslation("nl", niderlandName);
-
+  // Here `name` is the key you want to add/update inside the names object
+  updateTranslation("en", name, englishName);
+  updateTranslation("nl", name, niderlandName);
+  console.log(tile, "server");
   return NextResponse.json(tile);
 }
 export async function PATCH(req: Request) {
@@ -118,7 +131,6 @@ export async function PATCH(req: Request) {
     const outdoorIndoor = formData.get("outdoorIndoor")
       ? Number(formData.get("outdoorIndoor"))
       : null;
-    console.log(collection);
 
     const imageUploadPromise = file
       ? uploadImageToGCP(file)
@@ -180,7 +192,7 @@ export async function PATCH(req: Request) {
         sizes: { include: { size: true } },
       },
     });
-    console.log(updatedTile);
+
     const imageUrl = await imageUploadPromise;
     if (imageUrl) {
       await prisma.tile.update({
@@ -188,9 +200,7 @@ export async function PATCH(req: Request) {
         data: { imageUrl },
       });
     }
-    console.log(formData);
 
-    console.log(updatedTile);
     return NextResponse.json(updatedTile);
   } catch (err) {
     console.error(err);
@@ -218,7 +228,7 @@ export async function DELETE(req: Request) {
     await prisma.tileSurface.deleteMany({ where: { tileId } });
 
     // Delete tile itself safely using deleteMany
-    console.log("Attempting to delete tile with ID:", tileId);
+
     const deleted = await prisma.tile.deleteMany({ where: { id: tileId } });
 
     if (deleted.count === 0) {

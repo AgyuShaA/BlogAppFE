@@ -1,6 +1,7 @@
 "use client";
 import { useFilterStore } from "@/store/useFilterStore";
 import { useTileStore } from "@/store/useTileStore";
+import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 
 interface TileFiltersProps {
@@ -22,7 +23,8 @@ export default function TileFilters({
 }: TileFiltersProps) {
   const tiles = useTileStore((s) => s.tiles);
 
-  // --- Initialize lists in store
+  const t = useTranslations("options");
+
   const setCollectionsList = useFilterStore((s) => s.setCollectionsList);
   const setSizesList = useFilterStore((s) => s.setSizesList);
   const setSurfacesList = useFilterStore((s) => s.setSurfacesList);
@@ -188,7 +190,7 @@ export default function TileFilters({
         onChange={() => toggle(item.id)}
       />
       <span>
-        {item.name} ({getCount(type, item.id)})
+        {t(item.name)} ({getCount(type, item.id)})
       </span>
     </label>
   );
@@ -196,26 +198,30 @@ export default function TileFilters({
   return (
     <div className="space-y-6 w-full md:w-80 pl-5 font-sans text-[16px] text-[#282828]">
       <div className="pb-2 border-b">
-        <h3 className="font-semibold mb-2">Collections</h3>
+        <h3 className="font-semibold mb-2">{t("collections")}</h3>
+
         {collections.map((c) =>
           renderCheckbox("collection", c, selectedCollections, toggleCollection)
         )}
       </div>
 
       <div className="pb-2 border-b">
-        <h3 className="font-semibold mb-2">Sizes</h3>
+        <h3 className="font-semibold mb-2">{t("sizes")}</h3>
+
         {sizes.map((s) => renderCheckbox("size", s, selectedSizes, toggleSize))}
       </div>
 
       <div className="pb-2 border-b">
-        <h3 className="font-semibold mb-2">Surfaces</h3>
+        <h3 className="font-semibold mb-2">{t("surfaces")}</h3>
+
         {surfaces.map((s) =>
           renderCheckbox("surface", s, selectedSurfaces, toggleSurface)
         )}
       </div>
 
       <div className="pb-2 border-b">
-        <h3 className="font-semibold mb-2">Colors</h3>
+        <h3 className="font-semibold mb-2">{t("colors")}</h3>
+
         <div className="flex flex-wrap gap-2">
           {colors.map((c) => {
             const isSelected = selectedColors.includes(c.id);
@@ -246,7 +252,8 @@ export default function TileFilters({
       </div>
 
       <div className="pb-2 border-b">
-        <h3 className="font-semibold mb-2">OutdoorIndoor</h3>
+        <h3 className="font-semibold mb-2">{t("outdoorIndoor")}</h3>
+
         {outdoorIndoor.map((o) =>
           renderCheckbox(
             "outdoorIndoor",
@@ -258,7 +265,8 @@ export default function TileFilters({
       </div>
 
       <div className="pb-2 border-b">
-        <h3 className="font-semibold mb-2">Features</h3>
+        <h3 className="font-semibold mb-2">{t("features")}</h3>
+
         {features.map((f) =>
           renderCheckbox("feature", f, selectedFeatures, toggleFeature)
         )}

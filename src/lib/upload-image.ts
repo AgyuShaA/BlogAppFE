@@ -12,7 +12,7 @@ export async function uploadImageToGCP(file: File): Promise<string> {
 
   // Convert to WebP
   const webpBuffer = await sharp(Buffer.from(arrayBuffer))
-    .webp({ quality: 80 }) // adjust quality if needed
+    .webp({ quality: 99 }) // adjust quality if needed
     .toBuffer();
 
   // Create WebP filename

@@ -6,30 +6,35 @@ import { ArrowDownIcon } from "@/assets/icons/arrow-down";
 import { SearchIcon } from "@/assets/icons/search";
 import { StoreIcon } from "@/assets/icons/store";
 import useWindowSize from "@/hooks/UseWindowsSize";
-import Link from "next/link";
+
 import { LogoIconWithText } from "../../../public/header/logo";
 import { useCartStore } from "@/store/useCartStore";
 import { CartSidebar } from "../sidebar/sidebar";
-import { useRouter } from "next/navigation";
+
 import { routing } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
+import { Link, usePathname, useRouter } from "@/i18n/navigation";
 
 interface HeaderProps {
   locale: string;
 }
 
-const Header: React.FC<HeaderProps> = () => {
+const Header: React.FC<HeaderProps> = ({ locale }: HeaderProps) => {
   const { isMobile } = useWindowSize();
   const { items } = useCartStore();
   const [isCartOpen, setIsCartOpen] = useState(false);
   const router = useRouter();
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
-  const t = useTranslations();
+  const t = useTranslations("header");
 
   const handleLocaleChange = (loc: "en" | "nl") => {
-    router.push(`/${loc}`);
+    router.push({
+      pathname: pathname,
+    });
   };
+
   const dropdownRef = useRef<HTMLUListElement>(null);
 
   return (
@@ -49,7 +54,7 @@ const Header: React.FC<HeaderProps> = () => {
         <div className="relative w-full hidden md:block max-w-[60%] h-[50px]">
           <input
             type="text"
-            placeholder="Search our collections"
+            placeholder={t("searchPlaceholder")}
             className="w-full h-full pl-4 pr-12 rounded-[4px] bg-[#F3F3F3] outline-none text-gray-700"
           />
           <div className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500">
@@ -62,7 +67,7 @@ const Header: React.FC<HeaderProps> = () => {
             className="text-small relative inline-flex h-10 cursor-pointer items-center gap-2 rounded-md border-2 border-gray-400 bg-transparent px-4 font-normal text-grey outline-none"
           >
             <span className="max-w-full truncate text-black">
-              {t("language")}
+              {t(`languages.${locale}`)}
             </span>
             <span className="ml-2 transition-transform duration-200 text-gray-400">
               {open ? "▲" : "▼"}
@@ -78,7 +83,7 @@ const Header: React.FC<HeaderProps> = () => {
             }`}
           >
             {routing.locales.map((loc) => (
-              <li key={loc}>
+              <Link key={loc} href={pathname} locale={loc}>
                 <button
                   className="block  py-2 text-black hover:bg-gray-200 w-full"
                   onClick={() => {
@@ -86,13 +91,9 @@ const Header: React.FC<HeaderProps> = () => {
                     setOpen(false);
                   }}
                 >
-                  {loc === "en"
-                    ? "English"
-                    : loc === "nl"
-                    ? "Нідерландська"
-                    : loc}
+                  {t(`languages.${loc}`)}
                 </button>
-              </li>
+              </Link>
             ))}
           </ul>
         </div>
@@ -107,7 +108,7 @@ const Header: React.FC<HeaderProps> = () => {
               <span className="translate-y-[1px]">{items.length}</span>
             </div>
           </div>
-          <span>Cart</span>
+          <span>{t("cart")}</span>
         </button>
       </div>
       <div className="relative w-full blcok md:hidden  flex items-center justify-center">
@@ -123,20 +124,20 @@ const Header: React.FC<HeaderProps> = () => {
 
       {/* Navigation */}
       <nav className=" justify-between h-[54px] hidden md:flex px-[5%] md:px-[2%] ">
-        {["Ceramic", "Wood"].map((item, idx) => (
+        {["ceramic", "wood"].map((item, idx) => (
           <div
             key={idx}
             className="relative w-[130px] h-[54px] flex items-center justify-center"
           >
             <span className="text-[16px] w-full text-[#282828] font-normal">
-              {item}
+              {t(`nav.${item}`)}
             </span>
 
             <ArrowDownIcon />
           </div>
         ))}
 
-        {["Catalog", "About us"].map((item, idx) => (
+        {["catalog", "about"].map((item, idx) => (
           <div
             key={idx}
             className="relative w-[130px] h-[54px] flex items-center justify-center"
@@ -145,14 +146,14 @@ const Header: React.FC<HeaderProps> = () => {
               href={idx === 0 ? "/catalog" : "/about"}
               className="text-[16px] w-full text-[#282828] font-normal"
             >
-              {item}
+              {t(`nav.${item}`)}
             </Link>
           </div>
         ))}
         {/* Contact Button */}
-        <div className="relative w-[126px] h-[38px]">
-          <button className="absolute w-[126px] h-[38px] left-0 top-0 border-2 border-red-600 rounded-[4px] flex items-center justify-center text-red-600 text-[16px]">
-            Contact us
+        <div className="relative  h-[38px]">
+          <button className="px-2 h-[38px] left-0 top-0 border-2 border-red-600 rounded-[4px] flex items-center justify-center text-red-600 text-[16px]">
+            {t("contactUs")}
           </button>
         </div>
       </nav>

@@ -24,10 +24,8 @@ model Tile {
   outdoorIndoorId Int?
 
   collection      Collection?     @relation(fields: [collectionId], references: [id])
-
-
   outdoorIndoor   OutdoorIndoor?  @relation(fields: [outdoorIndoorId], references: [id])
-
+  
   colors          TileColor[]     // Many-to-many
   features        TileFeature[]   // Many-to-many
   sizes           TileSize[]      // Many-to-many
