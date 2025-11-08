@@ -59,7 +59,7 @@ const Header: React.FC<HeaderProps> = ({ locale }: HeaderProps) => {
             <SearchIcon />
           </div>
         </div>
-        <div className="relative flex flex-col gap-4 md:items-end">
+        <div className="relative  flex-col gap-4 md:items-end hidden md:flex">
           <button
             onClick={() => setOpen(!open)}
             className="text-small relative inline-flex h-10 cursor-pointer items-center gap-2 rounded-md border-2 border-gray-400 bg-transparent px-4 font-normal text-grey outline-none"
@@ -118,6 +118,43 @@ const Header: React.FC<HeaderProps> = ({ locale }: HeaderProps) => {
         <div className="absolute right-10  top-1/2 -translate-y-1/2 text-gray-500">
           <SearchIcon />
         </div>
+      </div>
+
+      <div className="relative px-4 w-full items-center justify-center flex-col gap-4 md:items-end flex md:hidden">
+        <button
+          onClick={() => setOpen(!open)}
+          className="text-small relative inline-flex h-10 cursor-pointer items-center gap-2 rounded-md border-2 border-gray-400 bg-transparent px-4 font-normal text-grey outline-none"
+        >
+          <span className="max-w-full truncate text-black">
+            {t(`languages.${locale}`)}
+          </span>
+          <span className="ml-2 transition-transform duration-200 text-gray-400">
+            {open ? "▲" : "▼"}
+          </span>
+        </button>
+
+        <ul
+          ref={dropdownRef}
+          className={`absolute top-full z-10 w-36 origin-bottom border-1 border-gray-300 transform rounded-md bg-white shadow-lg transition-all duration-300 ease-out ${
+            open
+              ? "translate-y-1 opacity-100"
+              : "pointer-events-none -translate-2-2 opacity-0"
+          }`}
+        >
+          {routing.locales.map((loc, idx) => (
+            <div key={idx}>
+              <button
+                className="block  py-2 text-black hover:bg-gray-200 w-full"
+                onClick={() => {
+                  handleLocaleChange(loc);
+                  setOpen(false);
+                }}
+              >
+                {t(`languages.${loc}`)}
+              </button>
+            </div>
+          ))}
+        </ul>
       </div>
 
       {/* Navigation */}
