@@ -1,6 +1,7 @@
 // stores/useTileStore.ts
 import { create } from "zustand";
 import { Tile } from "@/types/types";
+import { useFilterStore } from "./useFilterStore";
 
 interface TileState {
   tiles: Tile[];
@@ -16,9 +17,31 @@ interface TileState {
   closeUpdateModal: () => void;
   openDeleteModal: (tile: Tile) => void;
   closeDeleteModal: () => void;
+  fetchCatalog: () => Promise<void>;
+  loading: boolean;
+  error: string | null;
 }
 
 export const useTileStore = create<TileState>((set) => ({
+  loading: false,
+  error: null,
+  fetchCatalog: async () => {
+    set({ loading: true, error: null });
+
+    try {
+      const res = await fetch("/api/tiles", { cache: "no-store" });
+
+      if (!res.ok) throw new Error("Failed to fetch catalog data");
+      const data: Tile[] = await res.json();
+      const setFilteredTiles = useFilterStore.getState().setFilteredTiles;
+
+      setFilteredTiles(data);
+      set({ tiles: data, loading: false });
+    } catch (error: any) {
+      set({ error: error.message, loading: false });
+    }
+  },
+
   tiles: [],
   selectedTile: null,
   isUpdateOpen: false,

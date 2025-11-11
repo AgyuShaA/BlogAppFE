@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import Button from "@/components/button";
 
 const AboutSection = () => {
   const t = useTranslations("aboutSection");
@@ -19,18 +20,14 @@ const AboutSection = () => {
 
           {/* Buttons */}
           <div className="flex gap-4">
-            <a
-              href="#"
-              className="px-6 py-2 rounded-md text-sm bg-[#CB2021] text-white hover:bg-[#CB2021] hover:text-white transition"
-            >
-              {t("requestPrice")}
-            </a>
-            <a
-              href="#"
-              className="px-6 py-2 border-[#CB2021] text-[#CB2021] border-2 rounded-md text-sm hover:bg-[#a91818] transition"
-            >
-              {t("getInTouch")}
-            </a>
+            <div className="flex gap-4">
+              <Button translationsKey="aboutSection" labelKey="requestPrice" />
+              <Button
+                translationsKey="aboutSection"
+                labelKey="getInTouch"
+                className="bg-white !text-[#CB2021] border-2 border-[#CB2021] hover:bg-gray-100"
+              />
+            </div>
           </div>
         </div>
 

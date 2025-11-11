@@ -4,6 +4,7 @@ import { useTileStore } from "@/store/useTileStore";
 import Image from "next/image";
 import { Figtree } from "next/font/google";
 import { CallIcon } from "@/assets/icons/call-icon";
+import { useContactModalStore } from "@/store/useContactStore";
 
 interface CartSidebarProps {
   isOpen: boolean;
@@ -13,6 +14,7 @@ const figtree = Figtree({ subsets: ["latin"], weight: "300" });
 
 export const CartSidebar = ({ isOpen, onClose }: CartSidebarProps) => {
   const items = useCartStore((state) => state.items);
+  const { toggle } = useContactModalStore();
 
   const increaseQuantity = useCartStore((state) => state.increaseQuantity);
   const decreaseQuantity = useCartStore((state) => state.decreaseQuantity);
@@ -102,14 +104,14 @@ export const CartSidebar = ({ isOpen, onClose }: CartSidebarProps) => {
                 <div className="flex items-center gap-2 mt-1 border-2 border-gray-300 rounded-xl w-fit ">
                   <button
                     onClick={() => decreaseQuantity(tile!.id)}
-                    className="px-3 py-1  border-r-2 border-gray-300 "
+                    className="px-3 py-1 cursor-pointer border-r-2 border-gray-300 "
                   >
                     -
                   </button>
                   <span className="px-1">{tile!.quantity}</span>
                   <button
                     onClick={() => increaseQuantity(tile!.id)}
-                    className="px-3 py-1 border-l-2 border-gray-300  "
+                    className="px-3 py-1 cursor-pointer border-l-2 border-gray-300  "
                   >
                     +
                   </button>
@@ -120,9 +122,10 @@ export const CartSidebar = ({ isOpen, onClose }: CartSidebarProps) => {
         </div>
         <div className="py-2 text-center flex items-center justify-center">
           <button
+            onClick={toggle}
             className={`text-md text-white flex items-center justify-center  bg-[#21A141] w-[80%] py-2 rounded-md  font-semibold ${figtree.className}`}
           >
-            <span className=" flex items-center justify-center gap-2">
+            <span className="flex items-center justify-center gap-2">
               {" "}
               <CallIcon /> Contact Us
             </span>

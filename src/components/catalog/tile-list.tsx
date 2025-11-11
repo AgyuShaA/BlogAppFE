@@ -14,44 +14,33 @@ import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Spinner } from "../spinner";
 import { Figtree } from "next/font/google";
-
-type Props = {
-  data: Tile[];
-};
+import { Pagination } from "./pagination";
 
 const figtree = Figtree({ subsets: ["latin"], weight: "300" });
 
-export const TileList = ({ data }: Props) => {
+export const TileList = () => {
   const [selectedTile, setSelectedTile] = useState<Tile | null>(null);
   const [isUpdateOpen, setIsUpdateOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const { addToCart, removeFromCart, isInCart } = useCartStore();
   const t = useTranslations("names");
-  const {
-    filteredTiles,
-    setFilteredTiles,
-    sortBy,
-    setSortBy,
-    recalcFilteredTiles,
-  } = useFilterStore();
-  const { setTiles } = useTileStore();
+  const ft = useTranslations("filters");
+
+  const { filteredTiles, sortBy, setSortBy, recalcFilteredTiles } =
+    useFilterStore();
+  const { loading } = useTileStore();
   const tp = useTranslations("pagination");
 
   const OPTIONS = [
-    { value: "newest", label: "From Newest to Oldest" },
-    { value: "oldest", label: "From Oldest to Newest" },
-    { value: "a-z", label: "A - Z" },
-    { value: "z-a", label: "Z - A" },
+    { value: "newest", label: ft("newest") },
+    { value: "oldest", label: ft("oldest") },
+    { value: "a-z", label: ft("a_z") },
+    { value: "z-a", label: ft("z_a") },
   ];
-
-  const currentLabel =
-    OPTIONS.find((opt) => opt.value === sortBy)?.label || "Sort by";
 
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-
-  const [isLoading, setIsLoading] = useState(true);
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -68,13 +57,6 @@ export const TileList = ({ data }: Props) => {
     setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-
-  useEffect(() => {
-    setIsLoading(true);
-    setTiles(data);
-    setFilteredTiles(data);
-    setIsLoading(false);
-  }, [data]);
 
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
@@ -140,7 +122,6 @@ export const TileList = ({ data }: Props) => {
         <h1
           className={`text-left w-full text-3xl md:text-5xl ${figtree.className}`}
         >
-          {" "}
           {t("title")}
         </h1>
         <div className="flex items-center justify-between w-full flex-col md:flex-row gap-4">
@@ -158,7 +139,9 @@ export const TileList = ({ data }: Props) => {
               aria-haspopup="listbox"
               aria-expanded={open}
             >
-              Filter: {OPTIONS.find((opt) => opt.value === sortBy)?.label}
+              Filter:{" "}
+              {OPTIONS.find((opt) => opt.value === sortBy)?.label ||
+                ft("sortBy")}
               <svg
                 width="16"
                 height="5"
@@ -208,7 +191,7 @@ export const TileList = ({ data }: Props) => {
         </div>
       </div>
 
-      {isLoading && filteredTiles.length === 0 ? <Spinner /> : null}
+      {loading && filteredTiles.length === 0 ? <Spinner /> : null}
 
       {currentTiles.map((tile) => {
         const inCart = isInCart(tile.id);
@@ -311,42 +294,13 @@ export const TileList = ({ data }: Props) => {
           </div>
         );
       })}
-
-      <div className="w-full flex justify-center items-c">
-        {totalPages > 1 && (
-          <div className="flex items-center gap-2 mt-6 mb-8">
-            <button
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
-              className="px-3 py-1 text-md  border rounded disabled:opacity-50"
-            >
-              ← {tp("prev")}
-            </button>
-
-            {Array.from({ length: totalPages }, (_, i) => (
-              <button
-                key={i}
-                onClick={() => handlePageChange(i + 1)}
-                className={`px-3 py-1 rounded-lg text-md ${
-                  currentPage === i + 1
-                    ? "border-1 border-black text-black"
-                    : "bg-gray-100"
-                }`}
-              >
-                {i + 1}
-              </button>
-            ))}
-
-            <button
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
-              className="px-3 text-md py-1 border rounded disabled:opacity-50"
-            >
-              {" "}
-              {tp("next")} →
-            </button>
-          </div>
-        )}
+      <div className="w-full flex justify-center">
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          handlePageChange={setCurrentPage}
+          tp={tp}
+        />
       </div>
       {selectedTile && pathname.endsWith("/panel") && (
         <>

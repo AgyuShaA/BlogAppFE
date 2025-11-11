@@ -13,8 +13,6 @@ export function generateStaticParams() {
 export const revalidate = 600;
 
 export default async function CatalogPage() {
-  const tiles = await getTilesCached();
-
   const [collections, surfaces, sizes, features, color, outdoorIndoor] =
     await Promise.all([
       getCollectionsCached(),
@@ -41,27 +39,16 @@ export default async function CatalogPage() {
           />
         </div>
 
-        <TileList data={tiles} />
+        <TileList />
       </div>
     </div>
   );
 }
 
-/* ----------------------- 🧠 Cached functions ----------------------- */
-
-// ✅ Tiles: fetched from API + cached for 10 min
-const getTilesCached = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/tiles`);
-
-  if (!res.ok) throw new Error("Failed to fetch tiles");
-  return res.json();
-};
-
-// ✅ Prisma-based cached queries (tag-based, independent revalidation)
 const getCollectionsCached = unstable_cache(
   () => prisma.collection.findMany({ orderBy: { name: "asc" } }),
   ["collections"],
-  { revalidate: 86400 } // 1 day
+  { revalidate: 86400 }
 );
 
 const getSurfacesCached = unstable_cache(

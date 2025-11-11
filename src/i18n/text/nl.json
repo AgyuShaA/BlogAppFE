@@ -365,5 +365,12 @@
       "weekend": "Zaterdag - Zondag",
       "closed": "Gesloten"
     }
+  },
+  "filters": {
+    "newest": "Van nieuw naar oud",
+    "oldest": "Van oud naar nieuw",
+    "a_z": "A - Z",
+    "z_a": "Z - A",
+    "sortBy": "Sorteren op"
   }
 }

@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { useContactModalStore } from "@/store/useContactStore";
+import Button from "@/components/button";
 
 const FirstSection = () => {
   const t = useTranslations("firstSection");
@@ -43,12 +45,7 @@ const FirstSection = () => {
             </p>
           </div>
 
-          {/* CTA Button */}
-          <button className="flex items-center justify-center bg-[#CB2021] text-white h-[42px] rounded-[4px] md:px-6 px-4">
-            <span className="md:text-md text-sm leading-[26px]">
-              {t("button")}
-            </span>
-          </button>
+          <Button translationsKey="firstSection" labelKey="button" />
         </div>
       </div>
     </section>

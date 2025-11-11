@@ -15,6 +15,8 @@ import { routing } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { createPortal } from "react-dom";
+import { useTileStore } from "@/store/useTileStore";
+import { useContactModalStore } from "@/store/useContactStore";
 
 interface HeaderProps {
   locale: string;
@@ -29,6 +31,8 @@ const Header: React.FC<HeaderProps> = ({ locale }: HeaderProps) => {
   const pathname = usePathname();
   const containerRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const { toggle } = useContactModalStore();
+  const fetchCatalog = useTileStore((state) => state.fetchCatalog);
 
   const [dropdownPos, setDropdownPos] = useState<{ top: number; left: number }>(
     {
@@ -36,6 +40,10 @@ const Header: React.FC<HeaderProps> = ({ locale }: HeaderProps) => {
       left: 0,
     }
   );
+
+  useEffect(() => {
+    fetchCatalog();
+  }, [fetchCatalog]);
 
   useEffect(() => {
     if (open && containerRef.current) {
@@ -58,7 +66,7 @@ const Header: React.FC<HeaderProps> = ({ locale }: HeaderProps) => {
   const dropdownRef = useRef<HTMLUListElement>(null);
 
   return (
-    <header className=" mx-auto sticky   top-0 h-[172px] flex flex-col gap-5 ">
+    <header className=" mx-auto sticky max-w-[1280px]  top-0 h-[172px] flex flex-col gap-5 ">
       <div className="relative flex items-center justify-between gap-2 h-[74px] px-[5%] md:px-[2%]">
         {/* Logo */}
         <div className="flex items-center h-[50px]">
@@ -170,7 +178,7 @@ const Header: React.FC<HeaderProps> = ({ locale }: HeaderProps) => {
                   left: dropdownPos.left,
                 }}
                 ref={dropdownRef}
-                className="fixed right-4 top-34 z-[9999] w-36 border border-gray-300 rounded-md bg-white shadow-lg"
+                className="fixed md:hidden right-4 top-34 z-[9999] w-36 border border-gray-300 rounded-md bg-white shadow-lg"
               >
                 {routing.locales.map((loc, idx) => (
                   <li key={idx}>
@@ -197,9 +205,9 @@ const Header: React.FC<HeaderProps> = ({ locale }: HeaderProps) => {
         {["ceramic", "wood"].map((item, idx) => (
           <div
             key={idx}
-            className="relative w-[130px] h-[54px] flex items-center justify-center"
+            className="relative w-[130px] h-[54px] flex items-center justify-center "
           >
-            <span className="text-[16px] w-full text-[#282828] font-normal">
+            <span className="text-[16px] w-full text-gray-300 font-normal">
               {t(`nav.${item}`)}
             </span>
 
@@ -220,9 +228,12 @@ const Header: React.FC<HeaderProps> = ({ locale }: HeaderProps) => {
             </Link>
           </div>
         ))}
-        {/* Contact Button */}
+
         <div className="relative  h-[38px]">
-          <button className="px-2 h-[38px] left-0 top-0 border-2 border-red-600 rounded-[4px] flex items-center justify-center text-red-600 text-[16px]">
+          <button
+            onClick={toggle}
+            className="cursor-pointer px-2 h-[38px] left-0 top-0 border-2 border-red-600 rounded-[4px] flex items-center justify-center text-red-600 text-[16px]"
+          >
             {t("contactUs")}
           </button>
         </div>

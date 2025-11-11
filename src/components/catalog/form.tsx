@@ -312,7 +312,7 @@ export default function CreatePostForm({
       </form>
 
       <h2 className="text-lg font-semibold mb-2">Tiles</h2>
-      <TileList data={tiles} />
+      <TileList />
     </div>
   );
 }

@@ -25,8 +25,10 @@ const Footer = async () => {
 
   return (
     <footer
-      className={`${dmSans.className} bg-[#212C35] text-white pt-16 pb-8 px-5 md:px-16`}
+      className={`${dmSans.className} relative  text-white pt-16 pb-8 px-5 md:px-16`}
     >
+      <div className="absolute inset-0 -left-1/2 -z-10 w-[200vw] bg-gradient-to-b from-[#212C35] via-[#212C35] to-[#212C35]" />
+
       {/* Top Section */}
       <div className="flex flex-col justify-between items-center gap-8 md:gap-16 mb-12">
         {/* Logo & Title */}

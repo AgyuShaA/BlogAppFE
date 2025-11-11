@@ -366,5 +366,12 @@
     "catalog": "Catalog",
     "panel": "Panel",
     "tiles": "Tiles"
+  },
+  "filters": {
+    "newest": "From Newest to Oldest",
+    "oldest": "From Oldest to Newest",
+    "a_z": "A - Z",
+    "z_a": "Z - A",
+    "sortBy": "Sort by"
   }
 }

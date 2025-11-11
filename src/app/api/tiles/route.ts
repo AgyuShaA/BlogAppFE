@@ -52,8 +52,6 @@ export async function GET() {
     },
   });
 
-  console.log("Filtered Tiles:", tiles);
-
   return NextResponse.json(tiles);
 }
 
@@ -140,7 +138,7 @@ export async function POST(req: Request) {
   // Here `name` is the key you want to add/update inside the names object
   updateTranslation("en", name, englishName);
   updateTranslation("nl", name, niderlandName);
-  console.log(tile, "server");
+
   return NextResponse.json(tile);
 }
 export async function PATCH(req: Request) {

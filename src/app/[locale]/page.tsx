@@ -1,5 +1,4 @@
 import FirstSection from "@/components/MainPage/FirstSection/FirstSection";
-
 import SecondSection from "@/components/MainPage/second-section/second-section";
 import AboutSection from "@/components/MainPage/about-section/about-section";
 import WhyUs from "@/components/MainPage/why-us/why-us";
