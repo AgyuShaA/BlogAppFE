@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Figtree } from "next/font/google";
 import { CallIcon } from "@/assets/icons/call-icon";
 import { useContactModalStore } from "@/store/useContactStore";
+import { useTranslations } from "next-intl";
 
 interface CartSidebarProps {
   isOpen: boolean;
@@ -15,7 +16,7 @@ const figtree = Figtree({ subsets: ["latin"], weight: "300" });
 export const CartSidebar = ({ isOpen, onClose }: CartSidebarProps) => {
   const items = useCartStore((state) => state.items);
   const { toggle } = useContactModalStore();
-
+  const t = useTranslations("contact_form");
   const increaseQuantity = useCartStore((state) => state.increaseQuantity);
   const decreaseQuantity = useCartStore((state) => state.decreaseQuantity);
 
@@ -43,7 +44,7 @@ export const CartSidebar = ({ isOpen, onClose }: CartSidebarProps) => {
       >
         <div className="flex justify-between items-center p-4 border-b">
           <h2 className="text-lg font-semibold">
-            Shopping Cart ({totalItems})
+            {t("shopping_cart")} ({totalItems})
           </h2>
           <button
             onClick={onClose}
@@ -91,11 +92,16 @@ export const CartSidebar = ({ isOpen, onClose }: CartSidebarProps) => {
                   </h3>
 
                   <h3
-                    className={` text-md  text-[#282828] ${figtree.className}`}
+                    className={`text-md text-[#282828] ${figtree.className} flex flex-wrap `}
                   >
-                    {tile!.sizes?.map((e) => {
-                      return e.size.name;
-                    })}
+                    {tile?.sizes?.map((e, i) => (
+                      <span
+                        key={i}
+                        className="after:content-['|'] last:after:content-['']"
+                      >
+                        {e.size.name}
+                      </span>
+                    ))}
                   </h3>
                 </div>
               </div>
@@ -127,7 +133,7 @@ export const CartSidebar = ({ isOpen, onClose }: CartSidebarProps) => {
           >
             <span className="flex items-center justify-center gap-2">
               {" "}
-              <CallIcon /> Contact Us
+              <CallIcon /> {t("contactUs")}
             </span>
           </button>
         </div>

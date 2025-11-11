@@ -1,10 +1,11 @@
 "use client";
 import { CallIcon } from "@/assets/icons/call-icon";
 import { useContactModalStore } from "@/store/useContactStore";
+import { useTranslations } from "next-intl";
 
 export function ContactUsButton() {
   const { toggle } = useContactModalStore();
-
+  const t = useTranslations("contact_form");
   return (
     <button
       onClick={toggle}
@@ -17,7 +18,7 @@ export function ContactUsButton() {
         z-50 flex items-center gap-4 w-[80%] sm:w-fit justify-center
       "
     >
-      <CallIcon /> Contact Us
+      <CallIcon /> {t("contactUs")}
     </button>
   );
 }

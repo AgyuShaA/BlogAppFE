@@ -373,5 +373,17 @@
     "a_z": "A - Z",
     "z_a": "Z - A",
     "sortBy": "Sort by"
+  },
+
+  "contact_form": {
+    "contactUs": "Contact Us",
+    "name": "Name",
+    "email": "Email",
+    "subject": "Subject",
+    "send": "Send",
+    "sending": "Sending...",
+    "successMsg": "Messages sent successfully!",
+    "errorMsg": "Failed to send messages. Please try again.",
+    "shopping_cart": "Shopping Cart"
   }
 }

@@ -372,5 +372,16 @@
     "a_z": "A - Z",
     "z_a": "Z - A",
     "sortBy": "Sorteren op"
+  },
+  "contact_form": {
+    "contactUs": "Neem Contact Op",
+    "name": "Naam",
+    "email": "E-mail",
+    "subject": "Onderwerp",
+    "send": "Verzenden",
+    "sending": "Bezig met verzenden...",
+    "successMsg": "Berichten succesvol verzonden!",
+    "errorMsg": "Verzenden mislukt. Probeer het opnieuw.",
+    "shopping_cart": "Winkelwagen"
   }
 }

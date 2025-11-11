@@ -5,6 +5,7 @@ import { useContactModalStore } from "@/store/useContactStore";
 import { useCartStore } from "@/store/useCartStore";
 import { Tile } from "@/types/types";
 import { useTileStore } from "@/store/useTileStore";
+import { useTranslations } from "next-intl";
 
 const ContactForm = () => {
   const { isOpen, close } = useContactModalStore();
@@ -15,7 +16,7 @@ const ContactForm = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-
+  const t = useTranslations("contact_form");
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -92,11 +93,11 @@ const ContactForm = () => {
       );
 
       setLoading(false);
-      setSuccess("Messages sent successfully!");
+      setSuccess(t("successMsg"));
       setForm({ name: "", email: "", subject: "" });
     } catch (err) {
       setLoading(false);
-      setError("Failed to send messages. Please try again.");
+      setError(t("errorMsg"));
       console.error(err);
     }
   };
@@ -129,13 +130,13 @@ const ContactForm = () => {
             </button>
 
             <h2 className="text-3xl md:text-4xl text-center w-full">
-              Contact Us
+              {t("contactUs")}
             </h2>
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label htmlFor="name" className="block font-medium">
-                  Name
+                  {t("name")}
                 </label>
                 <input
                   id="name"
@@ -149,7 +150,7 @@ const ContactForm = () => {
 
               <div>
                 <label htmlFor="email" className="block font-medium">
-                  Email
+                  {t("email")}
                 </label>
                 <input
                   id="email"
@@ -164,7 +165,7 @@ const ContactForm = () => {
 
               <div>
                 <label htmlFor="subject" className="block font-medium">
-                  Subject
+                  {t("subject")}
                 </label>
                 <textarea
                   id="subject"
@@ -182,7 +183,7 @@ const ContactForm = () => {
                 disabled={loading}
                 className="bg-[#CB2021] cursor-pointer text-white px-4 py-2 rounded disabled:opacity-50"
               >
-                {loading ? "Sending..." : "Send"}
+                {loading ? t("sending") : t("send")}
               </button>
 
               {success && <p className="text-green-600">{success}</p>}
