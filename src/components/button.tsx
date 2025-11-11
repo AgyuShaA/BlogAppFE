@@ -16,7 +16,7 @@ export default function Button({
 }: ButtonProps) {
   const { toggle } = useContactModalStore();
   const t = useTranslations(translationsKey);
-  const combinedClassName = `cursor-pointer  flex items-center justify-center bg-[#CB2021] text-white h-[42px] rounded-[4px] md:px-6 px-4 ${className}`;
+  const combinedClassName = `cursor-pointer hover:bg-[#CB2021]/80 flex items-center justify-center bg-[#CB2021] text-white h-[42px] rounded-[4px] md:px-6 px-4 ${className}`;
 
   return (
     <button onClick={toggle} className={combinedClassName}>
