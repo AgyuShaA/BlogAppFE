@@ -3,7 +3,7 @@ import TileFilters from "@/components/catalog/tile-filters";
 import { TileList } from "@/components/catalog/tile-list";
 import { routing } from "@/i18n/routing";
 import { prisma } from "@/lib/prisma-client";
-import { Tile } from "@/types/types";
+
 import { unstable_cache } from "next/cache";
 
 export function generateStaticParams() {

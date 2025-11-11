@@ -52,11 +52,11 @@ export const TileList = () => {
     startIndex + tilesPerPage
   );
 
-  const handlePageChange = (page: number) => {
-    if (page < 1 || page > totalPages) return;
-    setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  // const handlePageChange = (page: number) => {
+  //   if (page < 1 || page > totalPages) return;
+  //   setCurrentPage(page);
+  //   window.scrollTo({ top: 0, behavior: "smooth" });
+  // };
 
   useEffect(() => {
     const onClick = (e: MouseEvent) => {

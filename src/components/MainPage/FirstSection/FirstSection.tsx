@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { useContactModalStore } from "@/store/useContactStore";
 import Button from "@/components/button";
 
 const FirstSection = () => {

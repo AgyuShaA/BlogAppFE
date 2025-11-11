@@ -1,4 +1,3 @@
-// stores/useTileStore.ts
 import { create } from "zustand";
 import { Tile } from "@/types/types";
 import { useFilterStore } from "./useFilterStore";
@@ -37,8 +36,9 @@ export const useTileStore = create<TileState>((set) => ({
 
       setFilteredTiles(data);
       set({ tiles: data, loading: false });
-    } catch (error: any) {
-      set({ error: error.message, loading: false });
+    } catch (error: unknown) {
+      set({ error: "error", loading: false });
+      console.error("Error fetching catalog:", error);
     }
   },
 

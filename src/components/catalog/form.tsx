@@ -27,7 +27,7 @@ export default function CreatePostForm({
   colors,
   outdoorIndoor,
 }: CreatePostFormProps) {
-  const { addTile, tiles } = useTileStore();
+  const { addTile } = useTileStore();
 
   const [name, setName] = useState("");
   const [file, setFile] = useState<File | null>(null);
