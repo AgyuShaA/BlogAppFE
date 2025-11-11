@@ -14,6 +14,8 @@ export type Tile = {
   outdoorIndoor?: Option;
   features?: { featureId: number; tileId: number; feature: Option }[];
   colors?: { tileId: number; colorId: number; color: ColorOption }[];
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type UpdateTile = {
@@ -28,3 +30,5 @@ export type UpdateTile = {
   features?: { featureId: number; tileId: number; feature: Option }[];
   colors?: { tileId: number; colorId: number; color: ColorOption }[];
 };
+
+export type SortOption = "newest" | "oldest" | "a-z" | "z-a" | null;

@@ -1,6 +1,3 @@
-// Prisma schema file
-// Learn more: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,32 +7,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-/// ------------------------------
-/// TILE CATALOG
-/// ------------------------------
-
 model Tile {
-  id              Int             @id @default(autoincrement())
+  id              Int            @id @default(autoincrement())
   name            String
   imageUrl        String?
-
   collectionId    Int?
-
   outdoorIndoorId Int?
-
-  collection      Collection?     @relation(fields: [collectionId], references: [id])
-  outdoorIndoor   OutdoorIndoor?  @relation(fields: [outdoorIndoorId], references: [id])
-  
-  colors          TileColor[]     // Many-to-many
-  features        TileFeature[]   // Many-to-many
-  sizes           TileSize[]      // Many-to-many
-  surfaces        TileSurface[]   // <-- new many-to-many
-
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @default(now()) @updatedAt
+  collection      Collection?    @relation(fields: [collectionId], references: [id])
+  outdoorIndoor   OutdoorIndoor? @relation(fields: [outdoorIndoorId], references: [id])
+  colors          TileColor[]
+  features        TileFeature[]
+  sizes           TileSize[]
+  surfaces        TileSurface[]
 }
-
-/// ------------------------------
-/// ATTRIBUTE TABLES (filters)
-/// ------------------------------
 
 model Collection {
   id    Int    @id @default(autoincrement())
@@ -44,11 +30,10 @@ model Collection {
 }
 
 model Size {
-  id    Int    @id @default(autoincrement())
-  name  String @unique
+  id    Int        @id @default(autoincrement())
+  name  String     @unique
   tiles TileSize[]
 }
-
 
 model OutdoorIndoor {
   id    Int    @id @default(autoincrement())
@@ -57,43 +42,38 @@ model OutdoorIndoor {
 }
 
 model Surface {
-  id    Int    @id @default(autoincrement())
-  name  String @unique
+  id    Int           @id @default(autoincrement())
+  name  String        @unique
   tiles TileSurface[]
 }
 
 model TileSurface {
   tileId    Int
   surfaceId Int
-  tile      Tile    @relation(fields: [tileId], references: [id])
   surface   Surface @relation(fields: [surfaceId], references: [id])
+  tile      Tile    @relation(fields: [tileId], references: [id])
 
   @@id([tileId, surfaceId])
 }
 
-
 model Color {
-  id    Int    @id @default(autoincrement())
-  name  String @unique
-  hex   String @unique
+  id    Int         @id @default(autoincrement())
+  name  String      @unique
+  hex   String      @unique
   tiles TileColor[]
 }
 
 model Feature {
-  id    Int    @id @default(autoincrement())
-  name  String @unique
+  id    Int           @id @default(autoincrement())
+  name  String        @unique
   tiles TileFeature[]
 }
-
-/// ------------------------------
-/// MANY-TO-MANY JOIN TABLES
-/// ------------------------------
 
 model TileColor {
   tileId  Int
   colorId Int
-  tile    Tile  @relation(fields: [tileId], references: [id])
   color   Color @relation(fields: [colorId], references: [id])
+  tile    Tile  @relation(fields: [tileId], references: [id])
 
   @@id([tileId, colorId])
 }
@@ -101,8 +81,8 @@ model TileColor {
 model TileFeature {
   tileId    Int
   featureId Int
-  tile      Tile    @relation(fields: [tileId], references: [id])
   feature   Feature @relation(fields: [featureId], references: [id])
+  tile      Tile    @relation(fields: [tileId], references: [id])
 
   @@id([tileId, featureId])
 }
@@ -110,8 +90,8 @@ model TileFeature {
 model TileSize {
   tileId Int
   sizeId Int
-  tile   Tile @relation(fields: [tileId], references: [id])
   size   Size @relation(fields: [sizeId], references: [id])
+  tile   Tile @relation(fields: [tileId], references: [id])
 
   @@id([tileId, sizeId])
 }

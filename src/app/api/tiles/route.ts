@@ -6,23 +6,53 @@ import fs from "fs";
 
 export async function GET() {
   const tiles = await prisma.tile.findMany({
-    include: {
-      collection: true,
+    select: {
+      id: true,
+      name: true,
+      imageUrl: true,
+      collectionId: true,
+      outdoorIndoorId: true,
+      createdAt: true,
+      updatedAt: true,
+
+      collection: {
+        select: {
+          id: true,
+          name: true,
+          // add any other collection fields you need
+        },
+      },
       sizes: {
-        include: { size: true },
+        select: {
+          size: true, // assuming `size` is a relation field
+        },
       },
       surfaces: {
-        include: { surface: true }, // assuming join table has 'feature' relation
+        select: {
+          surface: true, // assuming `surface` is a relation field
+        },
       },
       features: {
-        include: { feature: true }, // assuming join table has 'feature' relation
+        select: {
+          feature: true, // assuming `feature` is a relation field
+        },
       },
       colors: {
-        include: { color: true }, // assuming join table has 'color' relation
+        select: {
+          color: true, // assuming `color` is a relation field
+        },
       },
-      outdoorIndoor: true,
+      outdoorIndoor: {
+        select: {
+          id: true,
+          name: true,
+          // any other fields
+        },
+      },
     },
   });
+
+  console.log("Filtered Tiles:", tiles);
 
   return NextResponse.json(tiles);
 }

@@ -1,4 +1,4 @@
-import { Tile } from "@/types/types";
+import { SortOption, Tile } from "@/types/types";
 import { create } from "zustand";
 
 export interface Option {
@@ -11,6 +11,9 @@ export interface ColorOption extends Option {
 }
 
 interface FilterStore {
+  sortBy: SortOption | null;
+  setSortBy: (sortBy: SortOption | null) => void;
+
   collectionsList: Option[];
   sizesList: Option[];
   surfacesList: Option[];
@@ -50,7 +53,9 @@ interface FilterStore {
 }
 
 export const useFilterStore = create<FilterStore>((set, get) => ({
-  // full lists from DB
+  sortBy: null,
+  setSortBy: (sortBy) => set({ sortBy }),
+
   collectionsList: [],
   sizesList: [],
   surfacesList: [],
@@ -140,7 +145,7 @@ export const useFilterStore = create<FilterStore>((set, get) => ({
 
   recalcFilteredTiles: (tiles: Tile[]) => {
     const state = get();
-    const matches = tiles.filter((tile) => {
+    let matches = tiles.filter((tile) => {
       const matchCollection =
         state.selectedCollections.length === 0 ||
         (tile.collection?.id !== undefined &&
@@ -191,6 +196,37 @@ export const useFilterStore = create<FilterStore>((set, get) => ({
         matchOutdoorIndoor
       );
     });
+
+    if (state.sortBy) {
+      matches = matches.slice();
+
+      switch (state.sortBy) {
+        case "newest":
+          matches.sort((a, b) => {
+            // assuming tile has a date field like createdAt or similar
+            return (
+              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+            );
+          });
+          break;
+
+        case "oldest":
+          matches.sort((a, b) => {
+            return (
+              new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+            );
+          });
+          break;
+
+        case "a-z":
+          matches.sort((a, b) => a.name.localeCompare(b.name));
+          break;
+
+        case "z-a":
+          matches.sort((a, b) => b.name.localeCompare(a.name));
+          break;
+      }
+    }
 
     set({ filteredTiles: matches });
   },

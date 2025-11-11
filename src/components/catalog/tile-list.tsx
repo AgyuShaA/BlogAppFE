@@ -2,10 +2,10 @@
 
 import { StoreIcon } from "@/assets/icons/store";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { UpdateTileModal } from "../modals/update-modal";
 import { DeleteTileModal } from "../modals/delete-modal";
-import { Tile } from "@/types/types";
+import { SortOption, Tile } from "@/types/types";
 import { useCartStore } from "@/store/useCartStore";
 
 import { useFilterStore } from "@/store/useFilterStore";
@@ -27,11 +27,29 @@ export const TileList = ({ data }: Props) => {
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const { addToCart, removeFromCart, isInCart } = useCartStore();
   const t = useTranslations("names");
-  const { filteredTiles, setFilteredTiles } = useFilterStore();
+  const {
+    filteredTiles,
+    setFilteredTiles,
+    sortBy,
+    setSortBy,
+    recalcFilteredTiles,
+  } = useFilterStore();
   const { setTiles } = useTileStore();
   const tp = useTranslations("pagination");
 
+  const OPTIONS = [
+    { value: "newest", label: "From Newest to Oldest" },
+    { value: "oldest", label: "From Oldest to Newest" },
+    { value: "a-z", label: "A - Z" },
+    { value: "z-a", label: "Z - A" },
+  ];
+
+  const currentLabel =
+    OPTIONS.find((opt) => opt.value === sortBy)?.label || "Sort by";
+
   const pathname = usePathname();
+  const [open, setOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -59,6 +77,27 @@ export const TileList = ({ data }: Props) => {
   }, [data]);
 
   useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(e.target as Node)
+      ) {
+        setOpen(false);
+      }
+    };
+
+    if (open) {
+      document.addEventListener("mousedown", onClick);
+    } else {
+      document.removeEventListener("mousedown", onClick);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", onClick);
+    };
+  }, [open]);
+
+  useEffect(() => {
     setCurrentPage(1);
   }, [filteredTiles]);
 
@@ -71,6 +110,12 @@ export const TileList = ({ data }: Props) => {
     setSelectedTile(tile);
     setIsDeleteOpen(true);
   };
+
+  function onSelect(value: SortOption): void {
+    setSortBy(value);
+    recalcFilteredTiles(filteredTiles);
+    setOpen(false);
+  }
 
   const handleUpdate = async (formData: FormData, tileId: number) => {
     const res = await fetch(`/api/tiles?id=${tileId}`, {
@@ -98,9 +143,68 @@ export const TileList = ({ data }: Props) => {
           {" "}
           {t("title")}
         </h1>
+        <div className="flex items-center justify-between w-full flex-col md:flex-row gap-4">
+          <div className="flex items-center justify-start text-[#888888]">
+            <h2>
+              {tp("showing", { start, end, total: filteredTiles.length })}
+            </h2>
+          </div>
 
-        <div className="flex items-center justify-start text-[#888888]">
-          <h2>{tp("showing", { start, end, total: filteredTiles.length })}</h2>
+          <div className="relative w-fit px-2">
+            <button
+              onClick={() => setOpen((o) => !o)}
+              className="w-full flex justify-between items-center px-3 py-2 text-gray-900 font-normal text-sm bg-white border border-gray-300 rounded-md cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
+              type="button"
+              aria-haspopup="listbox"
+              aria-expanded={open}
+            >
+              Filter: {OPTIONS.find((opt) => opt.value === sortBy)?.label}
+              <svg
+                width="16"
+                height="5"
+                viewBox="0 0 16 5"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="ml-2"
+              >
+                <path
+                  d="M2.39062 4.78125C1.73438 4.78125 1.17188 4.54948 0.703125 4.08594C0.234375 3.6224 0 3.05729 0 2.39062C0 1.73438 0.231771 1.17188 0.695312 0.703125C1.15885 0.234375 1.72396 0 2.39062 0C3.04688 0 3.61198 0.231771 4.08594 0.695312C4.5599 1.15885 4.79688 1.72396 4.79688 2.39062C4.79688 3.04688 4.5599 3.60938 4.08594 4.07812C3.61198 4.54688 3.04688 4.78125 2.39062 4.78125ZM8 4.78125C7.34375 4.78125 6.78125 4.54948 6.3125 4.08594C5.84375 3.6224 5.60938 3.05729 5.60938 2.39062C5.60938 1.73438 5.84115 1.17188 6.30469 0.703125C6.76823 0.234375 7.33333 0 8 0C8.65625 0 9.21875 0.231771 9.6875 0.695312C10.1562 1.15885 10.3906 1.72396 10.3906 2.39062C10.3906 3.04688 10.1562 3.60938 9.6875 4.07812C9.21875 4.54688 8.65625 4.78125 8 4.78125ZM13.6094 4.78125C12.9531 4.78125 12.388 4.54948 11.9141 4.08594C11.4401 3.6224 11.2031 3.05729 11.2031 2.39062C11.2031 1.73438 11.4375 1.17188 11.9062 0.703125C12.375 0.234375 12.9427 0 13.6094 0C14.2656 0 14.8281 0.231771 15.2969 0.695312C15.7656 1.15885 16 1.72396 16 2.39062C16 3.04688 15.7682 3.60938 15.3047 4.07812C14.8411 4.54688 14.276 4.78125 13.6094 4.78125Z"
+                  fill="#282828"
+                />
+              </svg>
+            </button>
+
+            {open && (
+              <ul
+                className="absolute z-50 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto"
+                role="listbox"
+                tabIndex={-1}
+              >
+                {OPTIONS.map(({ value, label }) => (
+                  <li
+                    key={value}
+                    role="option"
+                    tabIndex={0}
+                    aria-selected={sortBy === value}
+                    className={`cursor-pointer px-3 py-2 text-sm ${
+                      sortBy === value
+                        ? "bg-gray-200 font-semibold"
+                        : "hover:bg-gray-100"
+                    }`}
+                    onClick={() => onSelect(value as SortOption)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        onSelect(value as SortOption);
+                      }
+                    }}
+                  >
+                    {label}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         </div>
       </div>
 

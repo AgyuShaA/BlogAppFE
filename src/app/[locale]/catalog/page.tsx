@@ -50,17 +50,12 @@ export default async function CatalogPage() {
 /* ----------------------- 🧠 Cached functions ----------------------- */
 
 // ✅ Tiles: fetched from API + cached for 10 min
-const getTilesCached = unstable_cache(
-  async (): Promise<Tile[]> => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/tiles`, {
-      next: { tags: ["tiles"] },
-    });
-    if (!res.ok) throw new Error("Failed to fetch tiles");
-    return res.json();
-  },
-  ["tiles"], // cache key
-  { revalidate: 600 } // 10 minutes
-);
+const getTilesCached = async () => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/tiles`);
+
+  if (!res.ok) throw new Error("Failed to fetch tiles");
+  return res.json();
+};
 
 // ✅ Prisma-based cached queries (tag-based, independent revalidation)
 const getCollectionsCached = unstable_cache(

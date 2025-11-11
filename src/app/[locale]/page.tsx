@@ -8,8 +8,6 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { setRequestLocale } from "next-intl/server";
 
-export const dynamic = "force-static";
-
 type Props = {
   params: Promise<{ locale: string }>;
 };

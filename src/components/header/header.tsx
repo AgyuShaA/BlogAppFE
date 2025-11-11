@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { ArrowDownIcon } from "@/assets/icons/arrow-down";
 import { SearchIcon } from "@/assets/icons/search";
@@ -14,6 +14,7 @@ import { CartSidebar } from "../sidebar/sidebar";
 import { routing } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
+import { createPortal } from "react-dom";
 
 interface HeaderProps {
   locale: string;
@@ -26,6 +27,27 @@ const Header: React.FC<HeaderProps> = ({ locale }: HeaderProps) => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  const [dropdownPos, setDropdownPos] = useState<{ top: number; left: number }>(
+    {
+      top: 0,
+      left: 0,
+    }
+  );
+
+  useEffect(() => {
+    if (open && containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      setDropdownPos({
+        top: rect.bottom + window.scrollY + 10,
+        left: rect.left + window.scrollX - 65, // container's left minus 20px
+      });
+    } else {
+      setDropdownPos({ top: 0, left: 0 });
+    }
+  }, [open]);
 
   const t = useTranslations("header");
 
@@ -109,53 +131,64 @@ const Header: React.FC<HeaderProps> = ({ locale }: HeaderProps) => {
           <span>{t("cart")}</span>
         </button>
       </div>
+      {/* Mobile Search and Language Selector */}
       <div className="w-full  md:hidden flex flex-row  ">
         <div className="relative w-full  md:hidden  flex items-center justify-center">
           <input
             type="text"
             placeholder="Search our collections"
-            className="w-[90%]  h-[40px] pl-4 pr-4 rounded-[4px] bg-[#F3F3F3] outline-none text-gray-700"
+            className="w-[90%] truncate   h-[40px] pl-4 pr-10 rounded-[4px] bg-[#F3F3F3] outline-none text-gray-700"
           />
-          <div className="absolute right-10  top-1/2 -translate-y-1/2 text-gray-500">
+          <div className="absolute right-5  top-1/2 -translate-y-1/2 text-gray-500">
             <SearchIcon />
           </div>
         </div>
 
-        <div className="relative pr-4  items-center justify-center flex-col gap-4 md:items-end flex md:hidden">
+        <div
+          ref={containerRef}
+          className="relative pr-4 items-center justify-center flex-col gap-4 md:items-end flex md:hidden z-[9999]"
+        >
           <button
             onClick={() => setOpen(!open)}
-            className="text-small relative  h-10 cursor-pointer items-center gap-2 rounded-md border-2 border-gray-400 bg-transparent px-4 font-normal text-grey outline-none"
+            className="text-small relative bg-[#212C34]  h-10 cursor-pointer items-center gap-2 rounded-md  px-4 font-normal  outline-none"
           >
-            <span className="max-w-full truncate text-black">
+            <span className="max-w-full truncate text-white">
               {t(`languages.short.${locale}`)}
             </span>
-            <span className="ml-2 transition-transform duration-200 text-gray-400">
+            <span className="ml-2 transition-transform duration-200 text-white">
               {open ? "▲" : "▼"}
             </span>
           </button>
 
-          <ul
-            ref={dropdownRef}
-            className={`absolute top-full right-4 z-10 w-36 origin-bottom border-1 border-gray-300 transform rounded-md bg-white shadow-lg transition-all duration-300 ease-out ${
-              open
-                ? "translate-y-1 opacity-100"
-                : "pointer-events-none -translate-2-2 opacity-0"
-            }`}
-          >
-            {routing.locales.map((loc, idx) => (
-              <div key={idx}>
-                <button
-                  className="block  py-2 text-black hover:bg-gray-200 w-full"
-                  onClick={() => {
-                    handleLocaleChange(loc);
-                    setOpen(false);
-                  }}
-                >
-                  {t(`languages.${loc}`)}
-                </button>
-              </div>
-            ))}
-          </ul>
+          {open &&
+            dropdownPos.top !== 0 &&
+            dropdownPos.left !== 0 &&
+            createPortal(
+              <ul
+                style={{
+                  top: dropdownPos.top,
+                  left: dropdownPos.left,
+                }}
+                ref={dropdownRef}
+                className="fixed right-4 top-34 z-[9999] w-36 border border-gray-300 rounded-md bg-white shadow-lg"
+              >
+                {routing.locales.map((loc, idx) => (
+                  <li key={idx}>
+                    <button
+                      ref={buttonRef}
+                      className="block py-2 w-full text-black hover:bg-gray-200"
+                      onClick={() => {
+                        handleLocaleChange(loc);
+                        setOpen(false);
+                      }}
+                    >
+                      {t(`languages.${loc}`)}
+                    </button>
+                  </li>
+                ))}
+              </ul>,
+              document.body
+            )}
         </div>
       </div>
 
