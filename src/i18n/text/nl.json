@@ -9,7 +9,11 @@
     "searchPlaceholder": "Zoek in onze collecties",
     "languages": {
       "en": "Engels",
-      "nl": "Nederlands"
+      "nl": "Nederlands",
+      "short": {
+        "en": "EN",
+        "nl": "NL"
+      }
     },
     "cart": "Winkelwagen",
     "nav": {
@@ -308,6 +312,15 @@
     ]
   },
 
+  "About": {
+    "title": "Over ons",
+    "section1": "Wij willen u laten kennismaken met de uitstekende kwaliteit van bouwmaterialen die in Oekraïne zijn gemaakt. Pro Bouw Store is een team van mensen die echt geloven in de kracht van de Oekraïense productie en ernaar streven deze herkenbaar en gewild te maken op de Europese markt.",
+    "section2": "Onze partners zijn moedige Oekraïense ondernemers en vakmensen die, met behulp van de nieuwste Europese technologieën en hun eigen toewijding, bouwmaterialen van de hoogste kwaliteit creëren. Wij selecteren elk product zorgvuldig om u alleen betrouwbare goederen aan te bieden die voldoen aan de moderne normen voor kwaliteit, veiligheid en duurzaamheid.",
+    "section3": "Wij nemen alle mogelijke risico’s op ons die verband houden met logistiek, leverancierscontrole en kwaliteitsbewaking, zodat u uw producten snel, gemakkelijk en zonder zorgen kunt ontvangen. Snelheid, betrouwbaarheid en eenvoud van levering onderscheiden ons van anderen.",
+    "section4": "Bij Pro Bouw Store combineren we Europese kwaliteit, Oekraïens vakmanschap en de prijsvoordelen van producten uit Azië, waardoor we de perfecte balans creëren tussen prijs, kwaliteit en gemak.",
+    "section5": "Wij streven ernaar uw betrouwbare partner te worden bij de bouw, renovatie en inrichting van ruimtes. Ongeacht de schaal van het project — van kleine renovaties tot grootschalige bouw — helpen wij u bij het vinden van de beste oplossingen voor elke fase.",
+    "section6": "Pro Bouw Store is meer dan alleen een winkel voor bouwmaterialen. Het is een gemeenschap van professionals en klanten, verenigd door één doel: een kwalitatieve, mooie en duurzame toekomst creëren."
+  },
   "footer": {
     "slogan": "Uw professionele bouwpartner",
     "collections": {

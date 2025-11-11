@@ -5,6 +5,15 @@
     "description": "Your professional building partner",
     "button": "Request a Quote"
   },
+  "About": {
+    "title": "About Us",
+    "section1": "We want to introduce you to the excellent quality of construction materials made in Ukraine. Pro Bouw Store is a team of people who truly believe in the power of Ukrainian manufacturing and strive to make it recognizable and in demand in the European market.",
+    "section2": "Our partners are brave Ukrainian entrepreneurs and craftsmen who, using the latest European technologies and their own hard work, create construction materials of the highest quality. We carefully select every product to offer you only trusted goods that meet modern standards of quality, safety, and sustainability.",
+    "section3": "We take on all possible risks related to logistics, supplier verification, and quality control so that you can receive your products quickly, conveniently, and without unnecessary worries. Speed, reliability, and simplicity of delivery are what set us apart.",
+    "section4": "At Pro Bouw Store, we combine European quality, Ukrainian craftsmanship, and the price advantages of products from Asia, creating the perfect balance between cost, quality, and convenience.",
+    "section5": "We aim to become your reliable partner in construction, renovation, and space improvement. Regardless of the project scale — from small repairs to large-scale construction — we’ll help you find the best solutions for every stage.",
+    "section6": "Pro Bouw Store is more than just a building materials store. It’s a community of professionals and clients united by a common goal: to create a high-quality, beautiful, and long-lasting future."
+  },
 
   "footer": {
     "slogan": "Your professional building partner",
@@ -87,7 +96,11 @@
   "header": {
     "languages": {
       "en": "English",
-      "nl": "Dutch"
+      "nl": "Dutch",
+      "short": {
+        "en": "EN",
+        "nl": "NL"
+      }
     },
     "searchPlaceholder": "Search for collections",
 

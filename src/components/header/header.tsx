@@ -109,52 +109,54 @@ const Header: React.FC<HeaderProps> = ({ locale }: HeaderProps) => {
           <span>{t("cart")}</span>
         </button>
       </div>
-      <div className="relative w-full blcok md:hidden  flex items-center justify-center">
-        <input
-          type="text"
-          placeholder="Search our collections"
-          className="w-[90%]  h-[40px] pl-4 pr-4 rounded-[4px] bg-[#F3F3F3] outline-none text-gray-700"
-        />
-        <div className="absolute right-10  top-1/2 -translate-y-1/2 text-gray-500">
-          <SearchIcon />
+      <div className="w-full  md:hidden flex flex-row  ">
+        <div className="relative w-full  md:hidden  flex items-center justify-center">
+          <input
+            type="text"
+            placeholder="Search our collections"
+            className="w-[90%]  h-[40px] pl-4 pr-4 rounded-[4px] bg-[#F3F3F3] outline-none text-gray-700"
+          />
+          <div className="absolute right-10  top-1/2 -translate-y-1/2 text-gray-500">
+            <SearchIcon />
+          </div>
         </div>
-      </div>
 
-      <div className="relative px-4 w-full items-center justify-center flex-col gap-4 md:items-end flex md:hidden">
-        <button
-          onClick={() => setOpen(!open)}
-          className="text-small relative inline-flex h-10 cursor-pointer items-center gap-2 rounded-md border-2 border-gray-400 bg-transparent px-4 font-normal text-grey outline-none"
-        >
-          <span className="max-w-full truncate text-black">
-            {t(`languages.${locale}`)}
-          </span>
-          <span className="ml-2 transition-transform duration-200 text-gray-400">
-            {open ? "▲" : "▼"}
-          </span>
-        </button>
+        <div className="relative pr-4  items-center justify-center flex-col gap-4 md:items-end flex md:hidden">
+          <button
+            onClick={() => setOpen(!open)}
+            className="text-small relative  h-10 cursor-pointer items-center gap-2 rounded-md border-2 border-gray-400 bg-transparent px-4 font-normal text-grey outline-none"
+          >
+            <span className="max-w-full truncate text-black">
+              {t(`languages.short.${locale}`)}
+            </span>
+            <span className="ml-2 transition-transform duration-200 text-gray-400">
+              {open ? "▲" : "▼"}
+            </span>
+          </button>
 
-        <ul
-          ref={dropdownRef}
-          className={`absolute top-full z-10 w-36 origin-bottom border-1 border-gray-300 transform rounded-md bg-white shadow-lg transition-all duration-300 ease-out ${
-            open
-              ? "translate-y-1 opacity-100"
-              : "pointer-events-none -translate-2-2 opacity-0"
-          }`}
-        >
-          {routing.locales.map((loc, idx) => (
-            <div key={idx}>
-              <button
-                className="block  py-2 text-black hover:bg-gray-200 w-full"
-                onClick={() => {
-                  handleLocaleChange(loc);
-                  setOpen(false);
-                }}
-              >
-                {t(`languages.${loc}`)}
-              </button>
-            </div>
-          ))}
-        </ul>
+          <ul
+            ref={dropdownRef}
+            className={`absolute top-full right-4 z-10 w-36 origin-bottom border-1 border-gray-300 transform rounded-md bg-white shadow-lg transition-all duration-300 ease-out ${
+              open
+                ? "translate-y-1 opacity-100"
+                : "pointer-events-none -translate-2-2 opacity-0"
+            }`}
+          >
+            {routing.locales.map((loc, idx) => (
+              <div key={idx}>
+                <button
+                  className="block  py-2 text-black hover:bg-gray-200 w-full"
+                  onClick={() => {
+                    handleLocaleChange(loc);
+                    setOpen(false);
+                  }}
+                >
+                  {t(`languages.${loc}`)}
+                </button>
+              </div>
+            ))}
+          </ul>
+        </div>
       </div>
 
       {/* Navigation */}
