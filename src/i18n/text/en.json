@@ -27,14 +27,23 @@
         "Wood Tiles"
       ]
     },
+
     "information": {
       "title": "Information",
       "items": [
-        "About Us",
-        "Catalog",
-        "Delivery & Returns",
-        "Privacy Policy",
-        "Contact"
+        { "key": "about", "label": "About Us", "href": "/about" },
+        { "key": "catalog", "label": "Catalog", "href": "/catalog" },
+        {
+          "key": "delivery",
+          "label": "Delivery & Returns",
+          "href": "/delivery"
+        },
+        {
+          "key": "privacy",
+          "label": "Privacy Policy",
+          "href": "/privacy-policy"
+        },
+        { "key": "contact", "label": "Contact", "href": "/contact" }
       ]
     },
     "contacts": {

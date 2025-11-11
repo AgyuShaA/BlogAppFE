@@ -336,11 +336,19 @@
     "information": {
       "title": "Informatie",
       "items": [
-        "Over ons",
-        "Catalogus",
-        "Levering & Retour",
-        "Privacybeleid",
-        "Contact"
+        { "key": "about", "label": "Over ons", "href": "/about" },
+        { "key": "catalog", "label": "Catalogus", "href": "/catalog" },
+        {
+          "key": "delivery",
+          "label": "Levering & Retourneren",
+          "href": "/delivery"
+        },
+        {
+          "key": "privacy",
+          "label": "Privacybeleid",
+          "href": "/privacy-policy"
+        },
+        { "key": "contact", "label": "Contact", "href": "/contact" }
       ]
     },
     "contacts": {

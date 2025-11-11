@@ -4,6 +4,7 @@ import { InstagramIcon } from "@/assets/icons/instagram-icon";
 import { PinterestIcon } from "@/assets/icons/pinterest-icon";
 import { FooterIcon } from "@/assets/icons/footer-icon";
 import { getTranslations } from "next-intl/server";
+import Link from "next/link";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -16,7 +17,11 @@ const Footer = async () => {
 
   // ✅ Use t.raw() to access arrays or objects directly
   const collections = t.raw("collections.items") as string[];
-  const information = t.raw("information.items") as string[];
+  const information = t.raw("information.items") as {
+    key: string;
+    label: string;
+    href: string;
+  }[];
 
   return (
     <footer
@@ -69,9 +74,16 @@ const Footer = async () => {
           {/* Information */}
           <div className="w-1/2 sm:w-auto">
             <h3 className="font-thin text-xl mb-4">{t("information.title")}</h3>
-            <ul className="space-y-2 text-sm">
-              {information.map((item, i) => (
-                <li key={i}>{item}</li>
+            <ul className="space-y-2 text-sm ">
+              {information.map((item) => (
+                <li key={item.key}>
+                  <Link
+                    href={item.href}
+                    className="hover:text-gray-900 transition-colors duration-150"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
               ))}
             </ul>
           </div>
