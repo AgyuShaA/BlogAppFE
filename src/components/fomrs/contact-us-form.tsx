@@ -120,7 +120,7 @@ const ContactForm = () => {
             onClick={(e) => {
               e.stopPropagation();
             }}
-            className="bg-white p-9 rounded max-w-md w-full relative"
+            className="bg-white w-[95%] p-4 py-8 md:p-10 rounded max-w-md  relative"
           >
             <button
               onClick={close}
@@ -129,7 +129,7 @@ const ContactForm = () => {
               ✕
             </button>
 
-            <h2 className="text-3xl md:text-4xl text-center w-full">
+            <h2 className="text-3xl py-4 md:text-4xl text-center w-full">
               {t("contactUs")}
             </h2>
 
