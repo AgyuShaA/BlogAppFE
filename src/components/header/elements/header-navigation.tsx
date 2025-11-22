@@ -3,9 +3,11 @@
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { CategoryDropdown } from "./dropdown-menu";
+import { useContactModalStore } from "@/store/useContactStore";
 
 export function HeaderNavigation() {
   const t = useTranslations("header");
+  const { toggle } = useContactModalStore();
 
   return (
     <nav className="hidden md:flex h-[54px] px-[2%] justify-between items-center ">
@@ -34,7 +36,10 @@ export function HeaderNavigation() {
         </Link>
       ))}
 
-      <button className="border-2 border-red-600 px-4 h-[38px] text-red-600">
+      <button
+        onClick={toggle}
+        className="border-2 cursor-pointer border-red-600 px-4 h-[38px] text-red-600"
+      >
         {t("contactUs")}
       </button>
     </nav>
