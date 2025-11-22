@@ -1,8 +1,8 @@
-import Link from "next/link";
 import { routing } from "@/i18n/routing";
 import { getTranslations } from "next-intl/server";
 import { CollectionItem, COLLECTIONS } from "@/types/types";
 import { Breadcrumbs } from "@/components/bread-scrums/bread-scrums";
+import { Link } from "@/i18n/navigation";
 
 export async function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));

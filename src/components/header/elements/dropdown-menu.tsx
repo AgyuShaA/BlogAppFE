@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,6 +10,7 @@ import {
 import { useTranslations } from "next-intl";
 
 import { ArrowDownIcon } from "@/assets/icons/arrow-down";
+import { Link } from "@/i18n/navigation";
 
 interface CategoryDropdownProps {
   category: "ceramic" | "wood"; // extend as needed

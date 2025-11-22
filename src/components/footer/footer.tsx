@@ -4,7 +4,8 @@ import { InstagramIcon } from "@/assets/icons/instagram-icon";
 import { PinterestIcon } from "@/assets/icons/pinterest-icon";
 import { FooterIcon } from "@/assets/icons/footer-icon";
 import { getTranslations } from "next-intl/server";
-import Link from "next/link";
+
+import { Link } from "@/i18n/navigation";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],

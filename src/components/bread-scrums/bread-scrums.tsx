@@ -1,9 +1,11 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
+
+import { usePathname } from "next/navigation";
+
 import { ChevronRight } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 
 interface IProps {
   className?: string;

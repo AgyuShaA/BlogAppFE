@@ -1,7 +1,8 @@
 import Image from "next/image";
-import Link from "next/link";
+
 import { useTranslations } from "next-intl";
 import Button from "@/components/button";
+import { Link } from "@/i18n/navigation";
 
 const AboutSection = () => {
   const t = useTranslations("aboutSection");

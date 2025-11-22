@@ -33,9 +33,10 @@ export default async function LocaleLayout({ children, params }: Props) {
         <div className="max-w-[1280px] flex items-center justify-center w-full mx-auto">
           {children}
         </div>
+        <Footer />
       </NextIntlClientProvider>
+
       <ToastContainer position="top-right" theme="black" />
-      <Footer />
     </>
   );
 }
