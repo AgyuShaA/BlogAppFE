@@ -2,6 +2,7 @@
 
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetHeader,
   SheetTitle,
@@ -42,13 +43,16 @@ export function MobileMenu({ locale }: { locale: string }) {
             ]}
           />
 
-          <Link href={`/catalog`} className="block text-lg text-gray-800">
-            {t("nav.catalog")}
-          </Link>
-
-          <Link href={`/about`} className="block text-lg text-gray-800">
-            {t("nav.about")}
-          </Link>
+          <SheetClose asChild>
+            <Link href={`/catalog`} className="block text-lg text-gray-800">
+              {t("nav.catalog")}
+            </Link>
+          </SheetClose>
+          <SheetClose asChild>
+            <Link href={`/about`} className="block text-lg text-gray-800">
+              {t("nav.about")}
+            </Link>
+          </SheetClose>
 
           <MobileLanguageSelector locale={locale} />
         </div>
