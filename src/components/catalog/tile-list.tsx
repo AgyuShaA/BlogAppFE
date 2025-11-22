@@ -38,8 +38,6 @@ export const TileList = () => {
   const { loading } = useTileStore();
   const tp = useTranslations("pagination");
 
-  const { tiles } = useTileStore();
-
   const OPTIONS = [
     { value: "newest", label: ft("newest") },
     { value: "oldest", label: ft("oldest") },

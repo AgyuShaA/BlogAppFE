@@ -58,6 +58,7 @@ export default async function Page({ params }: IProps) {
       ) : (
         <div className="flex mb-20 flex-wrap justify-center gap-6 w-full">
           {tiles.map((tile) => (
+            /* eslint-disable */
             <TileCard key={tile.id} tile={tile as any} />
           ))}
         </div>

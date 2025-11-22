@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { useTranslations } from "next-intl";
-import { ArrowDown01Icon } from "lucide-react";
+
 import { ArrowDownIcon } from "@/assets/icons/arrow-down";
 
 interface CategoryDropdownProps {

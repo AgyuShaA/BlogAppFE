@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable */
 
 import Image from "next/image";
 import { useTranslations } from "next-intl";

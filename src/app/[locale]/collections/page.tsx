@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { routing } from "@/i18n/routing";
 import { getTranslations } from "next-intl/server";
-import { COLLECTIONS } from "@/types/types";
+import { CollectionItem, COLLECTIONS } from "@/types/types";
 import { Breadcrumbs } from "@/components/bread-scrums/bread-scrums";
 
 export async function generateStaticParams() {
@@ -23,7 +23,7 @@ export default async function CollectionsPage({ params }: Props) {
       <h1 className="text-3xl md:text-5xl mb-8">{t("collections")}</h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-6 w-full">
-        {COLLECTIONS.map((item: any, idx) => (
+        {COLLECTIONS.map((item: CollectionItem, idx) => (
           <Link
             key={idx}
             href={`/${locale}/collections/${item.slug}`}
