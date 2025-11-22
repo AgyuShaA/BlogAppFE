@@ -32,7 +32,6 @@ export function MobileMenu({ locale }: { locale: string }) {
 
         <div className="mt-6 space-y-6">
           <MobileCategorySection
-            locale={locale}
             category="Collections"
             items={[
               { label: "shineGlossy", href: "/collections/shine-glossy" },
@@ -43,7 +42,6 @@ export function MobileMenu({ locale }: { locale: string }) {
             ]}
           />
 
-          {/* Direct links */}
           <Link
             href={`/${locale}/catalog`}
             className="block text-lg text-gray-800"

@@ -9,17 +9,16 @@ import {
 import { ChevronDown } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
+import { SheetClose } from "@/components/ui/sheet";
 
 interface MobileCategorySectionProps {
   category: string;
   items: { label: string; href: string }[];
-  locale: string;
 }
 
 export function MobileCategorySection({
   category,
   items,
-  locale,
 }: MobileCategorySectionProps) {
   const [open, setOpen] = useState(false);
   const t = useTranslations("header");
@@ -33,15 +32,17 @@ export function MobileCategorySection({
         />
       </CollapsibleTrigger>
 
-      <CollapsibleContent className="mt-2 ml-4 space-y-2 animate-slideDown">
-        {items.map((item) => (
-          <Link
-            href={`/${locale}${item.href}`}
-            key={item.href}
-            className="block text-base text-gray-600"
-          >
-            {t(`categories.${item.label}`)}
-          </Link>
+      <CollapsibleContent className="mt-2 ml-2 space-y-2 animate-slideDown">
+        {items.map((item, idx) => (
+          <SheetClose asChild key={idx}>
+            <Link
+              href={`/${item.href}`}
+              key={item.href}
+              className="block text-base text-gray-600"
+            >
+              {t(`categories.${item.label}`)}
+            </Link>
+          </SheetClose>
         ))}
       </CollapsibleContent>
     </Collapsible>

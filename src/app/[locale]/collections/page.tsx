@@ -14,7 +14,7 @@ export default async function CollectionsPage() {
   const t = await getTranslations("names");
 
   return (
-    <div className="flex flex-col mx-auto items-center max-w-[1280px] px-[5%] md:px-[2%]  w-full min-h-[75vh]">
+    <div className="flex flex-col mx-auto mb-20 md:mb-0 items-center max-w-[1280px] px-[5%] md:px-[2%]  w-full min-h-[75vh]">
       <Breadcrumbs />
       <h1 className="text-3xl md:text-5xl mb-8">{t("collections")}</h1>
 
