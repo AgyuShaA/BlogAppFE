@@ -42,17 +42,11 @@ export function MobileMenu({ locale }: { locale: string }) {
             ]}
           />
 
-          <Link
-            href={`/${locale}/catalog`}
-            className="block text-lg text-gray-800"
-          >
+          <Link href={`/catalog`} className="block text-lg text-gray-800">
             {t("nav.catalog")}
           </Link>
 
-          <Link
-            href={`/${locale}/about`}
-            className="block text-lg text-gray-800"
-          >
+          <Link href={`/about`} className="block text-lg text-gray-800">
             {t("nav.about")}
           </Link>
 

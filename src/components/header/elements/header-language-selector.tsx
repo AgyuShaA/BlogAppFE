@@ -23,13 +23,17 @@ export function HeaderLanguageSelector({ locale }: { locale: string }) {
   return (
     <div className="hidden md:flex items-center">
       <Select value={locale} onValueChange={handleLocale}>
-        <SelectTrigger className="w-fit border-gray-400 bg-transparent">
+        <SelectTrigger className="w-fit cursor-pointer border-gray-400 bg-transparent">
           <SelectValue placeholder={t(`languages.short.${locale}`)} />
         </SelectTrigger>
 
         <SelectContent className="w-fit">
           {routing.locales.map((loc) => (
-            <SelectItem key={loc} value={loc} className="text-center">
+            <SelectItem
+              key={loc}
+              value={loc}
+              className="text-center cursor-pointer"
+            >
               {t(`languages.short.${loc}`)}
             </SelectItem>
           ))}
