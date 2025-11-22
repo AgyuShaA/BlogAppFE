@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import TileDetails from "@/components/tile-details/tile-details";
 import { Tile } from "@/types/types";
-import { routing } from "@/i18n/routing";
 
 interface PageProps {
   params: Promise<{ name: string }>;
