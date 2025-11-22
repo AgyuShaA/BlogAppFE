@@ -61,8 +61,6 @@ export default function Header({ locale }: { locale: string }) {
       </div>
 
       <HeaderNavigation />
-
-      <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </header>
   );
 }
