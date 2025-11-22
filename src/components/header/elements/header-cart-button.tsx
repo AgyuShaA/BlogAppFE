@@ -1,24 +1,14 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { StoreIcon } from "@/assets/icons/store";
 import { CartSidebar } from "@/components/sidebar/sidebar";
 
-export function HeaderCartButton({
-  itemsCount,
-  onClick,
-}: {
-  itemsCount: number;
-  onClick: () => void;
-}) {
+export function HeaderCartButton({ itemsCount }: { itemsCount: number }) {
   return (
     <>
       <CartSidebar
         trigger={
-          <div
-            onClick={onClick}
-            className="flex cursor-pointer rounded-lg items-center gap-2 h-[50px] px-6 bg-[#212C34] text-white hover:bg-[#2c3942]"
-          >
+          <div className="flex cursor-pointer rounded-lg items-center gap-2 h-[50px] px-6 bg-[#212C34] text-white hover:bg-[#2c3942]">
             <div className="relative">
               <StoreIcon />
 
