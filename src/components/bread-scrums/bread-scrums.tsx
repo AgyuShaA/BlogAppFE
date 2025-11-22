@@ -28,7 +28,7 @@ export const Breadcrumbs = ({ className }: IProps) => {
   return (
     <nav
       aria-label="Breadcrumb"
-      className={`flex items-center gap-[2%]  text-gray-500 text-[16px] leading-[26px] font-dm-sans py-5 w-full ${className}`}
+      className={`flex items-center gap-[2%]  text-gray-500 text-[16px] leading-[26px] font-dm-sans pb-5 pt-3 w-full ${className}`}
     >
       {/* Home */}
       <Link

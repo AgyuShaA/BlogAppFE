@@ -109,7 +109,7 @@ export const TileList = () => {
 
   return (
     <div className="flex flex-wrap justify-center gap-6 px-2 w-full items-start self-start">
-      <div className="w-full flex flex-col gap-5 md:gap-10 p-6">
+      <div className="w-full flex flex-col gap-5 md:gap-10 px-6">
         <h1
           className={`text-left w-full text-3xl md:text-5xl ${figtree.className}`}
         >
