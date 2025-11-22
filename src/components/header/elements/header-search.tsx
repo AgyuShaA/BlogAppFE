@@ -25,6 +25,8 @@ export function SearchDialog({ className }: IProps) {
   const tiles = useTileStore((s) => s.tiles);
 
   const t = useTranslations("names");
+  const ht = useTranslations("header");
+
   const [open, setOpen] = useState(false);
 
   const handleSelect = (href: string) => {
@@ -39,7 +41,7 @@ export function SearchDialog({ className }: IProps) {
         onClick={() => setOpen(true)}
         className={`md:flex items-center hidden justify-start w-full  h-[50px] px-4 rounded-md bg-[#F3F3F3] text-gray-700 ${className}`}
       >
-        Search...
+        {ht("search")}...
       </button>
 
       <CommandDialog open={open} onOpenChange={setOpen}>

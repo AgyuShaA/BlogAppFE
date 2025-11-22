@@ -57,7 +57,7 @@ const SecondSection = () => {
           className="flex items-center text-[16px] leading-[26px] text-[#282828] gap-2"
         >
           <span className="inline-block w-4 h-4 rounded-sm" />
-          {t("collections")}
+          {t("catalog")}
         </Link>
       </div>
 

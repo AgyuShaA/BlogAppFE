@@ -6,6 +6,7 @@
     "button": "Offerte aanvragen"
   },
   "header": {
+    "search": "Zoeken",
     "navigation": "Navigatie",
     "languages": {
       "en": "Engels",
@@ -17,7 +18,7 @@
     },
     "searchPlaceholder": "Zoek naar collecties",
 
-    "cart": "Winkelwagen",
+    "cart": "Wagen",
 
     "nav": {
       "ceramic": "Keramiek",
@@ -37,7 +38,29 @@
 
     "contactUs": "Neem contact op"
   },
+  "contact_page": {
+    "title": "Contact",
+    "subtitle": "Heb je vragen over onze tegels, levering of retouren? Neem gerust contact met ons op — wij helpen je graag verder.",
+    "details_title": "Contactgegevens",
+
+    "email_label": "E-mail",
+    "email_value": "info@dimora.shop",
+
+    "phone_label": "Telefoon",
+    "phone_value": "+1 234 567 89",
+
+    "address_label": "Adres",
+    "address_value": "Voorbeeldstraat 12, Amsterdam, Nederland",
+
+    "hours_label": "Openingstijden",
+    "hours_week": "Ma–Vr: 9:00 – 18:00",
+    "hours_sat": "Za: 10:00 – 16:00",
+
+    "map_alt": "Google Maps locatie"
+  },
   "names": {
+    "about": "Over ons",
+
     "contact": "Contact",
 
     "delivery-and-returns": "Levering en retouren",

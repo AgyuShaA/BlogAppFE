@@ -2,8 +2,10 @@
 
 import { StoreIcon } from "@/assets/icons/store";
 import { CartSidebar } from "@/components/sidebar/sidebar";
+import { useTranslations } from "next-intl";
 
 export function HeaderCartButton({ itemsCount }: { itemsCount: number }) {
+  const t = useTranslations("header");
   return (
     <>
       <CartSidebar
@@ -17,7 +19,7 @@ export function HeaderCartButton({ itemsCount }: { itemsCount: number }) {
                 {itemsCount}
               </div>
             </div>
-            <span>Cart</span>
+            <span>{t("cart")}</span>
           </div>
         }
       />

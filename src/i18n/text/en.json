@@ -103,6 +103,7 @@
     "modernPatterns": "Modern Patterns"
   },
   "header": {
+    "search": "Search",
     "navigation": "Navigation",
     "languages": {
       "en": "English",
@@ -138,6 +139,7 @@
     "wood": "Wood"
   },
   "names": {
+    "about": "About",
     "contact": "Contact Us",
     "delivery-and-returns": "Delivery and returns",
     "privacy": "Privacy Policy",
@@ -399,6 +401,46 @@
     "a_z": "A - Z",
     "z_a": "Z - A",
     "sortBy": "Sort by"
+  },
+  "contact_page": {
+    "title": "Contact Us",
+    "subtitle": "Have questions about our tiles, delivery, or returns? Feel free to reach out — we are always happy to help.",
+    "details_title": "Contact Details",
+
+    "email_label": "Email",
+    "email_value": "info@dimora.shop",
+
+    "phone_label": "Phone",
+    "phone_value": "+1 234 567 89",
+
+    "address_label": "Address",
+    "address_value": "Example Street 12, Amsterdam, Netherlands",
+
+    "hours_label": "Working Hours",
+    "hours_week": "Mon–Fri: 9:00 – 18:00",
+    "hours_sat": "Sat: 10:00 – 16:00",
+
+    "map_alt": "Google Maps location"
+  },
+  "contact_page": {
+    "title": "Contact Us",
+    "subtitle": "Have questions about our tiles, delivery, or returns? Feel free to reach out — we are always happy to help.",
+    "details_title": "Contact Details",
+
+    "email_label": "Email",
+    "email_value": "info@dimora.shop",
+
+    "phone_label": "Phone",
+    "phone_value": "+1 234 567 89",
+
+    "address_label": "Address",
+    "address_value": "Example Street 12, Amsterdam, Netherlands",
+
+    "hours_label": "Working Hours",
+    "hours_week": "Mon–Fri: 9:00 – 18:00",
+    "hours_sat": "Sat: 10:00 – 16:00",
+
+    "map_alt": "Google Maps location"
   },
 
   "contact_form": {
