@@ -15,9 +15,9 @@ export function HeaderCartButton({
     <>
       <CartSidebar
         trigger={
-          <Button
+          <div
             onClick={onClick}
-            className="flex cursor-pointer items-center gap-2 h-[50px] px-6 bg-[#212C34] text-white hover:bg-[#2c3942]"
+            className="flex cursor-pointer rounded-lg items-center gap-2 h-[50px] px-6 bg-[#212C34] text-white hover:bg-[#2c3942]"
           >
             <div className="relative">
               <StoreIcon />
@@ -28,7 +28,7 @@ export function HeaderCartButton({
               </div>
             </div>
             <span>Cart</span>
-          </Button>
+          </div>
         }
       />
     </>
