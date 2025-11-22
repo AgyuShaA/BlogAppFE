@@ -36,12 +36,12 @@
         {
           "key": "delivery",
           "label": "Delivery & Returns",
-          "href": "/delivery"
+          "href": "/delivery-and-returns"
         },
         {
           "key": "privacy",
           "label": "Privacy Policy",
-          "href": "/privacy-policy"
+          "href": "/privacy"
         },
         { "key": "contact", "label": "Contact", "href": "/contact" }
       ]
@@ -138,6 +138,21 @@
     "wood": "Wood"
   },
   "names": {
+    "contact": "Contact Us",
+    "delivery-and-returns": "Delivery and returns",
+    "privacy": "Privacy Policy",
+    "viewTiles": "View tiles →",
+    "home": "Home",
+    "catalog": "Catalog",
+    "panel": "Panel",
+    "tiles": "Tiles",
+    "collections": "Collections",
+    "shine-glossy": "Shine & Glossy",
+    "classic-marbles": "Classic Marbles",
+    "stones-mixes": "Stones & Mixes",
+    "urban-style": "Urban Style",
+    "wood-tiles": "Wood Tiles",
+
     "title": "Catalog",
     "addToCart": "Add to cart",
     "removeFromCart": "Remove from cart",
@@ -311,7 +326,6 @@
     "hilton-grey": "Hilton Grey",
     "hilton-brown": "Hilton Brown",
     "sonata-pearl": "Sonata Pearl",
-    "marmolino-silverSonata Pearl": "Sonata Pearl",
     "sicilia-white": "Sicilia White",
     "alcora-gold": "Alcora Gold",
     "alcora-grey": "Alcora Grey",
@@ -378,20 +392,6 @@
     "next": "Next",
     "showing": "Showing {start}–{end} of {total} results"
   },
-  "breadcrumbs": {
-    "viewTiles": "View tiles →",
-    "home": "Home",
-    "catalog": "Catalog",
-    "panel": "Panel",
-    "tiles": "Tiles",
-    "collections": "Collections",
-
-    "shine-glossy": "Shine & Glossy",
-    "classic-marbles": "Classic Marbles",
-    "stones-mixes": "Stones & Mixes",
-    "urban-style": "Urban Style",
-    "wood-tiles": "Wood Tiles"
-  },
 
   "filters": {
     "newest": "From Newest to Oldest",
@@ -411,5 +411,202 @@
     "successMsg": "Messages sent successfully!",
     "errorMsg": "Failed to send messages. Please try again.",
     "shopping_cart": "Shopping Cart"
+  },
+
+  "privacy": {
+    "title": "Privacy Policy",
+    "intro": "Probow Store (hereinafter \"company\" or \"we\") respects your privacy and is committed to protect it through compliance with this privacy policy (hereinafter \"Privacy Policy\"). In this Privacy Policy, we will inform you about how we process your personal data. We commit ourselves to be transparent with you by providing clear information about what personal data we process, the purpose of the processing, the retention period of the personal data, the legal basis for processing, and other information required under applicable law.",
+
+    "section1": {
+      "title": "1. What personal data do we process and why?",
+      "subtitle": "The categories of personal data that we process about you, the purposes and legal basis for the processing are the following:",
+
+      "publicRelations": {
+        "title": "1.1 Public relations",
+        "categoriesTitle": "Categories of personal data:",
+        "categories": [
+          "Name",
+          "Surname",
+          "Company (media)",
+          "E-mail",
+          "Phone",
+          "Address",
+          "Company name (legal person)",
+          "VAT registration number",
+          "Bank account"
+        ],
+        "legalBasis": "Legal basis for the processing: We process personal data based on your consent or our legitimate interest in maintaining public relations.",
+        "text1": "We process your personal data for the purpose of distributing relevant information to the general public or specific groups. If you would like to receive corporate news from our company, we will collect certain information about you.",
+        "text2": "We use the collected data to send you corporate news (e.g., press releases), event invitations, and to communicate via email, phone, social media (Messenger, Viber, WhatsApp, etc.) or other channels (e.g., Skype) where necessary.",
+        "obtainInfoTitle": "We obtain information when:",
+        "obtainInfo": [
+          "You express your wish to receive company news (via email or at events)",
+          "You communicate with our Marketing/Public Relations team",
+          "We use public sources (e.g., media contact lists)"
+        ],
+        "retentionTitle": "Retention: Your data will be stored:",
+        "retention": [
+          "Until you unsubscribe or request deletion",
+          "Until we find the contact is no longer valid",
+          "Or for 5 years from collection"
+        ],
+        "disclosureTitle": "Disclosure: We may share data with:",
+        "disclosure": [
+          "Public Relations agencies",
+          "IT maintenance service providers"
+        ]
+      },
+
+      "agreements": {
+        "title": "1.2 Agreements with natural persons, including received/issued invoices",
+
+        "naturalPersons": {
+          "title": "1.2.1 Agreements with natural persons",
+          "categoriesTitle": "Categories of personal data:",
+          "categories": [
+            "Name",
+            "Surname",
+            "Bank account",
+            "Date of birth or personal ID number",
+            "VAT registration number (if registered as VAT payer)",
+            "Commercial register number",
+            "Address",
+            "Contacts (email, phone)"
+          ],
+          "legalBasisTitle": "Legal basis:",
+          "legalBasis": [
+            "Contractual necessity",
+            "Legal obligation",
+            "Legitimate interest (e.g., legal protection)"
+          ],
+          "purposesTitle": "Purposes:",
+          "purposes": [
+            "Contract creation and management",
+            "Payment processing",
+            "Tax compliance",
+            "Debt recovery and legal claims"
+          ],
+          "mandatoryTitle": "Mandatory data:",
+          "mandatory": [
+            "Name, surname, birth date/ID",
+            "VAT number",
+            "Address",
+            "Register number",
+            "Contacts"
+          ],
+          "retentionTitle": "Retention:",
+          "retention": [
+            "7 years from the end of the financial year in which the agreement expired",
+            "Or 7 years from the end of the warranty period",
+            "Or 1 year after final legal decision (if involved in legal claims)"
+          ],
+          "disclosureTitle": "Disclosure:",
+          "disclosure": [
+            "Banks, tax authorities, auditors",
+            "Legal/financial advisers",
+            "Debt collection agencies",
+            "IT service providers"
+          ]
+        },
+
+        "invoices": {
+          "title": "1.2.2 Invoices to/from natural persons",
+          "categoriesTitle": "Categories of personal data:",
+          "categories": [
+            "Name",
+            "Surname",
+            "Bank account",
+            "VAT registration number (if registered as VAT payer)",
+            "Commercial register number",
+            "Address",
+            "Contacts (email, phone)"
+          ],
+          "legalBasisTitle": "Legal basis:",
+          "legalBasis": [
+            "Legal obligation",
+            "Legitimate interest (e.g., debt recovery)"
+          ],
+          "purposesTitle": "Purposes:",
+          "purposes": [
+            "Proper invoice handling",
+            "Compliance with tax reporting",
+            "Legal claims and debt collection"
+          ],
+          "mandatoryTitle": "Mandatory data for invoicing:",
+          "mandatory": [
+            "Name, surname",
+            "VAT number",
+            "Address",
+            "Register number"
+          ],
+          "retentionTitle": "Retention:",
+          "retention": [
+            "7 years from end of the financial year in which invoice was issued/received"
+          ],
+          "disclosureTitle": "Disclosure:",
+          "disclosure": [
+            "Banks, tax authorities, auditors",
+            "Legal/financial advisers",
+            "Debt collection agencies",
+            "IT service providers"
+          ]
+        }
+      }
+    },
+
+    "section2": {
+      "title": "2. To whom do we disclose personal data?",
+      "text": "We disclose your personal data to:",
+      "companiesTitle": "a) Companies we work with",
+      "companies": [
+        "Service providers",
+        "Group companies offering support, maintenance, or administration"
+      ],
+      "governmentTitle": "b) State and local government institutions",
+      "government": [
+        "When requested by authorities",
+        "When necessary to assert or defend legal claims"
+      ]
+    },
+
+    "section3": {
+      "title": "3. Protection of personal data",
+      "text": "We apply technical and organizational security measures to protect your data. It is stored on secure systems with limited access only to authorized personnel."
+    },
+
+    "section4": {
+      "title": "4. Your rights",
+      "intro": "You have the following rights:",
+      "rights": [
+        "Right to access: You can request confirmation whether we process your data and get access to it.",
+        "Right to rectification: You can request correction of inaccurate data.",
+        "Right to erasure: In certain circumstances, you can request deletion of your data. Exceptions apply.",
+        "Right to data portability: You can receive or transfer your data in a structured format when based on consent or contract.",
+        "Right to restriction: You can ask us to pause processing while storage continues.",
+        "Right to object: You may object to processing based on legitimate interest.",
+        "Right to object to marketing: You may object to direct marketing.",
+        "Right to withdraw consent anytime."
+      ],
+      "finalText1": "To exercise your rights, submit a written request to us.",
+      "finalText2": "You may also contact the Estonian Data Protection Authority if you believe we have violated applicable laws."
+    },
+
+    "section5": {
+      "title": "5. Changes to our privacy policy",
+      "text": "We keep this Privacy Policy under regular review. This version was created on 16th September, 2025."
+    }
+  },
+  "returns": {
+    "title": "Returns Policy",
+
+    "p1": "If you wish to return any goods to us, they must be returned in a re-saleable condition, in their full original carton/box, and the range must still be for sale on our website.",
+    "p2": "If you receive damaged or incorrect tiles, you must inform us within 2 working days from delivery. Please provide clear images while the items are still on the pallet. We will endeavour to send replacements or issue a refund where applicable.",
+    "p3": "There will be a restocking charge of 10% of the value of the returned goods. The customer is responsible for organising the return of the goods to our distribution warehouse within 30 days of the delivery date.",
+    "p4": "Refunds will be processed within 3–5 working days following receipt of re-saleable items. We recommend placing the tiles back onto the pallet they were delivered on and securing them tightly to avoid movement during transit.",
+    "p5": "We also advise taking photographs before wrapping and after wrapping, in case damage is caused during the return transit. Due to batching variations, returns can only be accepted within 30 days of delivery. Please note that original delivery costs are non-refundable.",
+    "p6": "We require clear images of each damaged tile, or images showing multiple damaged tiles. If the provided images do not clearly illustrate the claimed damages, we may request additional evidence or, in some cases, refuse to provide replacements or refunds until adequate information is supplied.",
+    "p7": "Once the goods arrive at our warehouse, please email us with proof of delivery, including the date, time, and a signature. This will help speed up the processing of your return.",
+    "p8": "All returned goods will be inspected. Since many of our tiles are sold individually, the refund amount will be calculated based on the condition and quantity of the returned tiles.",
+    "p9": "Refunds are only processed once the goods have arrived at our warehouse and have undergone full inspection."
   }
 }

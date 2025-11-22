@@ -13,7 +13,7 @@ interface IProps {
 
 export const Breadcrumbs = ({ className }: IProps) => {
   const pathname = usePathname();
-  const t = useTranslations("breadcrumbs");
+  const t = useTranslations("names");
 
   const segments = pathname
     .split("/")

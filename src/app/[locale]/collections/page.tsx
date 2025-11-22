@@ -8,13 +8,10 @@ export async function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-interface Props {
-  params: Promise<{ locale: string }>;
-}
+export const dynamic = "force-static";
 
-export default async function CollectionsPage({ params }: Props) {
-  const { locale } = await params;
 
+export default async function CollectionsPage() {
   const t = await getTranslations("breadcrumbs");
 
   return (
@@ -26,7 +23,7 @@ export default async function CollectionsPage({ params }: Props) {
         {COLLECTIONS.map((item: CollectionItem, idx) => (
           <Link
             key={idx}
-            href={`/${locale}/collections/${item.slug}`}
+            href={`/collections/${item.slug}`}
             className="border rounded-lg p-6 shadow-sm hover:shadow-md transition group"
           >
             <h2 className="text-xl font-semibold group-hover:text-[#AE2526]">

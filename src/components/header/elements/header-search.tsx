@@ -20,6 +20,7 @@ import Image from "next/image";
 export function SearchDialog() {
   const router = useRouter();
   const tiles = useTileStore((s) => s.tiles);
+
   const t = useTranslations("names");
   const [open, setOpen] = useState(false);
 

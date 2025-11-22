@@ -117,7 +117,7 @@ export const TileList = () => {
         </h1>
         <div className="flex items-center justify-between w-full flex-col md:flex-row gap-4">
           <div className="flex items-center justify-start text-[#888888]">
-            <h2>
+            <h2 className="w-fit">
               {tp("showing", { start, end, total: filteredTiles.length })}
             </h2>
           </div>

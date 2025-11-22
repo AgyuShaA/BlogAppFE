@@ -7,7 +7,9 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export const revalidate = 600;
+export const dynamic = "force-static";
+
+export const revalidate = false;
 
 export default async function CatalogPage() {
   return (

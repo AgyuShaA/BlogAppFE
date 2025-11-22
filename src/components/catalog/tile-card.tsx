@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useCartStore } from "@/store/useCartStore";
 import { useTranslations } from "next-intl";
 import { Tile } from "@/types/types";
+import { useRouter } from "@/i18n/navigation";
 
 interface TileCardProps {
   tile: Tile;
@@ -13,13 +14,15 @@ interface TileCardProps {
 export const TileCard = ({ tile }: TileCardProps) => {
   const { addToCart, removeFromCart, isInCart } = useCartStore();
   const tn = useTranslations("names");
+  const router = useRouter();
 
   const inCart = isInCart(tile.id);
 
   return (
     <div
       key={tile.id}
-      className="flex flex-col border p-4 max-h-[500px] md:w-[230px] lg:w-[283px] w-[255px] border-gray-300 rounded shadow-sm"
+      onClick={() => router.push(`/catalog/${tile.name}`)}
+      className="flex cursor-pointer flex-col border p-4 max-h-[500px] md:w-[230px] lg:w-[283px] w-[255px] border-gray-300 rounded shadow-sm"
     >
       {/* Tile Image fills width */}
       {tile.imageUrl && (
@@ -74,7 +77,14 @@ export const TileCard = ({ tile }: TileCardProps) => {
 
       {/* Action Buttons */}
       <button
-        onClick={() => (inCart ? removeFromCart(tile.id) : addToCart(tile.id))}
+        onClick={(e) => {
+          e.stopPropagation();
+          if (inCart) {
+            removeFromCart(tile.id);
+          } else {
+            addToCart(tile.id);
+          }
+        }}
         className="flex hover:bg-gray-900/70 cursor-pointer mt-2 items-center justify-center mb-2 w-[99%] h-[42px] bg-gray-900 text-white rounded text-sm font-medium self-center"
       >
         {inCart ? (

@@ -5,9 +5,28 @@ import { prisma } from "@/lib/prisma-client";
 import { TileCard } from "@/components/catalog/tile-card";
 import { Breadcrumbs } from "@/components/bread-scrums/bread-scrums";
 
+import { unstable_cache } from "next/cache";
+
 interface IProps {
   params: Promise<{ locale: string; slug: string }>;
 }
+
+export const dynamic = "force-static";
+
+const getTiles = (dbName: string) =>
+  unstable_cache(
+    async () => {
+      return prisma.tile.findMany({
+        where: { collection: { name: dbName } },
+        include: {
+          sizes: { include: { size: true } },
+          colors: { include: { color: true } },
+        },
+      });
+    },
+    [`tiles-${dbName}`],
+    { revalidate: false }
+  )();
 
 export async function generateStaticParams() {
   return routing.locales.flatMap((locale) =>
@@ -21,32 +40,13 @@ export async function generateStaticParams() {
 export default async function Page({ params }: IProps) {
   const { slug } = await params;
 
-  // Find collection data
   const collection = COLLECTIONS.find((c) => c.slug === slug);
 
   if (!collection) {
     return <div>Not found</div>;
   }
 
-  const tiles = await prisma.tile.findMany({
-    where: {
-      collection: {
-        name: collection.dbName,
-      },
-    },
-    include: {
-      sizes: {
-        include: {
-          size: true,
-        },
-      },
-      colors: {
-        include: {
-          color: true,
-        },
-      },
-    },
-  });
+  const tiles = await getTiles(collection.dbName);
 
   return (
     <div className="flex flex-col items-center  w-full px-[5%] md:px-[2%]">

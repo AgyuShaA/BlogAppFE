@@ -38,6 +38,24 @@
     "contactUs": "Neem contact op"
   },
   "names": {
+    "contact": "Contact",
+
+    "delivery-and-returns": "Levering en retouren",
+    "privacy": "Privacybeleid",
+    "viewTiles": "Bekijk tegels →",
+    "home": "Startpagina",
+
+    "catalog": "Catalogus",
+    "panel": "Paneel",
+    "tiles": "Tegels",
+    "collections": "Collecties",
+
+    "shine-glossy": "Glans & Glossy",
+    "classic-marbles": "Klassieke Marmer",
+    "stones-mixes": "Stenen & Mixen",
+    "urban-style": "Urban Stijl",
+    "wood-tiles": "Hout Tegels",
+
     "title": "Catalogus",
     "addToCart": "Toevoegen aan winkelwagen",
     "removeFromCart": "Verwijderen uit winkelwagen",
@@ -277,20 +295,7 @@
     "next": "Volgende",
     "showing": "Resultaat {start}–{end} van de {total} resultaten wordt getoond"
   },
-  "breadcrumbs": {
-    "viewTiles": "Bekijk tegels →",
-    "home": "Home",
-    "catalog": "Catalogus",
-    "panel": "Paneel",
-    "tiles": "Tegels",
-    "collections": "Collecties",
 
-    "shine-glossy": "Glans & Glossy",
-    "classic-marbles": "Klassieke Marmer",
-    "stones-mixes": "Stenen & Mixen",
-    "urban-style": "Urban Stijl",
-    "wood-tiles": "Hout Tegels"
-  },
   "secondSection": {
     "title": "Onze collecties",
     "catalog": "Onze catalogus",
@@ -363,12 +368,12 @@
         {
           "key": "delivery",
           "label": "Levering & Retourneren",
-          "href": "/delivery"
+          "href": "/delivery-and-returns"
         },
         {
           "key": "privacy",
           "label": "Privacybeleid",
-          "href": "/privacy-policy"
+          "href": "/privacy"
         },
         { "key": "contact", "label": "Contact", "href": "/contact" }
       ]
@@ -409,5 +414,200 @@
   "nav": {
     "ceramic": "Keramiek",
     "wood": "Hout"
+  },
+
+  "privacy": {
+    "title": "Privacybeleid",
+    "intro": "Probow Store (hierna \"het bedrijf\" of \"wij\") respecteert uw privacy en zet zich in om deze te beschermen in overeenstemming met dit privacybeleid (hierna \"Privacybeleid\"). In dit Privacybeleid informeren wij u over hoe wij uw persoonsgegevens verwerken. Wij streven ernaar transparant te zijn door duidelijke informatie te verstrekken over welke persoonsgegevens wij verwerken, voor welke doeleinden, de bewaartermijnen, de rechtsgrondslag en alle andere informatie die vereist is volgens de toepasselijke wetgeving.",
+
+    "section1": {
+      "title": "1. Welke persoonsgegevens verwerken wij en waarom?",
+      "subtitle": "De categorieën persoonsgegevens die wij over u verwerken, samen met de doeleinden en de rechtsgrondslag, zijn als volgt:",
+
+      "publicRelations": {
+        "title": "1.1 Public relations",
+        "categoriesTitle": "Categorieën persoonsgegevens:",
+        "categories": [
+          "Naam",
+          "Achternaam",
+          "Bedrijf (media)",
+          "E-mailadres",
+          "Telefoonnummer",
+          "Adres",
+          "Bedrijfsnaam (rechtspersoon)",
+          "Btw-registratienummer",
+          "Bankrekeningnummer"
+        ],
+        "legalBasis": "Rechtsgrondslag voor verwerking: Wij verwerken persoonsgegevens op basis van uw toestemming of op basis van ons gerechtvaardigd belang om public relations te onderhouden.",
+        "text1": "Wij verwerken uw persoonsgegevens voor het verspreiden van relevante informatie aan het algemene publiek of specifieke groepen. Als u bedrijfsnieuws wenst te ontvangen, verzamelen wij bepaalde informatie over u.",
+        "text2": "De verzamelde gegevens worden gebruikt om u bedrijfsnieuws (bijvoorbeeld persberichten), uitnodigingen voor evenementen en noodzakelijke communicatie via e-mail, telefoon, sociale media (Messenger, Viber, WhatsApp, etc.) of andere kanalen (bijv. Skype) te sturen.",
+        "obtainInfoTitle": "Wij verkrijgen informatie wanneer:",
+        "obtainInfo": [
+          "U aangeeft dat u bedrijfsnieuws wilt ontvangen (via e-mail of op evenementen)",
+          "U communiceert met onze Marketing/Public Relations afdeling",
+          "Wij openbare bronnen gebruiken (bijv. mediacontactlijsten)"
+        ],
+        "retentionTitle": "Bewaartermijn: Uw gegevens worden bewaard:",
+        "retention": [
+          "Totdat u zich afmeldt of verwijdering aanvraagt",
+          "Totdat wij vaststellen dat het contact niet meer geldig is",
+          "Of gedurende 5 jaar vanaf het moment van verzameling"
+        ],
+        "disclosureTitle": "Openbaarmaking: Wij kunnen gegevens delen met:",
+        "disclosure": ["PR-bureaus", "IT-onderhoudsproviders"]
+      },
+
+      "agreements": {
+        "title": "1.2 Overeenkomsten met natuurlijke personen, inclusief ontvangen/verstuurde facturen",
+
+        "naturalPersons": {
+          "title": "1.2.1 Overeenkomsten met natuurlijke personen",
+          "categoriesTitle": "Categorieën persoonsgegevens:",
+          "categories": [
+            "Naam",
+            "Achternaam",
+            "Bankrekeningnummer",
+            "Geboortedatum of persoonlijk identificatienummer",
+            "Btw-registratienummer (indien btw-plichtig)",
+            "Handelsregisternummer",
+            "Adres",
+            "Contactgegevens (e-mail, telefoon)"
+          ],
+          "legalBasisTitle": "Rechtsgrondslag:",
+          "legalBasis": [
+            "Noodzaak voor uitvoering van een contract",
+            "Wettelijke verplichting",
+            "Gerechtvaardigd belang (bijv. juridische bescherming)"
+          ],
+          "purposesTitle": "Doeleinden:",
+          "purposes": [
+            "Opstellen en beheren van contracten",
+            "Betalingsverwerking",
+            "Fiscale naleving",
+            "Invordering en juridische claims"
+          ],
+          "mandatoryTitle": "Verplichte gegevens:",
+          "mandatory": [
+            "Naam, achternaam, geboortedatum/ID",
+            "Btw-nummer",
+            "Adres",
+            "Registratienummer",
+            "Contactgegevens"
+          ],
+          "retentionTitle": "Bewaartermijn:",
+          "retention": [
+            "7 jaar vanaf het einde van het boekjaar waarin de overeenkomst is beëindigd",
+            "Of 7 jaar vanaf het einde van de garantieperiode",
+            "Of 1 jaar na de definitieve juridische beslissing (indien betrokken bij gerechtelijke claims)"
+          ],
+          "disclosureTitle": "Openbaarmaking:",
+          "disclosure": [
+            "Banken, belastingautoriteiten, auditors",
+            "Juridische/financiële adviseurs",
+            "Incassobureaus",
+            "IT-dienstverleners"
+          ]
+        },
+
+        "invoices": {
+          "title": "1.2.2 Facturen naar/van natuurlijke personen",
+          "categoriesTitle": "Categorieën persoonsgegevens:",
+          "categories": [
+            "Naam",
+            "Achternaam",
+            "Bankrekeningnummer",
+            "Btw-registratienummer (indien btw-plichtig)",
+            "Handelsregisternummer",
+            "Adres",
+            "Contactgegevens (e-mail, telefoon)"
+          ],
+          "legalBasisTitle": "Rechtsgrondslag:",
+          "legalBasis": [
+            "Wettelijke verplichting",
+            "Gerechtvaardigd belang (bijv. schuldinvordering)"
+          ],
+          "purposesTitle": "Doeleinden:",
+          "purposes": [
+            "Correcte afhandeling van facturen",
+            "Naleving van fiscale rapportage",
+            "Juridische claims en schuldinvordering"
+          ],
+          "mandatoryTitle": "Verplichte gegevens voor facturatie:",
+          "mandatory": [
+            "Naam, achternaam",
+            "Btw-nummer",
+            "Adres",
+            "Registratienummer"
+          ],
+          "retentionTitle": "Bewaartermijn:",
+          "retention": [
+            "7 jaar vanaf het einde van het boekjaar waarin de factuur is verzonden of ontvangen"
+          ],
+          "disclosureTitle": "Openbaarmaking:",
+          "disclosure": [
+            "Banken, belastingautoriteiten, auditors",
+            "Juridische/financiële adviseurs",
+            "Incassobureaus",
+            "IT-dienstverleners"
+          ]
+        }
+      }
+    },
+
+    "section2": {
+      "title": "2. Aan wie verstrekken wij persoonsgegevens?",
+      "text": "Wij verstrekken uw persoonsgegevens aan:",
+      "companiesTitle": "a) Bedrijven met wie wij samenwerken",
+      "companies": [
+        "Dienstverleners",
+        "Groepsbedrijven die ondersteuning, onderhoud of administratie bieden"
+      ],
+      "governmentTitle": "b) Overheidsinstanties",
+      "government": [
+        "Wanneer gegevens worden opgevraagd door autoriteiten",
+        "Wanneer dit nodig is om juridische claims te ondersteunen of te verdedigen"
+      ]
+    },
+
+    "section3": {
+      "title": "3. Bescherming van persoonsgegevens",
+      "text": "Wij passen technische en organisatorische beveiligingsmaatregelen toe om uw gegevens te beschermen. Uw gegevens worden opgeslagen op beveiligde systemen met beperkte toegang voor geautoriseerd personeel."
+    },
+
+    "section4": {
+      "title": "4. Uw rechten",
+      "intro": "U heeft de volgende rechten:",
+      "rights": [
+        "Recht op inzage: U kunt bevestiging vragen of wij uw gegevens verwerken en toegang krijgen tot uw gegevens.",
+        "Recht op rectificatie: U kunt verzoeken om onjuiste gegevens te corrigeren.",
+        "Recht op verwijdering: U kunt in bepaalde gevallen verzoeken om verwijdering van uw gegevens. Uitzonderingen kunnen van toepassing zijn.",
+        "Recht op overdraagbaarheid: U kunt uw gegevens ontvangen of laten overdragen wanneer verwerking is gebaseerd op toestemming of contract.",
+        "Recht op beperking: U kunt verzoeken om verwerking tijdelijk stop te zetten terwijl opslag blijft doorgaan.",
+        "Recht op bezwaar: U kunt bezwaar maken tegen verwerking op basis van gerechtvaardigd belang.",
+        "Recht op bezwaar tegen marketing: U kunt bezwaar maken tegen direct marketing.",
+        "Recht om toestemming in te trekken: U kunt uw toestemming op elk moment intrekken."
+      ],
+      "finalText1": "Om uw rechten uit te oefenen, dient u een schriftelijk verzoek bij ons in te dienen.",
+      "finalText2": "U kunt ook contact opnemen met de Autoriteit Persoonsgegevens als u van mening bent dat wij de wet hebben overtreden."
+    },
+
+    "section5": {
+      "title": "5. Wijzigingen in ons privacybeleid",
+      "text": "Wij houden dit Privacybeleid regelmatig bij. Deze versie is opgesteld op 16 september 2025."
+    }
+  },
+
+  "returns": {
+    "title": "Retourbeleid",
+
+    "p1": "Als u goederen aan ons wilt retourneren, moeten deze in een verkoopbare staat worden geretourneerd, in de volledige originele doos/verpakking, en de tegelserie moet nog steeds op onze website verkrijgbaar zijn.",
+    "p2": "Als u beschadigde of verkeerde tegels ontvangt, moet u ons binnen 2 werkdagen na levering informeren. Gelieve duidelijke foto's te verstrekken terwijl de artikelen nog op de pallet staan. Wij zullen proberen vervangingen te sturen of een terugbetaling te verwerken indien van toepassing.",
+    "p3": "Er wordt een herbevoorradingskosten van 10% van de waarde van de geretourneerde goederen in rekening gebracht. De klant is verantwoordelijk voor het organiseren van de retourzending naar ons distributiemagazijn binnen 30 dagen na de leveringsdatum.",
+    "p4": "Terugbetalingen worden binnen 3–5 werkdagen verwerkt nadat de verkoopbare artikelen zijn ontvangen. Wij raden aan de tegels terug op de pallet te plaatsen waarop ze zijn geleverd en ze stevig vast te zetten om beweging tijdens transport te voorkomen.",
+    "p5": "Wij raden ook aan om foto’s te maken vóór en na het inpakken, voor het geval er schade ontstaat tijdens de retourzending. Vanwege batchverschillen kunnen retourzendingen alleen binnen 30 dagen na levering worden geaccepteerd. Houd er rekening mee dat de oorspronkelijke verzendkosten niet worden terugbetaald.",
+    "p6": "Wij hebben duidelijke foto’s nodig van elke beschadigde tegel, of foto's die meerdere beschadigde tegels tegelijk tonen. Als de verstrekte beelden de schadehoeveelheid niet duidelijk aantonen, kunnen wij om aanvullende informatie vragen of in sommige gevallen vervanging of terugbetaling weigeren totdat de juiste informatie is verstrekt.",
+    "p7": "Zodra de goederen in ons magazijn zijn aangekomen, stuur ons dan een e-mail met het afleverbewijs, inclusief de datum, tijd en handtekening. Dit helpt ons om uw retour sneller te verwerken.",
+    "p8": "Alle geretourneerde goederen worden geïnspecteerd. Omdat veel van onze tegels per stuk worden verkocht, wordt het terugbetalingsbedrag berekend op basis van de staat en hoeveelheid van de geretourneerde tegels.",
+    "p9": "Terugbetalingen worden pas verwerkt nadat de goederen in ons magazijn zijn aangekomen en volledig zijn geïnspecteerd."
   }
 }

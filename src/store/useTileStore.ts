@@ -28,7 +28,7 @@ export const useTileStore = create<TileState>((set) => ({
     set({ loading: true, error: null });
 
     try {
-      const res = await fetch("/api/tiles", { cache: "force-cache" });
+      const res = await fetch("/api/mock", { cache: "no-store" });
 
       if (!res.ok) throw new Error("Failed to fetch catalog data");
       const data: Tile[] = await res.json();

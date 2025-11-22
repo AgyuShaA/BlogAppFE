@@ -1,7 +1,7 @@
-import CreatePostForm from "@/components/catalog/form";
+// import CreatePostForm from "@/components/catalog/form";
 import TileFilters from "@/components/catalog/tile-filters";
 import { routing } from "@/i18n/routing";
-import { prisma } from "@/lib/prisma-client";
+// import { prisma } from "@/lib/prisma-client";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -10,22 +10,22 @@ export function generateStaticParams() {
 export const revalidate = 600;
 
 export default async function catalogPage() {
-  const [collections, surfaces, sizes, features, color, outdoorIndoor] =
-    await Promise.all([
-      prisma.collection.findMany({ orderBy: { name: "asc" } }),
-      prisma.surface.findMany({ orderBy: { name: "asc" } }),
-      prisma.size.findMany({ orderBy: { name: "asc" } }),
-      prisma.feature.findMany({ orderBy: { name: "asc" } }),
-      prisma.color.findMany({ orderBy: { name: "asc" } }),
-      prisma.outdoorIndoor.findMany({ orderBy: { name: "asc" } }),
-    ]);
+  // const [collections, surfaces, sizes, features, color, outdoorIndoor] =
+  //   await Promise.all([
+  //     prisma.collection.findMany({ orderBy: { name: "asc" } }),
+  //     prisma.surface.findMany({ orderBy: { name: "asc" } }),
+  //     prisma.size.findMany({ orderBy: { name: "asc" } }),
+  //     prisma.feature.findMany({ orderBy: { name: "asc" } }),
+  //     prisma.color.findMany({ orderBy: { name: "asc" } }),
+  //     prisma.outdoorIndoor.findMany({ orderBy: { name: "asc" } }),
+  //   ]);
 
   return (
     <div className="relative flex flex-row ">
       <div className="hidden md:block">
         <TileFilters />
       </div>
-
+      {/* 
       <CreatePostForm
         outdoorIndoor={outdoorIndoor}
         colors={color}
@@ -33,7 +33,7 @@ export default async function catalogPage() {
         surfaces={surfaces}
         sizes={sizes}
         features={features}
-      />
+      /> */}
     </div>
   );
 }
