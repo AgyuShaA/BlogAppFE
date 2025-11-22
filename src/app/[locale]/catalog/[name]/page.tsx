@@ -10,19 +10,6 @@ interface PageProps {
   params: Promise<{ name: string }>;
 }
 
-export async function generateStaticParams() {
-  const tiles = await prisma.tile.findMany({
-    select: { name: true },
-  });
-
-  return routing.locales.flatMap((locale) =>
-    tiles.map((t) => ({
-      locale,
-      name: t.name,
-    }))
-  );
-}
-
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
