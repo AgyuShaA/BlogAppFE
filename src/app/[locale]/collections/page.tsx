@@ -10,9 +10,8 @@ export async function generateStaticParams() {
 
 export const dynamic = "force-static";
 
-
 export default async function CollectionsPage() {
-  const t = await getTranslations("breadcrumbs");
+  const t = await getTranslations("names");
 
   return (
     <div className="flex flex-col mx-auto items-center max-w-[1280px] px-[5%] md:px-[2%]  w-full min-h-[75vh]">
