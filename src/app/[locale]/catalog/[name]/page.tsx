@@ -4,9 +4,23 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import TileDetails from "@/components/tile-details/tile-details";
 import { Tile } from "@/types/types";
+import { routing } from "@/i18n/routing";
 
 interface PageProps {
   params: Promise<{ name: string }>;
+}
+
+export async function generateStaticParams() {
+  const tiles = await prisma.tile.findMany({
+    select: { name: true },
+  });
+
+  return routing.locales.flatMap((locale) =>
+    tiles.map((t) => ({
+      locale,
+      name: t.name,
+    }))
+  );
 }
 
 export async function generateMetadata({

@@ -28,7 +28,7 @@
     "dotenv": "^17.2.3",
     "emailjs-com": "^3.2.0",
     "framer-motion": "^12.9.1",
-    "lucide-react": "^0.503.0",
+    "lucide-react": "^0.554.0",
     "next": "^15.3.0",
     "next-intl": "^4.4.0",
     "pg": "^8.16.3",

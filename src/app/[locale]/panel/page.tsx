@@ -1,7 +1,6 @@
 import CreatePostForm from "@/components/catalog/form";
 import TileFilters from "@/components/catalog/tile-filters";
 import { routing } from "@/i18n/routing";
-
 import { prisma } from "@/lib/prisma-client";
 
 export function generateStaticParams() {
@@ -24,14 +23,7 @@ export default async function catalogPage() {
   return (
     <div className="relative flex flex-row ">
       <div className="hidden md:block">
-        <TileFilters
-          outdoorIndoor={outdoorIndoor}
-          colors={color}
-          collections={collections}
-          surfaces={surfaces}
-          sizes={sizes}
-          features={features}
-        />
+        <TileFilters />
       </div>
 
       <CreatePostForm
