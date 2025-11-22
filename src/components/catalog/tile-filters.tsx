@@ -4,25 +4,7 @@ import { useTileStore } from "@/store/useTileStore";
 import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 
-interface TileFiltersProps {
-  outdoorIndoor: { id: number; name: string }[];
-  collections: { id: number; name: string }[];
-  surfaces: { id: number; name: string }[];
-  sizes: { id: number; name: string }[];
-  features: { id: number; name: string }[];
-  colors: { id: number; name: string; hex: string }[];
-}
-
-export default function TileFilters({
-  collections,
-  surfaces,
-  sizes,
-  features,
-  colors,
-  outdoorIndoor,
-}: TileFiltersProps) {
-  const tiles = useTileStore((s) => s.tiles);
-
+export default function TileFilters() {
   const t = useTranslations("options");
 
   const setCollectionsList = useFilterStore((s) => s.setCollectionsList);
@@ -32,20 +14,38 @@ export default function TileFilters({
   const setColorsList = useFilterStore((s) => s.setColorsList);
   const setOutdoorIndoorList = useFilterStore((s) => s.setOutdoorIndoorList);
 
+  const tiles = useTileStore((s) => s.tiles);
+
+  const collections = useFilterStore((s) => s.collectionsList);
+  const sizes = useFilterStore((s) => s.sizesList);
+  const surfaces = useFilterStore((s) => s.surfacesList);
+  const features = useFilterStore((s) => s.featuresList);
+  const colors = useFilterStore((s) => s.colorsList);
+  const outdoorIndoor = useFilterStore((s) => s.outdoorIndoorList);
+
   useEffect(() => {
-    setCollectionsList(collections);
-    setSizesList(sizes);
-    setSurfacesList(surfaces);
-    setFeaturesList(features);
-    setColorsList(colors);
-    setOutdoorIndoorList(outdoorIndoor);
+    async function loadFilters() {
+      try {
+        const res = await fetch("/api/catalog", {
+          cache: "force-cache",
+        });
+        const data = await res.json();
+
+        setCollectionsList(data.collections);
+        setSizesList(data.sizes);
+        setSurfacesList(data.surfaces);
+        setFeaturesList(data.features);
+        setColorsList(data.colors);
+        setOutdoorIndoorList(data.outdoorIndoor);
+
+        useTileStore.getState().setTiles(data.tiles);
+      } catch (err) {
+        console.error("Failed to load filters:", err);
+      }
+    }
+
+    loadFilters();
   }, [
-    collections,
-    sizes,
-    surfaces,
-    features,
-    colors,
-    outdoorIndoor,
     setCollectionsList,
     setSizesList,
     setSurfacesList,
@@ -196,7 +196,7 @@ export default function TileFilters({
   );
 
   return (
-    <div className="space-y-6 w-full md:w-80 pl-5 font-sans text-[16px] text-[#282828]">
+    <div className="space-y-6 mt-8 md:mt-0 w-full md:w-75  font-sans text-[16px] text-[#282828]">
       <div className="pb-2 border-b">
         <h3 className="font-semibold mb-2">{t("collections")}</h3>
 

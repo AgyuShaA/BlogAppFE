@@ -5,11 +5,14 @@ import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { ChevronRight } from "lucide-react";
 
-export const Breadcrumbs = () => {
+interface IProps {
+  className?: string;
+}
+
+export const Breadcrumbs = ({ className }: IProps) => {
   const pathname = usePathname();
   const t = useTranslations("breadcrumbs");
 
-  // Split path and filter out locale prefixes (like /en or /nl)
   const segments = pathname
     .split("/")
     .filter(Boolean)
@@ -23,7 +26,7 @@ export const Breadcrumbs = () => {
   return (
     <nav
       aria-label="Breadcrumb"
-      className="flex items-center gap-[2%] pl-5 text-gray-500 text-[16px] leading-[26px] font-dm-sans py-5 w-full"
+      className={`flex items-center gap-[2%]  text-gray-500 text-[16px] leading-[26px] font-dm-sans py-5 w-full ${className}`}
     >
       {/* Home */}
       <Link

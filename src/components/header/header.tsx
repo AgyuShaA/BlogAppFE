@@ -1,247 +1,68 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
-
-import { ArrowDownIcon } from "@/assets/icons/arrow-down";
-import { SearchIcon } from "@/assets/icons/search";
-import { StoreIcon } from "@/assets/icons/store";
-import useWindowSize from "@/hooks/UseWindowsSize";
-
-import { LogoIconWithText } from "../../../public/header/logo";
-import { useCartStore } from "@/store/useCartStore";
 import { CartSidebar } from "../sidebar/sidebar";
 
-import { routing } from "@/i18n/routing";
+import { useCartStore } from "@/store/useCartStore";
+import useWindowSize from "@/hooks/UseWindowsSize";
+import { useEffect, useState } from "react";
+import { HeaderLanguageSelector } from "./elements/header-language-selector";
+import { HeaderCartButton } from "./elements/header-cart-button";
+import { HeaderNavigation } from "./elements/header-navigation";
+import { HeaderLogo } from "./elements/header-logo";
+import { SearchDialog } from "./elements/header-search";
+import { MobileMenu } from "./elements/mobile-menu";
+import { SearchIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { Link, usePathname, useRouter } from "@/i18n/navigation";
-import { createPortal } from "react-dom";
 import { useTileStore } from "@/store/useTileStore";
-import { useContactModalStore } from "@/store/useContactStore";
 
-interface HeaderProps {
-  locale: string;
-}
-
-const Header: React.FC<HeaderProps> = ({ locale }: HeaderProps) => {
+export default function Header({ locale }: { locale: string }) {
   const { isMobile } = useWindowSize();
   const { items } = useCartStore();
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const router = useRouter();
-  const [open, setOpen] = useState(false);
-  const pathname = usePathname();
-  const containerRef = useRef<HTMLDivElement>(null);
-  const buttonRef = useRef<HTMLButtonElement>(null);
-  const { toggle } = useContactModalStore();
-  const fetchCatalog = useTileStore((state) => state.fetchCatalog);
-
-  const [dropdownPos, setDropdownPos] = useState<{ top: number; left: number }>(
-    {
-      top: 0,
-      left: 0,
-    }
-  );
-
-  useEffect(() => {
-    fetchCatalog();
-  }, [fetchCatalog]);
-
-  useEffect(() => {
-    if (open && containerRef.current) {
-      const rect = containerRef.current.getBoundingClientRect();
-      setDropdownPos({
-        top: rect.bottom + window.scrollY + 10,
-        left: rect.left + window.scrollX - 65, // container's left minus 20px
-      });
-    } else {
-      setDropdownPos({ top: 0, left: 0 });
-    }
-  }, [open]);
-
   const t = useTranslations("header");
+  const { fetchCatalog } = useTileStore();
 
-  const handleLocaleChange = (loc: "en" | "nl") => {
-    router.replace(pathname, { locale: loc });
-  };
+  useEffect(() => {
+    const fetch = () => {
+      fetchCatalog();
+    };
 
-  const dropdownRef = useRef<HTMLUListElement>(null);
-
+    fetch();
+  }, []);
   return (
-    <header className=" mx-auto sticky max-w-[1280px]  top-0 h-[172px] flex flex-col gap-5 ">
-      <div className="relative flex items-center justify-between gap-2 h-[74px] px-[5%] md:px-[2%]">
-        {/* Logo */}
-        <div className="flex items-center h-[50px]">
-          <Link href={"/"}>
-            <LogoIconWithText
-              width={isMobile ? 160 : 189}
-              height={isMobile ? 50 : 50}
-            />
-          </Link>
-        </div>
+    <header className="mx-auto sticky top-0 max-w-[1280px] h-[172px] flex flex-col gap-5">
+      <div className="flex items-center justify-between h-[74px] px-[5%] md:px-[2%]">
+        <HeaderLogo isMobile={isMobile} />
 
-        {/* Search */}
-        <div className="relative w-full hidden md:block max-w-[60%] h-[50px]">
+        <SearchDialog />
+
+        <HeaderLanguageSelector locale={locale} />
+
+        <HeaderCartButton
+          itemsCount={items.length}
+          onClick={() => setIsCartOpen(true)}
+        />
+      </div>
+
+      <div className="w-full md:hidden flex items-center gap-4  pb-2 px-[5%] md:px-[2%">
+        <MobileMenu locale={locale} />
+
+        <div className="relative flex-1">
           <input
             type="text"
             placeholder={t("searchPlaceholder")}
-            className="w-full h-full pl-4 pr-12 rounded-[4px] bg-[#F3F3F3] outline-none text-gray-700"
+            className="w-full h-[40px] px-3 rounded-[4px] bg-[#F3F3F3] outline-none text-gray-700"
           />
-          <div className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500">
+
+          <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">
             <SearchIcon />
           </div>
         </div>
-        <div className="relative  flex-col gap-4 md:items-end hidden md:flex">
-          <button
-            onClick={() => setOpen(!open)}
-            className="text-small relative inline-flex h-10 cursor-pointer items-center gap-2 rounded-md border-2 border-gray-400 bg-transparent px-4 font-normal text-grey outline-none"
-          >
-            <span className="max-w-full truncate text-black">
-              {t(`languages.${locale}`)}
-            </span>
-            <span className="ml-2 transition-transform duration-200 text-gray-400">
-              {open ? "▲" : "▼"}
-            </span>
-          </button>
-
-          <ul
-            ref={dropdownRef}
-            className={`absolute top-full z-10 w-36 origin-bottom border-1 border-gray-300 transform rounded-md bg-white shadow-lg transition-all duration-300 ease-out ${
-              open
-                ? "translate-y-1 opacity-100"
-                : "pointer-events-none -translate-2-2 opacity-0"
-            }`}
-          >
-            {routing.locales.map((loc, idx) => (
-              <div key={idx}>
-                <button
-                  className="block  py-2 text-black hover:bg-gray-200 w-full"
-                  onClick={() => {
-                    handleLocaleChange(loc);
-                    setOpen(false);
-                  }}
-                >
-                  {t(`languages.${loc}`)}
-                </button>
-              </div>
-            ))}
-          </ul>
-        </div>
-        {/* Cart */}
-        <button
-          onClick={() => setIsCartOpen(true)}
-          className="flex cursor-pointer items-center gap-2 h-[40px] md:h-[50px] px-6 bg-[#212C34] text-white rounded"
-        >
-          <div className="relative">
-            <StoreIcon />
-            <div className="absolute -top-1 -right-1 w-4 h-4 bg-red-600 rounded-full flex items-center justify-center text-[12px] font-light">
-              <span className="translate-y-[1px]">{items.length}</span>
-            </div>
-          </div>
-          <span>{t("cart")}</span>
-        </button>
-      </div>
-      {/* Mobile Search and Language Selector */}
-      <div className="w-full  md:hidden flex flex-row  ">
-        <div className="relative w-full  md:hidden  flex items-center justify-center">
-          <input
-            type="text"
-            placeholder="Search our collections"
-            className="w-[90%] truncate   h-[40px] pl-4 pr-10 rounded-[4px] bg-[#F3F3F3] outline-none text-gray-700"
-          />
-          <div className="absolute right-5  top-1/2 -translate-y-1/2 text-gray-500">
-            <SearchIcon />
-          </div>
-        </div>
-
-        <div
-          ref={containerRef}
-          className="relative pr-4 items-center justify-center flex-col gap-4 md:items-end flex md:hidden z-[9999]"
-        >
-          <button
-            onClick={() => setOpen(!open)}
-            className="text-small relative bg-[#212C34]  h-10 cursor-pointer items-center gap-2 rounded-md  px-4 font-normal  outline-none"
-          >
-            <span className="max-w-full truncate text-white">
-              {t(`languages.short.${locale}`)}
-            </span>
-            <span className="ml-2 transition-transform duration-200 text-white">
-              {open ? "▲" : "▼"}
-            </span>
-          </button>
-
-          {open &&
-            dropdownPos.top !== 0 &&
-            dropdownPos.left !== 0 &&
-            createPortal(
-              <ul
-                style={{
-                  top: dropdownPos.top,
-                  left: dropdownPos.left,
-                }}
-                ref={dropdownRef}
-                className="fixed md:hidden right-4 top-34 z-[9999] w-36 border border-gray-300 rounded-md bg-white shadow-lg"
-              >
-                {routing.locales.map((loc, idx) => (
-                  <li key={idx}>
-                    <button
-                      ref={buttonRef}
-                      className="block py-2 w-full text-black hover:bg-gray-200"
-                      onClick={() => {
-                        handleLocaleChange(loc);
-                        setOpen(false);
-                      }}
-                    >
-                      {t(`languages.${loc}`)}
-                    </button>
-                  </li>
-                ))}
-              </ul>,
-              document.body
-            )}
-        </div>
       </div>
 
-      {/* Navigation */}
-      <nav className=" justify-between h-[54px] hidden md:flex px-[5%] md:px-[2%] ">
-        {["ceramic", "wood"].map((item, idx) => (
-          <div
-            key={idx}
-            className="relative w-[130px] h-[54px] flex items-center justify-center "
-          >
-            <span className="text-[16px] w-full text-gray-300 font-normal">
-              {t(`nav.${item}`)}
-            </span>
-
-            <ArrowDownIcon />
-          </div>
-        ))}
-
-        {["catalog", "about"].map((item, idx) => (
-          <div
-            key={idx}
-            className="relative w-[130px] h-[54px] flex items-center justify-center"
-          >
-            <Link
-              href={idx === 0 ? "/catalog" : "/about"}
-              className="text-[16px] w-full text-[#282828] font-normal"
-            >
-              {t(`nav.${item}`)}
-            </Link>
-          </div>
-        ))}
-
-        <div className="relative  h-[38px]">
-          <button
-            onClick={toggle}
-            className="cursor-pointer px-2 h-[38px] left-0 top-0 border-2 border-red-600 rounded-[4px] flex items-center justify-center text-red-600 text-[16px]"
-          >
-            {t("contactUs")}
-          </button>
-        </div>
-      </nav>
+      <HeaderNavigation />
 
       <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </header>
   );
-};
-
-export default Header;
+}

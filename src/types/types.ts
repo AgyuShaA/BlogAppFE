@@ -32,3 +32,44 @@ export type UpdateTile = {
 };
 
 export type SortOption = "newest" | "oldest" | "a-z" | "z-a" | null;
+
+export type CollectionSlug =
+  | "shine-glossy"
+  | "classic-marbles"
+  | "stones-mixes"
+  | "urban-style"
+  | "wood-tiles";
+
+export interface CollectionItem {
+  label: string;
+  slug: CollectionSlug;
+  dbName: string; // <-- name in the DB
+}
+
+export const COLLECTIONS: CollectionItem[] = [
+  {
+    label: "Shine & Glossy",
+    slug: "shine-glossy",
+    dbName: "shine_g-glossy",
+  },
+  {
+    label: "Classic Marbles",
+    slug: "classic-marbles",
+    dbName: "classic_marbles",
+  },
+  {
+    label: "Stones & Mixes",
+    slug: "stones-mixes",
+    dbName: "stones_g-mixes",
+  },
+  {
+    label: "Urban Style",
+    slug: "urban-style",
+    dbName: "urban_style",
+  },
+  {
+    label: "Wood Tiles",
+    slug: "wood-tiles",
+    dbName: "wood_selection",
+  },
+] as const;

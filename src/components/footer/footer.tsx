@@ -12,11 +12,14 @@ const dmSans = DM_Sans({
 });
 
 const Footer = async () => {
-  // ✅ You must await getTranslations()
   const t = await getTranslations("footer");
 
-  // ✅ Use t.raw() to access arrays or objects directly
-  const collections = t.raw("collections.items") as string[];
+  const collections = t.raw("collections.items") as {
+    key: string;
+    label: string;
+    href: string;
+  }[];
+
   const information = t.raw("information.items") as {
     key: string;
     label: string;
@@ -25,16 +28,16 @@ const Footer = async () => {
 
   return (
     <footer
-      className={`${dmSans.className} relative  text-white pt-16 pb-8 px-5 md:px-16`}
+      className={`${dmSans.className} relative bg-[#212C35] text-white  pt-16 pb-8 px-5 md:px-16`}
     >
-      <div className="absolute inset-0 -left-1/2 -z-10 w-[200vw] bg-gradient-to-b from-[#212C35] via-[#212C35] to-[#212C35]" />
+      <div className="absolute inset-0 -left-1/2 -z-10 w-[200vw] bg-gradient-to-b! from-[#212C35]! via-[#212C35]! to-[#212C35]!" />
 
       {/* Top Section */}
       <div className="flex flex-col justify-between items-center gap-8 md:gap-16 mb-12">
         {/* Logo & Title */}
         <div className="flex flex-col md:flex-row md:justify-between justify-start w-full items-start sm:justify-center sm:items-start gap-8 sm:gap-4 border-b border-[#AE2526] pb-4">
           <FooterIcon />
-          <h2 className="text-2xl hidden lg:block md:text-3xl font-bold uppercase">
+          <h2 className="text-2xl text-white hidden lg:block md:text-3xl font-bold uppercase">
             {t("slogan")}
           </h2>
 
@@ -67,8 +70,15 @@ const Footer = async () => {
           <div className="w-1/2 sm:w-auto">
             <h3 className="font-thin text-xl mb-4">{t("collections.title")}</h3>
             <ul className="space-y-2 text-sm">
-              {collections.map((item, i) => (
-                <li key={i}>{item}</li>
+              {collections.map((item) => (
+                <li key={item.label}>
+                  <Link
+                    href={item.href}
+                    className=" transition-colors duration-150"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
               ))}
             </ul>
           </div>
@@ -81,7 +91,7 @@ const Footer = async () => {
                 <li key={item.key}>
                   <Link
                     href={item.href}
-                    className="hover:text-gray-900 transition-colors duration-150"
+                    className=" transition-colors duration-150"
                   >
                     {item.label}
                   </Link>
