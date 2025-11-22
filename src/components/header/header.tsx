@@ -34,7 +34,7 @@ export default function Header({ locale }: { locale: string }) {
       <div className="flex items-center justify-between h-[74px] px-[5%] md:px-[2%]">
         <HeaderLogo isMobile={isMobile} />
 
-        <SearchDialog />
+        <SearchDialog className="md:max-w-[50%] lg:max-w-[60%] " />
 
         <HeaderLanguageSelector locale={locale} />
 
@@ -47,17 +47,7 @@ export default function Header({ locale }: { locale: string }) {
       <div className="w-full md:hidden flex items-center gap-4  pb-2 px-[5%] md:px-[2%">
         <MobileMenu locale={locale} />
 
-        <div className="relative flex-1">
-          <input
-            type="text"
-            placeholder={t("searchPlaceholder")}
-            className="w-full h-[40px] px-3 rounded-[4px] bg-[#F3F3F3] outline-none text-gray-700"
-          />
-
-          <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">
-            <SearchIcon />
-          </div>
-        </div>
+        <SearchDialog className="flex! " />
       </div>
 
       <HeaderNavigation />

@@ -17,7 +17,10 @@ import { COLLECTIONS } from "@/types/types";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 
-export function SearchDialog() {
+interface IProps {
+  className?: string;
+}
+export function SearchDialog({ className }: IProps) {
   const router = useRouter();
   const tiles = useTileStore((s) => s.tiles);
 
@@ -34,7 +37,7 @@ export function SearchDialog() {
       {/* Button that opens search */}
       <button
         onClick={() => setOpen(true)}
-        className="hidden md:flex items-center justify-start w-full max-w-[60%] h-[50px] px-4 rounded-md bg-[#F3F3F3] text-gray-700"
+        className={`md:flex items-center hidden justify-start w-full  h-[50px] px-4 rounded-md bg-[#F3F3F3] text-gray-700 ${className}`}
       >
         Search...
       </button>
