@@ -44,24 +44,24 @@ const Footer = async () => {
 
           {/* Social Icons */}
           <div className="flex items-center h-full justify-center gap-4">
-            <a
-              href="#"
+            <Link
+              href="/"
               className="w-10 h-10 flex items-center justify-center bg-white rounded-full text-[#282828]"
             >
               <InstagramIcon />
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              href="/"
               className="w-10 h-10 flex items-center justify-center bg-white rounded-full text-[#282828]"
             >
               <FacebookIcon />
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              href="/"
               className="w-10 h-10 flex items-center justify-center bg-white rounded-full text-[#282828]"
             >
               <PinterestIcon />
-            </a>
+            </Link>
           </div>
         </div>
 
