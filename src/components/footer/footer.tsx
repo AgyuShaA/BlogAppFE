@@ -66,69 +66,76 @@ const Footer = async () => {
         </div>
 
         {/* Columns */}
-        <div className="flex flex-wrap justify-between items-center gap-y-8 w-full md:px-[5%] px-[2%]">
-          {/* Collections */}
-          <div className="w-1/2 sm:w-auto">
-            <h3 className="font-thin text-xl mb-4">{t("collections.title")}</h3>
-            <ul className="space-y-2 text-sm">
-              {collections.map((item) => (
-                <li key={item.label}>
-                  <Link
-                    href={item.href}
-                    className=" transition-colors duration-150"
-                  >
-                    {item.label}
-                  </Link>
+        <div className="w-full flex flex-col lg:flex-row gap-[5rem]">
+          <div className="w-full lg:w-1/2 text-left gap-10 flex items-start md:justify-between  justify-start flex-row">
+            {/* Collections */}
+            <div className="w-1/2 sm:w-auto">
+              <h3 className="font-thin text-xl mb-4">
+                {t("collections.title")}
+              </h3>
+              <ul className="space-y-2 text-sm">
+                {collections.map((item) => (
+                  <li key={item.label}>
+                    <Link
+                      href={item.href}
+                      className=" transition-colors duration-150"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Information */}
+            <div className="w-1/2 sm:w-auto">
+              <h3 className="font-thin text-xl mb-4">
+                {t("information.title")}
+              </h3>
+              <ul className="space-y-2 text-sm ">
+                {information.map((item) => (
+                  <li key={item.key}>
+                    <Link
+                      href={item.href}
+                      className=" transition-colors duration-150"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <div className="w-full lg:w-1/2 text-left gap-10 flex items-start md:justify-between    justify-start flex-col md:flex-row">
+            {/* Contacts */}
+            <div className="">
+              <h3 className="font-thin text-xl mb-4">{t("contacts.title")}</h3>
+              <ul className="space-y-2 text-sm flex-col flex">
+                <li className="flex flex-col mb-4">
+                  <span>{t("contacts.phone")}</span>
+                  <span>{t("contacts.number")}</span>
                 </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Information */}
-          <div className="w-1/2 sm:w-auto">
-            <h3 className="font-thin text-xl mb-4">{t("information.title")}</h3>
-            <ul className="space-y-2 text-sm ">
-              {information.map((item) => (
-                <li key={item.key}>
-                  <Link
-                    href={item.href}
-                    className=" transition-colors duration-150"
-                  >
-                    {item.label}
-                  </Link>
+                <li className="flex flex-col">
+                  <span>{t("contacts.email")}</span>
+                  <span>{t("contacts.emailAddress")}</span>
                 </li>
-              ))}
-            </ul>
-          </div>
+              </ul>
+            </div>
 
-          {/* Contacts */}
-          <div className="w-1/2 sm:w-auto">
-            <h3 className="font-thin text-xl mb-4">{t("contacts.title")}</h3>
-            <ul className="space-y-4 text-sm">
-              <li className="flex flex-col mb-10">
-                <span>{t("contacts.phone")}</span>
-                <span>{t("contacts.number")}</span>
-              </li>
-              <li className="flex flex-col">
-                <span>{t("contacts.email")}</span>
-                <span>{t("contacts.emailAddress")}</span>
-              </li>
-            </ul>
-          </div>
-
-          {/* Open Hours */}
-          <div className="w-1/2 sm:w-auto">
-            <h3 className="font-thin text-xl mb-4">{t("hours.title")}</h3>
-            <ul className="space-y-4 text-sm">
-              <li className="flex flex-col mb-10">
-                <span>{t("hours.weekdays")}</span>
-                <span>{t("hours.hours")}</span>
-              </li>
-              <li className="flex flex-col">
-                <span>{t("hours.weekend")}</span>
-                <span>{t("hours.closed")}</span>
-              </li>
-            </ul>
+            {/* Open Hours */}
+            <div className="w-1/2 sm:w-auto">
+              <h3 className="font-thin text-xl mb-4">{t("hours.title")}</h3>
+              <ul className="space-y-4 text-sm">
+                <li className="flex flex-col mb-4">
+                  <span>{t("hours.weekdays")}</span>
+                  <span>{t("hours.hours")}</span>
+                </li>
+                <li className="flex flex-col">
+                  <span>{t("hours.weekend")}</span>
+                  <span>{t("hours.closed")}</span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
