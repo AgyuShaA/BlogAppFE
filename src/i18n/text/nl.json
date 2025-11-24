@@ -411,7 +411,7 @@
     "hours": {
       "title": "Openingsuren",
       "weekdays": "Maandag - Vrijdag",
-      "hours": "9:00 - 18:00",
+      "hours": "7:00 - 20:00",
       "weekend": "Zaterdag - Zondag",
       "closed": "Gesloten"
     }
