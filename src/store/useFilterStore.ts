@@ -29,7 +29,7 @@ interface FilterStore {
   selectedFeatures: number[];
   selectedColors: number[];
   selectedOutdoorIndoor: number[];
-
+  recalcFilteredTiles: (tiles: Tile[]) => void;
   filteredTiles: Tile[];
 
   // setters for full lists
@@ -179,6 +179,80 @@ export const useFilterStore = create<FilterStore>((set, get) => ({
     }).length;
   },
 
+  recalcFilteredTiles: (tiles: Tile[]) => {
+    const state = get();
+    let matches = tiles.filter((tile) => {
+      const matchCollection =
+        state.selectedCollections.length === 0 ||
+        (tile.collection?.id !== undefined &&
+          state.selectedCollections.includes(tile.collection.id));
+      const matchSize =
+        state.selectedSizes.length === 0 ||
+        tile.sizes?.some(
+          (s) =>
+            s.size.id !== undefined && state.selectedSizes.includes(s.size.id)
+        );
+      const matchSurface =
+        state.selectedSurfaces.length === 0 ||
+        tile.surfaces?.some(
+          (f) =>
+            f.surfaceId !== undefined &&
+            state.selectedSurfaces.includes(f.surfaceId)
+        );
+      const matchFeature =
+        state.selectedFeatures.length === 0 ||
+        tile.features?.some(
+          (f) =>
+            f.featureId !== undefined &&
+            state.selectedFeatures.includes(f.featureId)
+        );
+      const matchColor =
+        state.selectedColors.length === 0 ||
+        tile.colors?.some(
+          (c) =>
+            c.color.id !== undefined &&
+            state.selectedColors.includes(c.color.id)
+        );
+      const matchOutdoorIndoor =
+        state.selectedOutdoorIndoor.length === 0 ||
+        (tile.outdoorIndoor?.id !== undefined &&
+          state.selectedOutdoorIndoor.includes(tile.outdoorIndoor.id));
+      return (
+        matchCollection &&
+        matchSize &&
+        matchSurface &&
+        matchFeature &&
+        matchColor &&
+        matchOutdoorIndoor
+      );
+    });
+    if (state.sortBy) {
+      matches = matches.slice();
+      switch (state.sortBy) {
+        case "newest":
+          matches.sort((a, b) => {
+            return (
+              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+            );
+          });
+          break;
+        case "oldest":
+          matches.sort((a, b) => {
+            return (
+              new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+            );
+          });
+          break;
+        case "a-z":
+          matches.sort((a, b) => a.name.localeCompare(b.name));
+          break;
+        case "z-a":
+          matches.sort((a, b) => b.name.localeCompare(a.name));
+          break;
+      }
+    }
+    set({ filteredTiles: matches });
+  },
   sortBy: null,
   setSortBy: (sortBy) => set({ sortBy }),
   collectionsList: [],
