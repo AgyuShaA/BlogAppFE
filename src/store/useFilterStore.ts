@@ -54,11 +54,6 @@ interface FilterStore {
   resetFilters: () => void;
 }
 
-const matchAny = (selected: number[], values: number[] = []) => {
-  if (selected.length === 0) return true;
-  return values.some((v) => selected.includes(v));
-};
-
 const matchAll = (selected: number[], values: number[] = []) => {
   if (selected.length === 0) return true;
   return selected.every((sel) => values.includes(sel));
