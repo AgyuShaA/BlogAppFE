@@ -20,7 +20,7 @@ interface FilterStore {
   featuresList: Option[];
   colorsList: ColorOption[];
   outdoorIndoorList: Option[];
-  recalcFilteredTiles: (tiles: Tile[]) => void;
+
   setFilteredTiles: (tiles: Tile[]) => void;
 
   selectedCollections: number[];
@@ -48,14 +48,144 @@ interface FilterStore {
   toggleColor: (id: number, tiles: Tile[]) => void;
   toggleOutdoorIndoor: (id: number, tiles: Tile[]) => void;
 
+  getCount: (type: string, id: number, tiles: Tile[]) => number;
+
   // reset all selections
   resetFilters: () => void;
 }
 
+const matchAny = (selected: number[], values: number[] = []) => {
+  if (selected.length === 0) return true;
+  return values.some((v) => selected.includes(v));
+};
+
+const matchAll = (selected: number[], values: number[] = []) => {
+  if (selected.length === 0) return true;
+  return selected.every((sel) => values.includes(sel));
+};
+
+function filterTiles(state: FilterStore, tiles: Tile[]) {
+  return tiles.filter((tile) => {
+    const matchCollection = matchAll(state.selectedCollections, [
+      tile.collection?.id ?? -1,
+    ]);
+
+    const matchSize = matchAll(
+      state.selectedSizes,
+      tile.sizes?.map((s) => s.size.id) ?? []
+    );
+
+    const matchSurface = matchAll(
+      state.selectedSurfaces,
+      tile.surfaces?.map((s) => s.surfaceId) ?? []
+    );
+
+    const matchFeature = matchAll(
+      state.selectedFeatures,
+      tile.features?.map((f) => f.featureId) ?? []
+    );
+
+    const matchColor = matchAll(
+      state.selectedColors,
+      tile.colors?.map((c) => c.color.id) ?? []
+    );
+
+    const matchOutdoorIndoor = matchAll(state.selectedOutdoorIndoor, [
+      tile.outdoorIndoor?.id ?? -1,
+    ]);
+
+    return (
+      matchCollection &&
+      matchSize &&
+      matchSurface &&
+      matchFeature &&
+      matchColor &&
+      matchOutdoorIndoor
+    );
+  });
+}
+
 export const useFilterStore = create<FilterStore>((set, get) => ({
+  getCount: (type, id, tiles) => {
+    const state = get();
+
+    return tiles.filter((tile) => {
+      const ignore = (category: string) => category === type;
+
+      const matchCollection = ignore("collection")
+        ? true
+        : matchAll(state.selectedCollections, [tile.collection?.id ?? -1]);
+
+      const matchSize = ignore("size")
+        ? true
+        : matchAll(
+            state.selectedSizes,
+            tile.sizes?.map((s) => s.size.id) ?? []
+          );
+
+      const matchSurface = ignore("surface")
+        ? true
+        : matchAll(
+            state.selectedSurfaces,
+            tile.surfaces?.map((s) => s.surfaceId) ?? []
+          );
+
+      const matchFeature = ignore("feature")
+        ? true
+        : matchAll(
+            state.selectedFeatures,
+            tile.features?.map((f) => f.featureId) ?? []
+          );
+
+      const matchColor = ignore("color")
+        ? true
+        : matchAll(
+            state.selectedColors,
+            tile.colors?.map((c) => c.color.id) ?? []
+          );
+
+      const matchOutdoorIndoor = ignore("outdoorIndoor")
+        ? true
+        : matchAll(state.selectedOutdoorIndoor, [tile.outdoorIndoor?.id ?? -1]);
+
+      let matchesTypeId = false;
+      switch (type) {
+        case "collection":
+          matchesTypeId = tile.collection?.id === id;
+          break;
+        case "size":
+          matchesTypeId = tile.sizes?.some((s) => s.size.id === id) ?? false;
+          break;
+        case "surface":
+          matchesTypeId =
+            tile.surfaces?.some((s) => s.surfaceId === id) ?? false;
+          break;
+        case "feature":
+          matchesTypeId =
+            tile.features?.some((f) => f.featureId === id) ?? false;
+          break;
+        case "color":
+          matchesTypeId = tile.colors?.some((c) => c.color.id === id) ?? false;
+          break;
+        case "outdoorIndoor":
+          matchesTypeId = tile.outdoorIndoor?.id === id;
+          break;
+      }
+
+      return (
+        matchesTypeId &&
+        matchCollection &&
+        matchSize &&
+        matchSurface &&
+        matchFeature &&
+        matchColor &&
+        matchOutdoorIndoor
+      );
+    }).length;
+  },
+
   sortBy: null,
   setSortBy: (sortBy) => set({ sortBy }),
-
   collectionsList: [],
   sizesList: [],
   surfacesList: [],
@@ -83,153 +213,83 @@ export const useFilterStore = create<FilterStore>((set, get) => ({
   setOutdoorIndoorList: (list) => set({ outdoorIndoorList: list }),
   setFilteredTiles: (tiles: Tile[]) => set({ filteredTiles: tiles }),
 
-  toggleCollection: (id, tiles) => {
+  toggleCollection: (id, tiles) =>
     set((state) => {
       const selected = state.selectedCollections.includes(id)
         ? state.selectedCollections.filter((i) => i !== id)
         : [...state.selectedCollections, id];
-      return { selectedCollections: selected };
-    });
-    get().recalcFilteredTiles(tiles);
-  },
 
-  toggleSize: (id, tiles) => {
+      const newState = { ...state, selectedCollections: selected };
+      return {
+        selectedCollections: selected,
+        filteredTiles: filterTiles(newState, tiles),
+      };
+    }),
+
+  toggleSize: (id, tiles) =>
     set((state) => {
       const selected = state.selectedSizes.includes(id)
         ? state.selectedSizes.filter((i) => i !== id)
         : [...state.selectedSizes, id];
-      return { selectedSizes: selected };
-    });
-    get().recalcFilteredTiles(tiles);
-  },
 
-  toggleSurface: (id, tiles) => {
+      const newState = { ...state, selectedSizes: selected };
+      return {
+        selectedSizes: selected,
+        filteredTiles: filterTiles(newState, tiles),
+      };
+    }),
+
+  toggleSurface: (id, tiles) =>
     set((state) => {
       const selected = state.selectedSurfaces.includes(id)
         ? state.selectedSurfaces.filter((i) => i !== id)
         : [...state.selectedSurfaces, id];
-      return { selectedSurfaces: selected };
-    });
-    get().recalcFilteredTiles(tiles);
-  },
 
-  toggleFeature: (id, tiles) => {
+      const newState = { ...state, selectedSurfaces: selected };
+      return {
+        selectedSurfaces: selected,
+        filteredTiles: filterTiles(newState, tiles),
+      };
+    }),
+
+  toggleFeature: (id, tiles) =>
     set((state) => {
       const selected = state.selectedFeatures.includes(id)
         ? state.selectedFeatures.filter((i) => i !== id)
         : [...state.selectedFeatures, id];
-      return { selectedFeatures: selected };
-    });
-    get().recalcFilteredTiles(tiles);
-  },
 
-  toggleColor: (id, tiles) => {
+      const newState = { ...state, selectedFeatures: selected };
+      return {
+        selectedFeatures: selected,
+        filteredTiles: filterTiles(newState, tiles),
+      };
+    }),
+
+  toggleColor: (id, tiles) =>
     set((state) => {
       const selected = state.selectedColors.includes(id)
         ? state.selectedColors.filter((i) => i !== id)
         : [...state.selectedColors, id];
-      return { selectedColors: selected };
-    });
-    get().recalcFilteredTiles(tiles);
-  },
 
-  toggleOutdoorIndoor: (id, tiles) => {
+      const newState = { ...state, selectedColors: selected };
+      return {
+        selectedColors: selected,
+        filteredTiles: filterTiles(newState, tiles),
+      };
+    }),
+
+  toggleOutdoorIndoor: (id, tiles) =>
     set((state) => {
       const selected = state.selectedOutdoorIndoor.includes(id)
         ? state.selectedOutdoorIndoor.filter((i) => i !== id)
         : [...state.selectedOutdoorIndoor, id];
-      return { selectedOutdoorIndoor: selected };
-    });
-    get().recalcFilteredTiles(tiles);
-  },
 
-  recalcFilteredTiles: (tiles: Tile[]) => {
-    const state = get();
-    let matches = tiles.filter((tile) => {
-      const matchCollection =
-        state.selectedCollections.length === 0 ||
-        (tile.collection?.id !== undefined &&
-          state.selectedCollections.includes(tile.collection.id));
-
-      const matchSize =
-        state.selectedSizes.length === 0 ||
-        tile.sizes?.some(
-          (s) =>
-            s.size.id !== undefined && state.selectedSizes.includes(s.size.id)
-        );
-
-      const matchSurface =
-        state.selectedSurfaces.length === 0 ||
-        tile.surfaces?.some(
-          (f) =>
-            f.surfaceId !== undefined &&
-            state.selectedSurfaces.includes(f.surfaceId)
-        );
-
-      const matchFeature =
-        state.selectedFeatures.length === 0 ||
-        tile.features?.some(
-          (f) =>
-            f.featureId !== undefined &&
-            state.selectedFeatures.includes(f.featureId)
-        );
-
-      const matchColor =
-        state.selectedColors.length === 0 ||
-        tile.colors?.some(
-          (c) =>
-            c.color.id !== undefined &&
-            state.selectedColors.includes(c.color.id)
-        );
-
-      const matchOutdoorIndoor =
-        state.selectedOutdoorIndoor.length === 0 ||
-        (tile.outdoorIndoor?.id !== undefined &&
-          state.selectedOutdoorIndoor.includes(tile.outdoorIndoor.id));
-
-      return (
-        matchCollection &&
-        matchSize &&
-        matchSurface &&
-        matchFeature &&
-        matchColor &&
-        matchOutdoorIndoor
-      );
-    });
-
-    if (state.sortBy) {
-      matches = matches.slice();
-
-      switch (state.sortBy) {
-        case "newest":
-          matches.sort((a, b) => {
-            // assuming tile has a date field like createdAt or similar
-            return (
-              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-            );
-          });
-          break;
-
-        case "oldest":
-          matches.sort((a, b) => {
-            return (
-              new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-            );
-          });
-          break;
-
-        case "a-z":
-          matches.sort((a, b) => a.name.localeCompare(b.name));
-          break;
-
-        case "z-a":
-          matches.sort((a, b) => b.name.localeCompare(a.name));
-          break;
-      }
-    }
-
-    set({ filteredTiles: matches });
-  },
+      const newState = { ...state, selectedOutdoorIndoor: selected };
+      return {
+        selectedOutdoorIndoor: selected,
+        filteredTiles: filterTiles(newState, tiles),
+      };
+    }),
 
   // reset
   resetFilters: () =>

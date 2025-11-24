@@ -16,6 +16,8 @@ export default function TileFilters() {
 
   const tiles = useTileStore((s) => s.tiles);
 
+  const filteredTiles = useFilterStore((s) => s.filteredTiles);
+
   const collections = useFilterStore((s) => s.collectionsList);
   const sizes = useFilterStore((s) => s.sizesList);
   const surfaces = useFilterStore((s) => s.surfacesList);
@@ -26,9 +28,7 @@ export default function TileFilters() {
   useEffect(() => {
     async function loadFilters() {
       try {
-        const res = await fetch("/api/catalog", {
-          cache: "force-cache",
-        });
+        const res = await fetch("/api/catalog", { cache: "force-cache" });
         const data = await res.json();
 
         setCollectionsList(data.collections);
@@ -61,6 +61,7 @@ export default function TileFilters() {
   const selectedFeatures = useFilterStore((s) => s.selectedFeatures);
   const selectedColors = useFilterStore((s) => s.selectedColors);
   const selectedOutdoorIndoor = useFilterStore((s) => s.selectedOutdoorIndoor);
+  const getCount = useFilterStore((s) => s.getCount);
 
   // --- Toggle functions that recalc filtered tiles
   const toggleCollection = (id: number) => {
@@ -82,100 +83,6 @@ export default function TileFilters() {
     useFilterStore.getState().toggleOutdoorIndoor(id, tiles);
   };
 
-  const getCount = (type: string, id: number) => {
-    const state = useFilterStore.getState();
-
-    return tiles.filter((tile) => {
-      const matchCollection =
-        type === "collection"
-          ? true
-          : state.selectedCollections.length === 0 ||
-            (tile.collection?.id != null &&
-              state.selectedCollections.includes(tile.collection.id));
-
-      const matchSize =
-        type === "size"
-          ? true
-          : state.selectedSizes.length === 0 ||
-            tile.sizes?.some(
-              (s) =>
-                s.size.id != null && state.selectedSizes.includes(s.size.id)
-            );
-
-      const matchSurface =
-        type === "surface"
-          ? true
-          : state.selectedSurfaces.length === 0 ||
-            tile.surfaces?.some(
-              (s) =>
-                s.surfaceId != null &&
-                state.selectedFeatures.includes(s.surfaceId)
-            );
-
-      const matchFeature =
-        type === "feature"
-          ? true
-          : state.selectedFeatures.length === 0 ||
-            tile.features?.some(
-              (f) =>
-                f.featureId != null &&
-                state.selectedFeatures.includes(f.featureId)
-            );
-
-      const matchColor =
-        type === "color"
-          ? true
-          : state.selectedColors.length === 0 ||
-            tile.colors?.some(
-              (c) =>
-                c.color.id != null && state.selectedColors.includes(c.color.id)
-            );
-
-      const matchOutdoorIndoor =
-        type === "outdoorIndoor"
-          ? true
-          : state.selectedOutdoorIndoor.length === 0 ||
-            (tile.outdoorIndoor?.id != null &&
-              state.selectedOutdoorIndoor.includes(tile.outdoorIndoor.id));
-
-      // Now check if this tile matches the current id of the filter type
-      let matchesTypeId = false;
-      switch (type) {
-        case "collection":
-          matchesTypeId = tile.collection?.id === id;
-          break;
-        case "size":
-          matchesTypeId = tile.sizes?.some((s) => s.size.id === id) ?? false;
-          break;
-        case "surface":
-          matchesTypeId =
-            tile.surfaces?.some((s) => s.surface.id === id) ?? false;
-
-          break;
-        case "feature":
-          matchesTypeId =
-            tile.features?.some((f) => f.featureId === id) ?? false;
-          break;
-        case "color":
-          matchesTypeId = tile.colors?.some((c) => c.color.id === id) ?? false;
-          break;
-        case "outdoorIndoor":
-          matchesTypeId = tile.outdoorIndoor?.id === id;
-          break;
-      }
-
-      return (
-        matchesTypeId &&
-        matchCollection &&
-        matchSize &&
-        matchSurface &&
-        matchFeature &&
-        matchColor &&
-        matchOutdoorIndoor
-      );
-    }).length;
-  };
-
   // --- Checkbox renderer
   const renderCheckbox = (
     type: string,
@@ -190,7 +97,7 @@ export default function TileFilters() {
         onChange={() => toggle(item.id)}
       />
       <span>
-        {t(item.name)} ({getCount(type, item.id)})
+        {t(item.name)} ({getCount(type, item.id, filteredTiles)})
       </span>
     </label>
   );

@@ -58,7 +58,7 @@ export const TileList = () => {
     startIndex,
     startIndex + tilesPerPage
   );
-
+  console.log(filteredTiles);
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
       if (
