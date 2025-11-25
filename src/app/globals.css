@@ -19,6 +19,7 @@
 
 /* ===== Root Variables (Default / Dark Theme) ===== */
 :root {
+  --red: rgb(203, 32, 33);
   /* Base colors */
   --font-sans: "DM Sans", sans-serif;
 
@@ -130,6 +131,7 @@ input[type="time"]::-moz-calendar-picker-indicator {
 }
 
 @theme inline {
+  --color-red: var(--red);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);

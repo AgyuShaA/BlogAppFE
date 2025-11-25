@@ -135,7 +135,7 @@ export default function TileFilters() {
             return (
               <div
                 key={c.id}
-                className="relative w-8 h-8 rounded cursor-pointer hover:ring-2 hover:ring-red-500 border border-gray-200"
+                className="relative w-8 h-8 rounded cursor-pointer hover:ring-2 hover:ring-red border border-gray-200"
                 style={{ backgroundColor: c.hex }}
                 onClick={() => toggleColor(c.id)}
               >

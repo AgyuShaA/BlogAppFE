@@ -15,6 +15,8 @@ import { usePathname } from "next/navigation"; // <-- NEW
 
 import { MobileCategorySection } from "./mobile-category";
 import { MobileLanguageSelector } from "./mobile-language-selector";
+import Image from "next/image";
+import { LogoIconWithText } from "../../../../public/header/logo";
 
 export function MobileMenu({ locale }: { locale: string }) {
   const t = useTranslations("header");
@@ -36,7 +38,10 @@ export function MobileMenu({ locale }: { locale: string }) {
 
       <SheetContent side="left" className="w-[85%] p-6">
         <SheetHeader>
-          <SheetTitle className="text-xl">{t("navigation")}</SheetTitle>
+          <div className="flex gap-2 items-center justify-center">
+            <Image src={"/logo.png"} width={25} height={25} alt="logo icon" />
+            <SheetTitle className="text-2xl">{t("navigation")}</SheetTitle>
+          </div>
         </SheetHeader>
 
         {/* HOME */}
@@ -44,14 +49,14 @@ export function MobileMenu({ locale }: { locale: string }) {
           <Link
             href={`/`}
             className={`block text-lg ${
-              isActive("/") ? "text-red-500!" : "text-gray-800"
+              isActive("/") ? "text-red!" : "text-gray-800"
             }`}
           >
             Home
           </Link>
         </SheetClose>
 
-        <div className="mt-6 space-y-6">
+        <div className=" space-y-6">
           <MobileCategorySection
             locale={locale}
             category="Collections"
@@ -69,7 +74,7 @@ export function MobileMenu({ locale }: { locale: string }) {
             <Link
               href={`/catalog`}
               className={`block text-lg ${
-                isActive("/catalog") ? "text-red-500" : "text-gray-800"
+                isActive("/catalog") ? "text-red" : "text-gray-800"
               }`}
             >
               {t("nav.catalog")}
@@ -81,7 +86,7 @@ export function MobileMenu({ locale }: { locale: string }) {
             <Link
               href={`/about`}
               className={`block text-lg ${
-                isActive("/about") ? "text-red-500" : "text-gray-800"
+                isActive("/about") ? "text-red" : "text-gray-800"
               }`}
             >
               {t("nav.about")}
@@ -89,6 +94,9 @@ export function MobileMenu({ locale }: { locale: string }) {
           </SheetClose>
 
           <MobileLanguageSelector locale={locale} />
+        </div>
+        <div className="absolute bottom-6 left-0 w-full flex justify-center">
+          <LogoIconWithText />
         </div>
       </SheetContent>
     </Sheet>

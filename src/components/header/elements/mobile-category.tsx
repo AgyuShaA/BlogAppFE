@@ -46,7 +46,7 @@ export function MobileCategorySection({
           outline-none focus:outline-none focus-visible:outline-none
           active:bg-transparent select-none
           [tap-highlight-color:transparent]
-          ${anyActive ? "text-red-500" : "text-gray-800"}
+          ${anyActive ? "text-red" : "text-gray-800"}
         `}
       >
         <span>{t(`nav.${category}`)}</span>
@@ -63,7 +63,7 @@ export function MobileCategorySection({
             <Link
               href={`/${item.href}`}
               className={`block text-base ${
-                isActive(item.href) ? "text-red-500" : "text-gray-600"
+                isActive(item.href) ? "text-red" : "text-gray-600"
               }`}
             >
               {t(`categories.${item.label}`)}
