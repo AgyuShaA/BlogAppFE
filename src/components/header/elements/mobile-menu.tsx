@@ -10,13 +10,21 @@ import {
 } from "@/components/ui/sheet";
 import { MenuIcon } from "lucide-react";
 import { Link } from "@/i18n/navigation";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { usePathname } from "next/navigation"; // <-- NEW
 
 import { MobileCategorySection } from "./mobile-category";
 import { MobileLanguageSelector } from "./mobile-language-selector";
 
 export function MobileMenu({ locale }: { locale: string }) {
   const t = useTranslations("header");
+  const pathname = usePathname(); // <-- NEW
+  const cleanedPath = pathname.replace(`/${locale}`, "") || "/";
+
+  const isActive = (href: string) => {
+    console.log(href, cleanedPath);
+    return cleanedPath === href;
+  };
 
   return (
     <Sheet>
@@ -31,8 +39,21 @@ export function MobileMenu({ locale }: { locale: string }) {
           <SheetTitle className="text-xl">{t("navigation")}</SheetTitle>
         </SheetHeader>
 
+        {/* HOME */}
+        <SheetClose asChild>
+          <Link
+            href={`/`}
+            className={`block text-lg ${
+              isActive("/") ? "text-red-500!" : "text-gray-800"
+            }`}
+          >
+            Home
+          </Link>
+        </SheetClose>
+
         <div className="mt-6 space-y-6">
           <MobileCategorySection
+            locale={locale}
             category="Collections"
             items={[
               { label: "shineGlossy", href: "/collections/shine-glossy" },
@@ -43,13 +64,26 @@ export function MobileMenu({ locale }: { locale: string }) {
             ]}
           />
 
+          {/* CATALOG */}
           <SheetClose asChild>
-            <Link href={`/catalog`} className="block text-lg text-gray-800">
+            <Link
+              href={`/catalog`}
+              className={`block text-lg ${
+                isActive("/catalog") ? "text-red-500" : "text-gray-800"
+              }`}
+            >
               {t("nav.catalog")}
             </Link>
           </SheetClose>
+
+          {/* ABOUT */}
           <SheetClose asChild>
-            <Link href={`/about`} className="block text-lg text-gray-800">
+            <Link
+              href={`/about`}
+              className={`block text-lg ${
+                isActive("/about") ? "text-red-500" : "text-gray-800"
+              }`}
+            >
               {t("nav.about")}
             </Link>
           </SheetClose>
