@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/sheet";
 import { MenuIcon } from "lucide-react";
 import { Link } from "@/i18n/navigation";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation"; // <-- NEW
 
 import { MobileCategorySection } from "./mobile-category";
