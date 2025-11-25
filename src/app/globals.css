@@ -224,3 +224,7 @@ input[type="time"]::-moz-calendar-picker-indicator {
 .animate-slideDown {
   animation: slideDown 0.2s ease-out;
 }
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
