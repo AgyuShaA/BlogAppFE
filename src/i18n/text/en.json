@@ -14,25 +14,46 @@
     "section5": "We aim to become your reliable partner in construction, renovation, and space improvement. Regardless of the project scale — from small repairs to large-scale construction — we’ll help you find the best solutions for every stage.",
     "section6": "<strong>Pro Bouw Store</strong> is more than just a building materials store. It’s a community of professionals and clients united by a common goal: to create a high-quality, beautiful, and long-lasting future."
   },
-
   "footer": {
     "slogan": "Your professional building partner",
     "collections": {
       "title": "Collections",
       "items": [
-        { "label": "Shine & Glossy", "href": "/collections/shine-glossy" },
-        { "label": "Classic Marbles", "href": "/collections/classic-marbles" },
-        { "label": "Stones & Mixes", "href": "/collections/stones-mixes" },
-        { "label": "Urban Style", "href": "/collections/urban-style" },
-        { "label": "Wood Tiles", "href": "/collections/wood-tiles" }
+        {
+          "label": "Shine & Glossy",
+          "href": "/collections/shine-glossy"
+        },
+        {
+          "label": "Classic Marbles",
+          "href": "/collections/classic-marbles"
+        },
+        {
+          "label": "Stones & Mixes",
+          "href": "/collections/stones-mixes"
+        },
+        {
+          "label": "Urban Style",
+          "href": "/collections/urban-style"
+        },
+        {
+          "label": "Wood Tiles",
+          "href": "/collections/wood-tiles"
+        }
       ]
     },
-
     "information": {
       "title": "Information",
       "items": [
-        { "key": "about", "label": "About Us", "href": "/about" },
-        { "key": "catalog", "label": "Catalog", "href": "/catalog" },
+        {
+          "key": "about",
+          "label": "About Us",
+          "href": "/about"
+        },
+        {
+          "key": "catalog",
+          "label": "Catalog",
+          "href": "/catalog"
+        },
         {
           "key": "delivery",
           "label": "Delivery & Returns",
@@ -43,7 +64,11 @@
           "label": "Privacy Policy",
           "href": "/privacy"
         },
-        { "key": "contact", "label": "Contact", "href": "/contact" }
+        {
+          "key": "contact",
+          "label": "Contact",
+          "href": "/contact"
+        }
       ]
     },
     "contacts": {
@@ -114,7 +139,6 @@
       }
     },
     "searchPlaceholder": "Search for collections",
-
     "cart": "Cart",
     "nav": {
       "ceramic": "Ceramic",
@@ -130,15 +154,14 @@
       "urbanStyle": "Urban Style",
       "woodCollection": "Wood Collection"
     },
-
     "contactUs": "Contact us"
   },
-
   "nav": {
     "ceramic": "Ceramic",
     "wood": "Wood"
   },
   "names": {
+    "123123": "23123",
     "about": "About",
     "contact": "Contact Us",
     "delivery-and-returns": "Delivery and returns",
@@ -154,13 +177,10 @@
     "stones-mixes": "Stones & Mixes",
     "urban-style": "Urban Style",
     "wood-tiles": "Wood Tiles",
-
     "title": "Catalog",
     "addToCart": "Add to cart",
     "removeFromCart": "Remove from cart",
-
     "marmolino-silversonata-pearl": "Sonata Pearl",
-
     "itaka-cream": "Itaka Cream",
     "itaka-cherry": "Itaka Cherry",
     "itaka-black": "Itaka Black",
@@ -332,9 +352,13 @@
     "alcora-gold": "Alcora Gold",
     "alcora-grey": "Alcora Grey",
     "calacatta-gold": "Calacatta Gold",
-    "snow-white": "Snow White"
+    "snow-white": "Snow White",
+    "test": "test",
+    "aaaaaa": "aaaaa",
+    "tests": "test - en",
+    "aaaaaaa": "english",
+    "test2": "test2"
   },
-
   "options": {
     "filters": "Filters",
     "filtersTitle": "Tile Filters",
@@ -394,7 +418,6 @@
     "next": "Next",
     "showing": "Showing {start}–{end} of {total} results"
   },
-
   "filters": {
     "newest": "From Newest to Oldest",
     "oldest": "From Oldest to Newest",
@@ -406,43 +429,17 @@
     "title": "Contact Us",
     "subtitle": "Have questions about our tiles, delivery, or returns? Feel free to reach out — we are always happy to help.",
     "details_title": "Contact Details",
-
     "email_label": "Email",
     "email_value": "info@dimora.shop",
-
     "phone_label": "Phone",
     "phone_value": "+1 234 567 89",
-
     "address_label": "Address",
     "address_value": "Example Street 12, Amsterdam, Netherlands",
-
     "hours_label": "Working Hours",
     "hours_week": "Mon–Fri: 9:00 – 18:00",
     "hours_sat": "Sat: 10:00 – 16:00",
-
     "map_alt": "Google Maps location"
   },
-  "contact_page": {
-    "title": "Contact Us",
-    "subtitle": "Have questions about our tiles, delivery, or returns? Feel free to reach out — we are always happy to help.",
-    "details_title": "Contact Details",
-
-    "email_label": "Email",
-    "email_value": "info@dimora.shop",
-
-    "phone_label": "Phone",
-    "phone_value": "+1 234 567 89",
-
-    "address_label": "Address",
-    "address_value": "Example Street 12, Amsterdam, Netherlands",
-
-    "hours_label": "Working Hours",
-    "hours_week": "Mon–Fri: 9:00 – 18:00",
-    "hours_sat": "Sat: 10:00 – 16:00",
-
-    "map_alt": "Google Maps location"
-  },
-
   "contact_form": {
     "contactUs": "Contact Us",
     "name": "Name",
@@ -454,15 +451,12 @@
     "errorMsg": "Failed to send messages. Please try again.",
     "shopping_cart": "Shopping Cart"
   },
-
   "privacy": {
     "title": "Privacy Policy",
     "intro": "Probow Store (hereinafter \"company\" or \"we\") respects your privacy and is committed to protect it through compliance with this privacy policy (hereinafter \"Privacy Policy\"). In this Privacy Policy, we will inform you about how we process your personal data. We commit ourselves to be transparent with you by providing clear information about what personal data we process, the purpose of the processing, the retention period of the personal data, the legal basis for processing, and other information required under applicable law.",
-
     "section1": {
       "title": "1. What personal data do we process and why?",
       "subtitle": "The categories of personal data that we process about you, the purposes and legal basis for the processing are the following:",
-
       "publicRelations": {
         "title": "1.1 Public relations",
         "categoriesTitle": "Categories of personal data:",
@@ -498,10 +492,8 @@
           "IT maintenance service providers"
         ]
       },
-
       "agreements": {
         "title": "1.2 Agreements with natural persons, including received/issued invoices",
-
         "naturalPersons": {
           "title": "1.2.1 Agreements with natural persons",
           "categoriesTitle": "Categories of personal data:",
@@ -550,7 +542,6 @@
             "IT service providers"
           ]
         },
-
         "invoices": {
           "title": "1.2.2 Invoices to/from natural persons",
           "categoriesTitle": "Categories of personal data:",
@@ -595,7 +586,6 @@
         }
       }
     },
-
     "section2": {
       "title": "2. To whom do we disclose personal data?",
       "text": "We disclose your personal data to:",
@@ -610,12 +600,10 @@
         "When necessary to assert or defend legal claims"
       ]
     },
-
     "section3": {
       "title": "3. Protection of personal data",
       "text": "We apply technical and organizational security measures to protect your data. It is stored on secure systems with limited access only to authorized personnel."
     },
-
     "section4": {
       "title": "4. Your rights",
       "intro": "You have the following rights:",
@@ -632,7 +620,6 @@
       "finalText1": "To exercise your rights, submit a written request to us.",
       "finalText2": "You may also contact the Estonian Data Protection Authority if you believe we have violated applicable laws."
     },
-
     "section5": {
       "title": "5. Changes to our privacy policy",
       "text": "We keep this Privacy Policy under regular review. This version was created on 16th September, 2025."
@@ -640,7 +627,6 @@
   },
   "returns": {
     "title": "Returns Policy",
-
     "p1": "If you wish to return any goods to us, they must be returned in a re-saleable condition, in their full original carton/box, and the range must still be for sale on our website.",
     "p2": "If you receive damaged or incorrect tiles, you must inform us within 2 working days from delivery. Please provide clear images while the items are still on the pallet. We will endeavour to send replacements or issue a refund where applicable.",
     "p3": "There will be a restocking charge of 10% of the value of the returned goods. The customer is responsible for organising the return of the goods to our distribution warehouse within 30 days of the delivery date.",

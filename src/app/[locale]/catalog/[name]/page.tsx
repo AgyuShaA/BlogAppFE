@@ -1,35 +1,34 @@
-import { notFound } from "next/navigation";
+import TileDetails from '@/components/tile-details/tile-details'
+import { routing } from '@/i18n/routing'
+import { getTiles, getTileByName } from '@/lib/get-tiles-list'
+import { notFound } from 'next/navigation'
+import { Tile } from '@/types/types'
 
-import TileDetails from "@/components/tile-details/tile-details";
-import { Tile } from "@/types/types";
-import { routing } from "@/i18n/routing";
-import tiles from "@/app/[locale]/data/tiles.json";
-
-interface PageProps {
-  params: Promise<{ name: string }>;
+interface IProps {
+  params: Promise<{ locale: string; name: string }>
 }
-
-export const dynamic = "force-static";
 
 export async function generateStaticParams() {
-  return routing.locales.flatMap((locale) =>
-    tiles.map((t) => ({
+  const tiles = await getTiles()
+  const locales = routing.locales
+
+  return locales.flatMap((locale) =>
+    tiles.map((tile) => ({
       locale,
-      name: t.name,
-    }))
-  );
+      name: tile.name,
+    })),
+  )
 }
 
-export default async function TilePage({ params }: PageProps) {
-  const { name } = await params;
+export default async function TilePage({ params }: IProps) {
+  const { name } = await params
 
-  const tileDb = tiles.find((t) => t.name === name);
-
-  if (!tileDb) return notFound();
+  const tile = (await getTileByName(name)) as Tile
+  if (!tile) return notFound()
 
   return (
-    <div className="max-w-[1280px] mx-auto px-[2%] w-full py-8">
-      <TileDetails tile={tileDb as Tile} />
+    <div className='max-w-[1280px] mx-auto px-[2%] w-full py-8'>
+      <TileDetails tile={tile} />
     </div>
-  );
+  )
 }

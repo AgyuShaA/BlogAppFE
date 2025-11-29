@@ -17,9 +17,7 @@
       }
     },
     "searchPlaceholder": "Zoek naar collecties",
-
     "cart": "Wagen",
-
     "nav": {
       "ceramic": "Keramiek",
       "wood": "Hout",
@@ -27,7 +25,6 @@
       "about": "Over ons",
       "Collections": "Collecties"
     },
-
     "categories": {
       "shineGlossy": "Glans & Glossy",
       "classicMarbles": "Klassieke Marmer",
@@ -35,54 +32,43 @@
       "urbanStyle": "Urban Stijl",
       "woodCollection": "Houtcollectie"
     },
-
     "contactUs": "Neem contact op"
   },
   "contact_page": {
     "title": "Contact",
     "subtitle": "Heb je vragen over onze tegels, levering of retouren? Neem gerust contact met ons op — wij helpen je graag verder.",
     "details_title": "Contactgegevens",
-
     "email_label": "E-mail",
     "email_value": "info@dimora.shop",
-
     "phone_label": "Telefoon",
     "phone_value": "+1 234 567 89",
-
     "address_label": "Adres",
     "address_value": "Voorbeeldstraat 12, Amsterdam, Nederland",
-
     "hours_label": "Openingstijden",
     "hours_week": "Ma–Vr: 9:00 – 18:00",
     "hours_sat": "Za: 10:00 – 16:00",
-
     "map_alt": "Google Maps locatie"
   },
   "names": {
+    "123123": "1231",
     "about": "Over ons",
-
     "contact": "Contact",
-
     "delivery-and-returns": "Levering en retouren",
     "privacy": "Privacybeleid",
     "viewTiles": "Bekijk tegels →",
     "home": "Startpagina",
-
     "catalog": "Catalogus",
     "panel": "Paneel",
     "tiles": "Tegels",
     "collections": "Collecties",
-
     "shine-glossy": "Glans & Glossy",
     "classic-marbles": "Klassieke Marmer",
     "stones-mixes": "Stenen & Mixen",
     "urban-style": "Urban Stijl",
     "wood-tiles": "Hout Tegels",
-
     "title": "Catalogus",
     "addToCart": "Toevoegen aan winkelwagen",
     "removeFromCart": "Verwijderen uit winkelwagen",
-
     "itaka-cream": "Itaka Crème",
     "itaka-cherry": "Itaka Kers",
     "itaka-black": "Itaka Zwart",
@@ -147,7 +133,7 @@
     "calypso-navi": "Calypso Navy",
     "calypso-blue": "Calypso Blauw",
     "calypso-white": "Calypso Wit",
-    "test": "test",
+    "test": "etsetset",
     "etset": "цукцукsetset",
     "calypso-brown": "Calypso Bruin",
     "calypso-biege": "Calypso Beige",
@@ -257,7 +243,11 @@
     "alcora-gold": "Alcora Goud",
     "alcora-grey": "Alcora Grijs",
     "calacatta-gold": "Calacatta Goud",
-    "snow-white": "Sneeuwwit"
+    "snow-white": "Sneeuwwit",
+    "aaaaaa": "aaa",
+    "tests": "test - nl",
+    "aaaaaaa": "niderland",
+    "test2": "test2"
   },
   "options": {
     "filters": "Filters",
@@ -318,7 +308,6 @@
     "next": "Volgende",
     "showing": "Resultaat {start}–{end} van de {total} resultaten wordt getoond"
   },
-
   "secondSection": {
     "title": "Onze collecties",
     "catalog": "Onze catalogus",
@@ -329,7 +318,6 @@
     "woodTiles": "Houten tegels",
     "modernPatterns": "Moderne patronen"
   },
-
   "aboutSection": {
     "subtitle": "Over ons",
     "title": "De tegelwinkel voor elke kamer",
@@ -361,7 +349,6 @@
       }
     ]
   },
-
   "About": {
     "title": "Over ons",
     "section1": "Wij willen u laten kennismaken met de uitstekende kwaliteit van bouwmaterialen die in Oekraïne zijn gemaakt. <strong>Pro Bouw Store</strong> is een team van mensen die echt geloven in de kracht van de Oekraïense productie en ernaar streven deze herkenbaar en gewild te maken op de Europese markt.",
@@ -376,18 +363,41 @@
     "collections": {
       "title": "Collecties",
       "items": [
-        { "label": "Glans & Glossy", "href": "/collections/shine-glossy" },
-        { "label": "Klassieke Marmer", "href": "/collections/classic-marbles" },
-        { "label": "Stenen & Mixen", "href": "/collections/stones-mixes" },
-        { "label": "Urban Stijl", "href": "/collections/urban-style" },
-        { "label": "Hout Tegels", "href": "/collections/wood-tiles" }
+        {
+          "label": "Glans & Glossy",
+          "href": "/collections/shine-glossy"
+        },
+        {
+          "label": "Klassieke Marmer",
+          "href": "/collections/classic-marbles"
+        },
+        {
+          "label": "Stenen & Mixen",
+          "href": "/collections/stones-mixes"
+        },
+        {
+          "label": "Urban Stijl",
+          "href": "/collections/urban-style"
+        },
+        {
+          "label": "Hout Tegels",
+          "href": "/collections/wood-tiles"
+        }
       ]
     },
     "information": {
       "title": "Informatie",
       "items": [
-        { "key": "about", "label": "Over ons", "href": "/about" },
-        { "key": "catalog", "label": "Catalogus", "href": "/catalog" },
+        {
+          "key": "about",
+          "label": "Over ons",
+          "href": "/about"
+        },
+        {
+          "key": "catalog",
+          "label": "Catalogus",
+          "href": "/catalog"
+        },
         {
           "key": "delivery",
           "label": "Levering & Retourneren",
@@ -398,7 +408,11 @@
           "label": "Privacybeleid",
           "href": "/privacy"
         },
-        { "key": "contact", "label": "Contact", "href": "/contact" }
+        {
+          "key": "contact",
+          "label": "Contact",
+          "href": "/contact"
+        }
       ]
     },
     "contacts": {
@@ -438,15 +452,12 @@
     "ceramic": "Keramiek",
     "wood": "Hout"
   },
-
   "privacy": {
     "title": "Privacybeleid",
     "intro": "Probow Store (hierna \"het bedrijf\" of \"wij\") respecteert uw privacy en zet zich in om deze te beschermen in overeenstemming met dit privacybeleid (hierna \"Privacybeleid\"). In dit Privacybeleid informeren wij u over hoe wij uw persoonsgegevens verwerken. Wij streven ernaar transparant te zijn door duidelijke informatie te verstrekken over welke persoonsgegevens wij verwerken, voor welke doeleinden, de bewaartermijnen, de rechtsgrondslag en alle andere informatie die vereist is volgens de toepasselijke wetgeving.",
-
     "section1": {
       "title": "1. Welke persoonsgegevens verwerken wij en waarom?",
       "subtitle": "De categorieën persoonsgegevens die wij over u verwerken, samen met de doeleinden en de rechtsgrondslag, zijn als volgt:",
-
       "publicRelations": {
         "title": "1.1 Public relations",
         "categoriesTitle": "Categorieën persoonsgegevens:",
@@ -477,12 +488,13 @@
           "Of gedurende 5 jaar vanaf het moment van verzameling"
         ],
         "disclosureTitle": "Openbaarmaking: Wij kunnen gegevens delen met:",
-        "disclosure": ["PR-bureaus", "IT-onderhoudsproviders"]
+        "disclosure": [
+          "PR-bureaus",
+          "IT-onderhoudsproviders"
+        ]
       },
-
       "agreements": {
         "title": "1.2 Overeenkomsten met natuurlijke personen, inclusief ontvangen/verstuurde facturen",
-
         "naturalPersons": {
           "title": "1.2.1 Overeenkomsten met natuurlijke personen",
           "categoriesTitle": "Categorieën persoonsgegevens:",
@@ -531,7 +543,6 @@
             "IT-dienstverleners"
           ]
         },
-
         "invoices": {
           "title": "1.2.2 Facturen naar/van natuurlijke personen",
           "categoriesTitle": "Categorieën persoonsgegevens:",
@@ -576,7 +587,6 @@
         }
       }
     },
-
     "section2": {
       "title": "2. Aan wie verstrekken wij persoonsgegevens?",
       "text": "Wij verstrekken uw persoonsgegevens aan:",
@@ -591,12 +601,10 @@
         "Wanneer dit nodig is om juridische claims te ondersteunen of te verdedigen"
       ]
     },
-
     "section3": {
       "title": "3. Bescherming van persoonsgegevens",
       "text": "Wij passen technische en organisatorische beveiligingsmaatregelen toe om uw gegevens te beschermen. Uw gegevens worden opgeslagen op beveiligde systemen met beperkte toegang voor geautoriseerd personeel."
     },
-
     "section4": {
       "title": "4. Uw rechten",
       "intro": "U heeft de volgende rechten:",
@@ -613,16 +621,13 @@
       "finalText1": "Om uw rechten uit te oefenen, dient u een schriftelijk verzoek bij ons in te dienen.",
       "finalText2": "U kunt ook contact opnemen met de Autoriteit Persoonsgegevens als u van mening bent dat wij de wet hebben overtreden."
     },
-
     "section5": {
       "title": "5. Wijzigingen in ons privacybeleid",
       "text": "Wij houden dit Privacybeleid regelmatig bij. Deze versie is opgesteld op 16 september 2025."
     }
   },
-
   "returns": {
     "title": "Retourbeleid",
-
     "p1": "Als u goederen aan ons wilt retourneren, moeten deze in een verkoopbare staat worden geretourneerd, in de volledige originele doos/verpakking, en de tegelserie moet nog steeds op onze website verkrijgbaar zijn.",
     "p2": "Als u beschadigde of verkeerde tegels ontvangt, moet u ons binnen 2 werkdagen na levering informeren. Gelieve duidelijke foto's te verstrekken terwijl de artikelen nog op de pallet staan. Wij zullen proberen vervangingen te sturen of een terugbetaling te verwerken indien van toepassing.",
     "p3": "Er wordt een herbevoorradingskosten van 10% van de waarde van de geretourneerde goederen in rekening gebracht. De klant is verantwoordelijk voor het organiseren van de retourzending naar ons distributiemagazijn binnen 30 dagen na de leveringsdatum.",

@@ -1,62 +1,60 @@
-import { routing } from "@/i18n/routing";
-import { COLLECTIONS } from "@/types/types";
+import { routing } from '@/i18n/routing'
+import { COLLECTIONS } from '@/types/types'
 
-import { prisma } from "@/lib/prisma-client";
-import { TileCard } from "@/components/catalog/tile-card";
-import { Breadcrumbs } from "@/components/bread-scrums/bread-scrums";
+import { prisma } from '@/lib/prisma-client'
+import { TileCard } from '@/components/catalog/tile-card'
+import { Breadcrumbs } from '@/components/bread-scrums/bread-scrums'
 
-import { unstable_cache } from "next/cache";
+import { unstable_cache } from 'next/cache'
 
 interface IProps {
-  params: Promise<{ locale: string; slug: string }>;
+  params: Promise<{ locale: string; slug: string }>
 }
 
-export const dynamic = "force-static";
+export const dynamic = 'force-static'
+
+export const revalidate = 600
 
 const getTiles = (dbName: string) =>
-  unstable_cache(
-    async () => {
-      return prisma.tile.findMany({
-        where: { collection: { name: dbName } },
-        include: {
-          sizes: { include: { size: true } },
-          colors: { include: { color: true } },
-        },
-      });
-    },
-    [`tiles-${dbName}`],
-    { revalidate: false }
-  )();
+  unstable_cache(async () => {
+    return prisma.tile.findMany({
+      where: { collection: { name: dbName } },
+      include: {
+        sizes: { include: { size: true } },
+        colors: { include: { color: true } },
+      },
+    })
+  })()
 
 export async function generateStaticParams() {
   return routing.locales.flatMap((locale) =>
     COLLECTIONS.map((item) => ({
       locale,
       slug: item.slug,
-    }))
-  );
+    })),
+  )
 }
 
 export default async function Page({ params }: IProps) {
-  const { slug } = await params;
+  const { slug } = await params
 
-  const collection = COLLECTIONS.find((c) => c.slug === slug);
+  const collection = COLLECTIONS.find((c) => c.slug === slug)
 
   if (!collection) {
-    return <div>Not found</div>;
+    return <div>Not found</div>
   }
 
-  const tiles = await getTiles(collection.dbName);
+  const tiles = await getTiles(collection.dbName)
 
   return (
-    <div className="flex flex-col items-center  w-full px-[5%] md:px-[2%]">
+    <div className='flex flex-col items-center  w-full px-[5%] md:px-[2%]'>
       <Breadcrumbs />
 
-      <h1 className="text-3xl md:text-5xl mb-8">{collection.label}</h1>
+      <h1 className='text-3xl md:text-5xl mb-8'>{collection.label}</h1>
       {tiles.length === 0 ? (
         <p>No tiles found.</p>
       ) : (
-        <div className="flex mb-20 flex-wrap justify-center gap-6 w-full">
+        <div className='flex mb-20 flex-wrap justify-center gap-6 w-full'>
           {tiles.map((tile) => (
             /* eslint-disable */
             <TileCard key={tile.id} tile={tile as any} />
@@ -64,5 +62,5 @@ export default async function Page({ params }: IProps) {
         </div>
       )}
     </div>
-  );
+  )
 }

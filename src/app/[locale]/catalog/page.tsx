@@ -1,28 +1,38 @@
-import { Breadcrumbs } from "@/components/bread-scrums/bread-scrums";
-import TileFilters from "@/components/catalog/tile-filters";
-import { TileList } from "@/components/catalog/tile-list";
-import { routing } from "@/i18n/routing";
+import { Breadcrumbs } from '@/components/bread-scrums/bread-scrums'
+import TileFilters from '@/components/catalog/tile-filters'
+import { TileList } from '@/components/catalog/tile-list'
+import { routing } from '@/i18n/routing'
+import { catalogQueryOptions, tilesQueryOptions } from '@/service/queries/use-tile-query'
+import { getQueryClient } from '@/service/tanstack/get-query'
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 
-export function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale }));
+export async function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }))
 }
 
-export const dynamic = "force-static";
-
-export const revalidate = false;
+export const dynamic = 'force-static'
 
 export default async function CatalogPage() {
+  const queryClient = getQueryClient()
+
+  queryClient.prefetchQuery(catalogQueryOptions)
+  queryClient.prefetchQuery(tilesQueryOptions)
+
+  const dehydratedState = dehydrate(queryClient)
+
   return (
-    <div className="max-w-[1280px]  w-full ">
-      <Breadcrumbs className="px-[5%] md:px-[2%]" />
+    <HydrationBoundary state={dehydratedState}>
+      <div className='max-w-[1280px] w-full'>
+        <Breadcrumbs className='px-[5%] md:px-[2%]' />
 
-      <div className="relative flex md:flex-row px-[2%] flex-col">
-        <div className="hidden lg:block">
-          <TileFilters />
+        <div className='relative flex md:flex-row px-[2%] flex-col'>
+          <div className='hidden lg:block'>
+            <TileFilters />
+          </div>
+
+          <TileList />
         </div>
-
-        <TileList />
       </div>
-    </div>
-  );
+    </HydrationBoundary>
+  )
 }

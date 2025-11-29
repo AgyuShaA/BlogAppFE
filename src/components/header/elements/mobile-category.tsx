@@ -23,6 +23,11 @@ export function MobileCategorySection({
   items,
   locale,
 }: MobileCategorySectionProps) {
+
+
+
+  
+
   const [open, setOpen] = useState(false);
   const t = useTranslations("header");
   const pathname = usePathname();

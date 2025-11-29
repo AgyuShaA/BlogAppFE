@@ -1,72 +1,52 @@
-"use client";
+'use client'
 
-import { useTileStore } from "@/store/useTileStore";
-import { Tile } from "@/types/types";
-import { useState } from "react";
-import { toast } from "react-toastify";
+import { Tile } from '@/types/types'
+import { startTransition, useState } from 'react'
+import { useDeleteTileMutation } from '@/service/queries/use-tile-query'
 
 interface DeleteTileModalProps {
-  tile: Tile;
-  isOpen: boolean;
-  onClose: () => void;
+  tile: Tile | undefined
+  onClose: () => void
 }
 
-export const DeleteTileModal = ({
-  tile,
-  isOpen,
-  onClose,
-}: DeleteTileModalProps) => {
-  const [loading, setLoading] = useState(false);
-  const { deleteTile } = useTileStore();
-  if (!isOpen) return null;
+export const DeleteTileModal = ({ tile, onClose }: DeleteTileModalProps) => {
+  const [loading, setLoading] = useState(false)
+  const deleteTileMutation = useDeleteTileMutation()
+  if (!tile) return null
 
   const handleDelete = async () => {
-    setLoading(true);
+    setLoading(true)
     try {
-      const res = await fetch(`/api/tiles/?id=${tile.id}`, {
-        method: "DELETE",
-      });
-
-      if (!res.ok) throw new Error("Failed to update tile");
-
-      deleteTile(tile.id);
-      toast.success("Tile deleted");
-      onClose();
+      startTransition(() => {
+        deleteTileMutation.mutate(tile.id)
+        onClose()
+      })
     } catch (error) {
-      console.error("Failed to delete tile:", error);
+      console.error('Failed to delete tile:', error)
       // optionally show toast/error notification here
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   return (
-    <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded shadow-lg w-[350px] relative">
-        <h2 className="text-lg font-semibold mb-4">Delete Tile {tile.name}?</h2>
+    <div className=' p-6 relative'>
+      <h2 className='text-lg font-semibold mb-4'>Delete Tile {tile.name}?</h2>
 
-        <p className="mb-4 text-gray-600">
-          Are you sure you want to delete this tile? This action cannot be
-          undone.
-        </p>
+      <p className='mb-4 text-gray-600'>Are you sure you want to delete this tile? This action cannot be undone.</p>
 
-        <div className="flex justify-end gap-2">
-          <button
-            className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
-            onClick={onClose}
-            disabled={loading}
-          >
-            Cancel
-          </button>
-          <button
-            className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
-            onClick={handleDelete}
-            disabled={loading}
-          >
-            {loading ? "Deleting..." : "Delete"}
-          </button>
-        </div>
+      <div className='flex justify-end gap-2'>
+        <button className='px-4 py-2 cursor-pointer bg-gray-300 rounded hover:bg-gray-400' disabled={loading}>
+          Cancel
+        </button>
+        <button
+          className='px-4 py-2 bg-red-600 cursor-pointer text-white rounded hover:bg-red-700'
+          onClick={handleDelete}
+          disabled={loading}
+        >
+          {loading ? 'Deleting...' : 'Delete'}
+        </button>
       </div>
     </div>
-  );
-};
+  )
+}

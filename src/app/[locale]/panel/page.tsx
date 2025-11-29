@@ -1,39 +1,25 @@
-// import CreatePostForm from "@/components/catalog/form";
-import TileFilters from "@/components/catalog/tile-filters";
-import { routing } from "@/i18n/routing";
-// import { prisma } from "@/lib/prisma-client";
+import TileFilters from '@/components/catalog/tile-filters'
+import { TileList } from '@/components/catalog/tile-list'
+import TileListPage from '@/components/catalog/viwer'
+import { routing } from '@/i18n/routing'
 
-export function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale }));
+export async function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }))
 }
 
-export const revalidate = 600;
-
 export default async function catalogPage() {
-  // const [collections, surfaces, sizes, features, color, outdoorIndoor] =
-  //   await Promise.all([
-  //     prisma.collection.findMany({ orderBy: { name: "asc" } }),
-  //     prisma.surface.findMany({ orderBy: { name: "asc" } }),
-  //     prisma.size.findMany({ orderBy: { name: "asc" } }),
-  //     prisma.feature.findMany({ orderBy: { name: "asc" } }),
-  //     prisma.color.findMany({ orderBy: { name: "asc" } }),
-  //     prisma.outdoorIndoor.findMany({ orderBy: { name: "asc" } }),
-  //   ]);
-
   return (
-    <div className="relative flex flex-row ">
-      <div className="hidden md:block">
-        <TileFilters />
+    <div className=' w-screen max-w-7xl flex flex-col items-center justify-center '>
+      <div className='relative '>
+        <TileListPage />
       </div>
-      {/* 
-      <CreatePostForm
-        outdoorIndoor={outdoorIndoor}
-        colors={color}
-        collections={collections}
-        surfaces={surfaces}
-        sizes={sizes}
-        features={features}
-      /> */}
+
+      <div className='relative flex flex-row pt-20'>
+        <TileFilters />
+        <h2 className='text-lg font-semibold mb-2'>Tiles</h2>
+
+        <TileList />
+      </div>
     </div>
-  );
+  )
 }
