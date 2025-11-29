@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import TileModals from './admin-modals'
 
 import {
@@ -18,13 +18,30 @@ import { useQuery } from '@tanstack/react-query'
 import { catalogQueryOptions, tilesQueryOptions } from '@/service/queries/use-tile-query'
 import Image from 'next/image'
 import Loader from '@/app/[locale]/loading'
+import { useFilterStore } from '@/store/useFilterStore'
 
 const ITEMS_PER_PAGE = 30
 
 const TileListPage = () => {
   const { data: tiles = [], isLoading } = useQuery(tilesQueryOptions)
   const { data } = useQuery(catalogQueryOptions)
-  console.log(data)
+
+  const setCollectionsList = useFilterStore((s) => s.setCollectionsList)
+  const setSizesList = useFilterStore((s) => s.setSizesList)
+  const setSurfacesList = useFilterStore((s) => s.setSurfacesList)
+  const setFeaturesList = useFilterStore((s) => s.setFeaturesList)
+  const setColorsList = useFilterStore((s) => s.setColorsList)
+  const setOutdoorIndoorList = useFilterStore((s) => s.setOutdoorIndoorList)
+
+  useEffect(() => {
+    setCollectionsList(data?.collections || [])
+    setSizesList(data?.sizes || [])
+    setSurfacesList(data?.surfaces || [])
+    setFeaturesList(data?.features || [])
+    setColorsList(data?.colors || [])
+    setOutdoorIndoorList(data?.outdoorIndoor || [])
+  }, [setCollectionsList, setSizesList, setSurfacesList, setFeaturesList, setColorsList, setOutdoorIndoorList, data])
+
   const tn = useTranslations('names')
   const to = useTranslations('options')
 

@@ -11,7 +11,7 @@ import { toast } from 'react-toastify'
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select'
 import { useTranslations } from 'next-intl'
 import { Button } from '../ui/button'
-import { updateTileApi } from '../apis/apis'
+
 import { getTileTranslations } from '../catalog/some'
 import { useUpdateTileMutation } from '@/service/queries/use-tile-query'
 
