@@ -4,8 +4,9 @@ export type ColorTileOption = {
   color: { id: number; name: string; hex: string }
 }
 
+export type CatalogEntity = 'collections' | 'surfaces' | 'sizes' | 'features' | 'colors' | 'outdoorIndoor'
+
 export interface CatalogResponse {
-  tiles: Tile[]
   collections: Option[]
   surfaces: Option[]
   sizes: Option[]

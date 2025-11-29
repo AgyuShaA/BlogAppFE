@@ -247,14 +247,15 @@
     "aaaaaa": "aaa",
     "tests": "test - nl",
     "aaaaaaa": "niderland",
-    "test2": "test2"
+    "test2": "test2",
+    "classic_marbles": "Klassieke marmer"
   },
   "options": {
     "filters": "Filters",
     "filtersTitle": "Tegelfilters",
     "300_x_900": "300 x 900",
     "470_x_470": "470 x 470",
-    "classic_marbles": "Klassieke marmer",
+    "classic_marbles": "Klassieke marmerasd",
     "shine_g-glossy": "Shine G-Glossy",
     "stones_g-mixes": "Stenen G-Mixen",
     "urban_style": "Stedelijke stijl",
@@ -301,7 +302,8 @@
     "300x600x8": "300x600x8",
     "300x900x8": "300x900x8",
     "470x470x8": "470x470x8",
-    "600x600x8": "600x600x8"
+    "600x600x8": "600x600x8",
+    "shine_g_glossy": "Shine G-Glossyasd"
   },
   "pagination": {
     "prev": "Vorige",

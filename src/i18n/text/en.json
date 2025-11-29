@@ -357,14 +357,15 @@
     "aaaaaa": "aaaaa",
     "tests": "test - en",
     "aaaaaaa": "english",
-    "test2": "test2"
+    "test2": "test2",
+    "classic_marbles": "Classic Marbles"
   },
   "options": {
     "filters": "Filters",
     "filtersTitle": "Tile Filters",
     "300_x_900": "300 x 900",
     "470_x_470": "470 x 470",
-    "classic_marbles": "Classic Marbles",
+    "classic_marbles": "Classic Marblesasd",
     "shine_g-glossy": "Shine G-Glossy",
     "stones_g-mixes": "Stones G-Mixes",
     "urban_style": "Urban Style",
@@ -411,7 +412,8 @@
     "300x600x8": "300x600x8",
     "300x900x8": "300x900x8",
     "470x470x8": "470x470x8",
-    "600x600x8": "600x600x8"
+    "600x600x8": "600x600x8",
+    "shine_g_glossy": "Shine G-Glossyasd"
   },
   "pagination": {
     "prev": "Previous",

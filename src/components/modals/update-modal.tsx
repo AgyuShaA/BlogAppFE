@@ -40,10 +40,7 @@ export const UpdateTileModal = ({ tile, onClose }: UpdateTileModalProps) => {
   const colors = useFilterStore((state) => state.colorsList)
   const outdoorIndoor = useFilterStore((state) => state.outdoorIndoorList)
 
-  console.log(features, colors)
   const [loading, setLoading] = useState(false)
-
-  const { updateTile } = useTileStore()
 
   const [selectedCollection, setSelectedCollection] = useState<number[]>(tile.collection ? [tile.collection.id] : [])
   const [selectedSizes, setSelectedSizes] = useState<number[]>(

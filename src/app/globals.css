@@ -1,8 +1,8 @@
 /* ===== Import Tailwind and Fonts ===== */
-@import "tailwindcss";
-@import url("https://fonts.googleapis.com/css2?family=PT+Mono&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap");
-@import "tw-animate-css";
+@import url('https://fonts.googleapis.com/css2?family=PT+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -21,7 +21,7 @@
 :root {
   --red: rgb(203, 32, 33);
   /* Base colors */
-  --font-sans: "DM Sans", sans-serif;
+  --font-sans: 'DM Sans', sans-serif;
 
   --text-stroke: none;
 
@@ -109,14 +109,14 @@ html {
   height: 100vh;
 }
 
-input[type="date"]::-webkit-calendar-picker-indicator,
-input[type="time"]::-webkit-calendar-picker-indicator {
+input[type='date']::-webkit-calendar-picker-indicator,
+input[type='time']::-webkit-calendar-picker-indicator {
   display: none;
   -webkit-appearance: none;
 }
 
-input[type="date"]::-moz-calendar-picker-indicator,
-input[type="time"]::-moz-calendar-picker-indicator {
+input[type='date']::-moz-calendar-picker-indicator,
+input[type='time']::-moz-calendar-picker-indicator {
   display: none;
 }
 

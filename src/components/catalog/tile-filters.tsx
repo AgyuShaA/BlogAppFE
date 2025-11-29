@@ -37,8 +37,6 @@ export default function TileFilters() {
     setFeaturesList(data?.features || [])
     setColorsList(data?.colors || [])
     setOutdoorIndoorList(data?.outdoorIndoor || [])
-
-    useTileStore.getState().setTiles(data?.tiles || [])
   }, [setCollectionsList, setSizesList, setSurfacesList, setFeaturesList, setColorsList, setOutdoorIndoorList, data])
 
   // --- Selected filters from store

@@ -15,14 +15,16 @@ import { MoreHorizontal } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Button } from '../ui/button'
 import { useQuery } from '@tanstack/react-query'
-import { tilesQueryOptions } from '@/service/queries/use-tile-query'
+import { catalogQueryOptions, tilesQueryOptions } from '@/service/queries/use-tile-query'
 import Image from 'next/image'
+import Loader from '@/app/[locale]/loading'
 
 const ITEMS_PER_PAGE = 30
 
 const TileListPage = () => {
-  const { data: tiles = [] } = useQuery(tilesQueryOptions)
-
+  const { data: tiles = [], isLoading } = useQuery(tilesQueryOptions)
+  const { data } = useQuery(catalogQueryOptions)
+  console.log(data)
   const tn = useTranslations('names')
   const to = useTranslations('options')
 
@@ -77,6 +79,10 @@ const TileListPage = () => {
   const openModal = (type: 'view' | 'edit' | 'create' | 'delete', id?: number) => {
     setSelectedId(id ?? null)
     setModal(type)
+  }
+
+  if (isLoading) {
+    return <Loader />
   }
 
   return (
