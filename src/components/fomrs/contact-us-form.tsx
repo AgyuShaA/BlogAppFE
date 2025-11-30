@@ -4,13 +4,19 @@ import emailjs from 'emailjs-com'
 import { useContactModalStore } from '@/store/useContactStore'
 import { useCartStore } from '@/store/useCartStore'
 import { Tile } from '@/types/types'
-import { useTileStore } from '@/store/useTileStore'
+
 import { useTranslations } from 'next-intl'
+import { toast } from 'react-toastify'
+import { useQuery } from '@tanstack/react-query'
+import { tilesQueryOptions } from '@/service/queries/use-tile-query'
 
 const ContactForm = () => {
   const { isOpen, close } = useContactModalStore()
   const cartTiles = useCartStore((state) => state.items)
-  const allTiles = useTileStore((state) => state.tiles)
+  const { data: allTiles } = useQuery(tilesQueryOptions)
+
+  const to = useTranslations('options')
+  const tn = useTranslations('names')
 
   const [form, setForm] = useState({ name: '', email: '', subject: '' })
   const [loading, setLoading] = useState(false)
@@ -21,19 +27,52 @@ const ContactForm = () => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
-  const formatTilesList = (cartItems: { id: number; quantity: number }[], allTiles: Tile[]) => {
+  const formatTilesList = (cartItems: { id: number; quantity: number }[], allTiles?: Tile[]) => {
     if (cartItems.length === 0) return 'No tiles selected.'
-
+    if (!allTiles) return
     return cartItems
       .map((cartItem, i) => {
         const tile = allTiles.find((t) => t.id === cartItem.id)
         if (!tile) return ''
 
-        return `<li>
-        ${i + 1}. ${tile.name} (ID: ${tile.id}) <br/>
-        Quantity: ${cartItem.quantity} <br/>
-        <img src="${encodeURI(tile.imageUrl!)}" alt="${tile.name}" style="max-width:150px; max-height:100px;" />
-      </li>`
+        const features =
+          tile.features && tile.features.length > 0
+            ? tile.features.map((f) => to(f.feature.name)).join(', ')
+            : to('none')
+
+        const surfaces =
+          tile.surfaces && tile.surfaces.length > 0
+            ? tile.surfaces.map((s) => to(s.surface.name)).join(', ')
+            : to('none')
+
+        const collection = tile.collection?.name ?? 'N/A'
+
+        return `
+  <li style="list-style: none; margin-bottom: 20px; padding: 0;">
+    <table cellpadding="0" cellspacing="0" width="100%">
+      <tr>
+        <!-- IMAGE -->
+        <td width="150" valign="top" style="padding-right: 15px;">
+          <img
+            src="${encodeURI(tile.imageUrl!)}"
+            alt="${tn(tile.name)}"
+            style="width: 150px; height: auto; border-radius: 4px; display: block;"
+          />
+        </td>
+  
+        <!-- DETAILS -->
+        <td valign="top" style="font-size: 14px; color: #333;">
+          <strong>${i + 1}. ${tn(tile.name)}</strong><br/>
+          <strong>Quantity:</strong> ${cartItem.quantity}<br/>
+          <strong>Collection:</strong> ${to(collection)}<br/>
+          <strong>Features:</strong> ${features}<br/>
+          <strong>Surfaces:</strong> ${surfaces}
+
+        </td>
+      </tr>
+    </table>
+  </li>
+  `
       })
       .join('')
   }
@@ -45,13 +84,18 @@ const ContactForm = () => {
     setError(null)
 
     const tilesListHTML = formatTilesList(cartTiles, allTiles)
-
+    console.log(tilesListHTML)
     // Email to user (buyer)
     const userMessage = `
-    <p>Hey there,</p>
-    <p>We received your message with the following tiles:</p>
+   <p style="font-size: 16px; line-height: 24px; margin: 0 0 15px;">
+  Hey there,
+</p>
+
+<p style="font-size: 16px; line-height: 24px; margin: 0 0 20px;">
+  We received your message with the following tiles:
+</p>
+
     <ul>${tilesListHTML}</ul>
-    <p>We will contact you soon!</p>
   `
 
     const supportMessage = `
@@ -67,7 +111,7 @@ const ContactForm = () => {
     try {
       await emailjs.send(
         'service_a8wjhli',
-        'template_lbmohd4',
+        'template_wu4mho4',
         {
           email: form.email,
           message: userMessage,
@@ -86,7 +130,11 @@ const ContactForm = () => {
       )
 
       setLoading(false)
-      setSuccess(t('successMsg'))
+
+      toast.success(t('successMsg'))
+
+      close()
+
       setForm({ name: '', email: '', subject: '' })
     } catch (err) {
       setLoading(false)

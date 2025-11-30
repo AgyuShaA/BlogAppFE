@@ -9,11 +9,16 @@ import { HeaderNavigation } from './elements/header-navigation'
 import { HeaderLogo } from './elements/header-logo'
 import { SearchDialog } from './elements/header-search'
 import { MobileMenu } from './elements/mobile-menu'
+import { useQuery } from '@tanstack/react-query'
+import { tilesQueryOptions } from '@/service/queries/use-tile-query'
 
 export default function Header({ locale }: { locale: string }) {
   const { isMobile } = useWindowSize()
   const { items } = useCartStore()
 
+  const { data } = useQuery(tilesQueryOptions)
+
+  console.log(data)
   return (
     <header className='mx-auto sticky top-0 max-w-[1280px] h-[172px] flex flex-col gap-5'>
       <div className='flex items-center justify-between h-[74px] px-[5%] md:px-[2%]'>
