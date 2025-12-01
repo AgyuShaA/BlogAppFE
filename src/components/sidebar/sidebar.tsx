@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { Figtree } from 'next/font/google'
 import { useCartStore } from '@/store/useCartStore'
-import { useTileStore } from '@/store/useTileStore'
+
 import { useContactModalStore } from '@/store/useContactStore'
 import { useTranslations } from 'next-intl'
 
