@@ -28,54 +28,103 @@ const ContactForm = () => {
   }
 
   const formatTilesList = (cartItems: { id: number; quantity: number }[], allTiles?: Tile[]) => {
-    if (cartItems.length === 0) return 'No tiles selected.'
+    if (cartItems.length === 0) return "No tiles selected."
     if (!allTiles) return
+  
     return cartItems
       .map((cartItem, i) => {
         const tile = allTiles.find((t) => t.id === cartItem.id)
-        if (!tile) return ''
-
-        const features =
-          tile.features && tile.features.length > 0
-            ? tile.features.map((f) => to(f.feature.name)).join(', ')
-            : to('none')
-
-        const surfaces =
-          tile.surfaces && tile.surfaces.length > 0
-            ? tile.surfaces.map((s) => to(s.surface.name)).join(', ')
-            : to('none')
-
-        const collection = tile.collection?.name ?? 'N/A'
-
-        return `
-  <li style="list-style: none; margin-bottom: 20px; padding: 0;">
-    <table cellpadding="0" cellspacing="0" width="100%">
-      <tr>
-        <!-- IMAGE -->
-        <td width="150" valign="top" style="padding-right: 15px;">
-          <img
-            src="${encodeURI(tile.imageUrl!)}"
-            alt="${tn(tile.name)}"
-            style="width: 150px; height: auto; border-radius: 4px; display: block;"
-          />
-        </td>
+        if (!tile) return ""
   
-        <!-- DETAILS -->
-        <td valign="top" style="font-size: 14px; color: #333;">
-          <strong>${i + 1}. ${tn(tile.name)}</strong><br/>
-          <strong>Quantity:</strong> ${cartItem.quantity}<br/>
-          <strong>Collection:</strong> ${to(collection)}<br/>
-          <strong>Features:</strong> ${features}<br/>
-          <strong>Surfaces:</strong> ${surfaces}
+        const features =
+          tile.features?.length
+            ? tile.features.map((f) => to(f.feature.name)).join(", ")
+            : to("none")
+  
+        const surfaces =
+          tile.surfaces?.length
+            ? tile.surfaces.map((s) => to(s.surface.name)).join(", ")
+            : to("none")
+  
+        const collection = tile.collection?.name ?? "N/A"
+  
+        return `
+        <li style="list-style:none; margin-bottom:20px; padding:0;">
+        
+          <!-- DESKTOP VERSION -->
+          <table
+            role="presentation"
+            class="desktop-row"
+            width="100%"
+            cellpadding="0"
+            cellspacing="0"
+            style="display:table; width:100%;"
+          >
+            <tr>
+              <td
+                valign="top"
+                style="width:150px; padding-right:15px;"
+              >
+                <img
+                  src="${encodeURI(tile.imageUrl!)}"
+                  alt="${tn(tile.name)}"
+                  width="150"
+                  style="display:block; width:150px; height:auto; border-radius:4px;"
+                />
+              </td>
+        
+              <td
+                valign="top"
+                style="font-size:14px; color:#333333;"
+              >
+                <strong>${i + 1}. ${tn(tile.name)}</strong><br/>
+                <strong>Quantity:</strong> ${cartItem.quantity}<br/>
+                <strong>Collection:</strong> ${to(collection)}<br/>
+                <strong>Features:</strong> ${features}<br/>
+                <strong>Surfaces:</strong> ${surfaces}
+              </td>
+            </tr>
+          </table>
+        
+          <!-- MOBILE VERSION -->
+          <table
+            role="presentation"
+            class="mobile-stack"
+            width="100%"
+            cellpadding="0"
+            cellspacing="0"
+            style="display:none; width:100%;"
+          >
+            <tr>
+              <td valign="top" style="text-align:center; padding-bottom:10px;">
+                <img
+                  src="${encodeURI(tile.imageUrl!)}"
+                  alt="${tn(tile.name)}"
+                  width="150"
+                  style="display:block; width:150px; height:auto; margin:0 auto; border-radius:4px;"
+                />
+              </td>
+            </tr>
+        
+            <tr>
+              <td valign="top" style="font-size:14px; color:#333333; text-align:left;">
+                <strong>${i + 1}. ${tn(tile.name)}</strong><br/>
+                <strong>Quantity:</strong> ${cartItem.quantity}<br/>
+                <strong>Collection:</strong> ${to(collection)}<br/>
+                <strong>Features:</strong> ${features}<br/>
+                <strong>Surfaces:</strong> ${surfaces}
+              </td>
+            </tr>
+          </table>
+        
+        </li>
+        `        
 
-        </td>
-      </tr>
-    </table>
-  </li>
-  `
       })
-      .join('')
+      .join("")
   }
+  
+  
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -84,18 +133,33 @@ const ContactForm = () => {
     setError(null)
 
     const tilesListHTML = formatTilesList(cartTiles, allTiles)
-    console.log(tilesListHTML)
+
     // Email to user (buyer)
     const userMessage = `
-   <p style="font-size: 16px; line-height: 24px; margin: 0 0 15px;">
+  <p
+  style="
+    font-size: 16px;
+    line-height: 24px;
+    margin: 0 0 15px;
+    padding-left: 40px;
+  "
+>
   Hey there,
 </p>
 
-<p style="font-size: 16px; line-height: 24px; margin: 0 0 20px;">
+<p
+  style="
+    font-size: 16px;
+    line-height: 24px;
+    margin: 0 0 20px;
+    padding-left: 40px;
+  "
+>
   We received your message with the following tiles:
 </p>
 
-    <ul>${tilesListHTML}</ul>
+
+  ${tilesListHTML}
   `
 
     const supportMessage = `
@@ -110,7 +174,7 @@ const ContactForm = () => {
 
     try {
       await emailjs.send(
-        'service_a8wjhli',
+        'service_g4z7qar',
         'template_wu4mho4',
         {
           email: form.email,
@@ -119,15 +183,15 @@ const ContactForm = () => {
         'UY_As6_rWY0SzCJHN',
       )
 
-      await emailjs.send(
-        'service_a8wjhli',
-        'template_lbmohd4',
-        {
-          email: 'officialsupport@probouwstore.com',
-          message: supportMessage,
-        },
-        'UY_As6_rWY0SzCJHN',
-      )
+      // await emailjs.send(
+      //   'service_g4z7qar',
+      //   'template_lbmohd4',
+      //   {
+      //     email: 'officialsupport@probouwstore.com',
+      //     message: supportMessage,
+      //   },
+      //   'UY_As6_rWY0SzCJHN',
+      // )
 
       setLoading(false)
 

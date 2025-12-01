@@ -18,6 +18,9 @@ import {
   SheetClose,
 } from '@/components/ui/sheet'
 import { Button } from '../ui/button'
+import { tilesQueryOptions } from '@/service/queries/use-tile-query'
+import { useQuery } from '@tanstack/react-query'
+import Loader from '@/app/[locale]/loading'
 
 const figtree = Figtree({ subsets: ['latin'], weight: '300' })
 
@@ -27,13 +30,15 @@ interface CartSidebarProps {
 
 export const CartSidebar = ({ trigger }: CartSidebarProps) => {
   const items = useCartStore((state) => state.items)
-  const tiles = useTileStore((state) => state.tiles)
+  const { data: tiles } = useQuery(tilesQueryOptions)
   const { toggle } = useContactModalStore()
 
   const t = useTranslations('contact_form')
 
   const increaseQuantity = useCartStore((s) => s.increaseQuantity)
   const decreaseQuantity = useCartStore((s) => s.decreaseQuantity)
+
+  if (!tiles) return Loader()
 
   const cartItems = items
     .map((cartItem) => ({
