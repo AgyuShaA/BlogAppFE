@@ -183,15 +183,15 @@ const ContactForm = () => {
         'UY_As6_rWY0SzCJHN',
       )
 
-      // await emailjs.send(
-      //   'service_g4z7qar',
-      //   'template_lbmohd4',
-      //   {
-      //     email: 'officialsupport@probouwstore.com',
-      //     message: supportMessage,
-      //   },
-      //   'UY_As6_rWY0SzCJHN',
-      // )
+      await emailjs.send(
+        'service_g4z7qar',
+        'template_lbmohd4',
+        {
+          email: 'officialsupport@probouwstore.com',
+          message: supportMessage,
+        },
+        'UY_As6_rWY0SzCJHN',
+      )
 
       setLoading(false)
 
