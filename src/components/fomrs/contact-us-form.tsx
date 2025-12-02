@@ -107,7 +107,7 @@ const ContactForm = () => {
             </tr>
         
             <tr>
-              <td valign="top" style="font-size:14px; color:#333333; text-align:left;">
+              <td valign="top" style="font-size:14px; color:#333333; text-align:left; padding-left: 30px;">
                 <strong>${i + 1}. ${tn(tile.name)}</strong><br/>
                 <strong>Quantity:</strong> ${cartItem.quantity}<br/>
                 <strong>Collection:</strong> ${to(collection)}<br/>
@@ -135,13 +135,12 @@ const ContactForm = () => {
     const tilesListHTML = formatTilesList(cartTiles, allTiles)
 
     // Email to user (buyer)
-    const userMessage = `
-  <p
+    const userMessage = `<p
   style="
     font-size: 16px;
     line-height: 24px;
     margin: 0 0 15px;
-    padding-left: 40px;
+    padding-left: 30px;
   "
 >
   Hey there,
@@ -152,7 +151,7 @@ const ContactForm = () => {
     font-size: 16px;
     line-height: 24px;
     margin: 0 0 20px;
-    padding-left: 40px;
+    padding-left: 30px;
   "
 >
   We received your message with the following tiles:
@@ -163,12 +162,42 @@ const ContactForm = () => {
   `
 
     const supportMessage = `
-        <p>Hi there,</p>
-        <p>You received an email from https://www.probouwstore.com</p>
-        <p><strong>Name:</strong> ${form.name}</p>
-        <p><strong>Email:</strong> ${form.email}</p>
-        <p><strong>Subject:</strong> ${form.subject}</p>
-        <p><strong>Tiles:</strong></p>
+        <p  style="
+    font-size: 16px;
+    line-height: 24px;
+
+    padding-left: 30px;
+  ">Hi there,</p>
+<p  style="
+    font-size: 16px;
+    line-height: 24px;
+
+    padding-left: 30px;
+  ">You received an email from https://www.probouwstore.com</p>
+<p  style="
+    font-size: 16px;
+    line-height: 24px;
+
+    padding-left: 30px;
+  "><strong>Name:</strong> ${form.name}</p>
+<p  style="
+    font-size: 16px;
+    line-height: 24px;
+
+    padding-left: 30px;
+  "><strong>Email:</strong> ${form.email}</p>
+<p  style="
+    font-size: 16px;
+    line-height: 24px;
+
+    padding-left: 30px;
+  "><strong>Subject:</strong> ${form.subject}</p>
+<p  style="
+    font-size: 16px;
+    line-height: 24px;
+
+    padding-left: 30px;
+  "><strong>Tiles:</strong></p>
         <ul>${tilesListHTML}</ul>
       `
 
@@ -184,8 +213,8 @@ const ContactForm = () => {
       )
 
       await emailjs.send(
-        'service_g4z7qar',
-        'template_lbmohd4',
+        'service_a8wjhli',
+        'template_wu4mho4',
         {
           email: 'officialsupport@probouwstore.com',
           message: supportMessage,
