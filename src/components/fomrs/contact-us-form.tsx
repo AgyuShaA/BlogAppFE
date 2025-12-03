@@ -141,6 +141,8 @@ const ContactForm = () => {
     line-height: 24px;
     margin: 0 0 15px;
     padding-left: 30px;
+    padding-top: 40px;
+
   "
 >
   Hey there,
