@@ -28,7 +28,8 @@ const ContactForm = () => {
   }
 
   const formatTilesList = (cartItems: { id: number; quantity: number }[], allTiles?: Tile[]) => {
-    if (cartItems.length === 0) return "No tiles selected."
+    if (cartItems.length === 0) return '<p style="font-size: 16px; line-height: 24px; margin: 0 0 15px; padding-left: 30px; padding-top: 40px;">No tiles selected.</p>'
+
     if (!allTiles) return
   
     return cartItems
