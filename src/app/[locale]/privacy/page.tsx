@@ -3,7 +3,22 @@ import type { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | Probow Store',
+  title: 'Privacy Policy — ProBouwStore',
+  description:
+    'Read how ProBouwStore collects, uses, and protects your personal data. Learn about cookies, data rights, and GDPR compliance.',
+  openGraph: {
+    title: 'Privacy Policy — ProBouwStore',
+    description: 'Understand how we handle personal information and ensure data protection.',
+    url: 'https://www.probouwstore.com/privacy',
+    type: 'article',
+    images: ['https://www.probouwstore.com/1.webp'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Privacy Policy — ProBouwStore',
+    description: 'Learn about data privacy, cookies, and GDPR compliance.',
+    images: ['https://www.probouwstore.com/1.webp'],
+  },
 }
 
 export const dynamic = 'force-static'

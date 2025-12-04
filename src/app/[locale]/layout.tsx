@@ -9,6 +9,7 @@ import { routing } from '@/i18n/routing'
 import { ContactUsButton } from '@/components/contact-us-global/contact-us-global'
 import ContactForm from '@/components/fomrs/contact-us-form'
 import RestApiProvider from '@/service/tanstack/react-query.provider'
+import { Metadata } from 'next'
 
 export async function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
@@ -17,6 +18,21 @@ export async function generateStaticParams() {
 type Props = {
   children: React.ReactNode
   params: Promise<{ locale: string }>
+}
+
+export const metadata: Metadata = {
+  metadataBase: new URL('https://www.probouwstore.com'),
+  title: {
+    default: 'ProBouwStore — Premium Tiles & Materials',
+    template: '%s | ProBouwStore',
+  },
+  description: 'High-quality tiles for floors and walls. Fast delivery, competitive pricing, and expert support.',
+  openGraph: {
+    siteName: 'ProBouwStore',
+  },
+  twitter: {
+    card: 'summary_large_image',
+  },
 }
 
 export default async function LocaleLayout({ children, params }: Props) {

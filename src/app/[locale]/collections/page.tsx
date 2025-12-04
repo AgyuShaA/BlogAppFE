@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server'
 import { CollectionItem, COLLECTIONS } from '@/types/types'
 import { Breadcrumbs } from '@/components/bread-scrums/bread-scrums'
 import { Link } from '@/i18n/navigation'
+import { Metadata } from 'next'
 
 export async function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
@@ -11,6 +12,19 @@ export async function generateStaticParams() {
 export const dynamic = 'force-static'
 
 export const revalidate = 600
+
+export const metadata: Metadata = {
+  title: 'Tile Categories — ProBouwStore',
+  description:
+    'Browse all tile categories: ceramic, marble, wood-look, concrete and more. Find the perfect tiles for your project.',
+  openGraph: {
+    title: 'Tile Categories — ProBouwStore',
+    description: 'Choose from a wide variety of tile categories for all styles and budgets.',
+    url: 'https://www.probouwstore.com/collections',
+    images: ['https://www.probouwstore.com/1.webp'],
+  },
+  twitter: { card: 'summary_large_image' },
+}
 
 export default async function CollectionsPage() {
   const t = await getTranslations('names')

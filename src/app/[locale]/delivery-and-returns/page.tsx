@@ -4,7 +4,22 @@ import type { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 
 export const metadata: Metadata = {
-  title: 'Returns Policy | Dimora Shop',
+  title: 'Delivery & Returns — ProBouwStore',
+  description:
+    'Learn about shipping times, delivery methods, return conditions, damaged goods policy, and how ProBouwStore ensures a smooth ordering experience.',
+  openGraph: {
+    title: 'Delivery & Returns — ProBouwStore',
+    description: 'Information about shipping, order processing, returns, and replacements at ProBouwStore.',
+    url: 'https://www.probouwstore.com/delivery-and-returns',
+    type: 'article',
+    images: ['https://www.probouwstore.com/1.webp'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Delivery & Returns — ProBouwStore',
+    description: 'Read about our delivery process and return conditions.',
+    images: ['https://www.probouwstore.com/1.webo'],
+  },
 }
 
 export const dynamic = 'force-static'

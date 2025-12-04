@@ -15,8 +15,8 @@ export const dynamic = 'force-static'
 export default async function CatalogPage() {
   const queryClient = getQueryClient()
 
-  queryClient.prefetchQuery(catalogQueryOptions)
-  queryClient.prefetchQuery(tilesQueryOptions)
+  await queryClient.prefetchQuery(catalogQueryOptions)
+  await queryClient.prefetchQuery(tilesQueryOptions)
 
   const dehydratedState = dehydrate(queryClient)
 

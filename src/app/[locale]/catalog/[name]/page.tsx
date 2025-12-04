@@ -3,9 +3,43 @@ import { routing } from '@/i18n/routing'
 import { getTiles, getTileByName } from '@/lib/get-tiles-list'
 import { notFound } from 'next/navigation'
 import { Tile } from '@/types/types'
+import { Metadata } from 'next'
 
 interface IProps {
   params: Promise<{ locale: string; name: string }>
+}
+
+export async function generateMetadata({ params }: IProps): Promise<Metadata> {
+  const tile = await getTileByName((await params).name)
+
+  if (!tile) {
+    return {
+      title: 'Product Not Found — ProBouwStore',
+    }
+  }
+
+  return {
+    title: `${tile.name} — Buy Premium Tiles | ProBouwStore`,
+    description: tile.name || 'High-quality tile available at ProBouwStore.',
+    keywords: tile.surfaces.map((e) => e.surface.name) || [],
+    openGraph: {
+      title: `${tile.name} — ProBouwStore`,
+      description: tile.name,
+      url: `https://www.probouwstore.com/products/${(await params).name}`,
+
+      images: [
+        {
+          url: tile.imageUrl || 'https://www.probouwstore.com/1.webp',
+          width: 1200,
+          height: 630,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      images: ['https://www.probouwstore.com/1.webp'],
+    },
+  }
 }
 
 export async function generateStaticParams() {

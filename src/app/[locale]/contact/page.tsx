@@ -1,13 +1,19 @@
 import { Breadcrumbs } from '@/components/bread-scrums/bread-scrums'
+import { Metadata } from 'next'
 import { useTranslations } from 'next-intl'
-
-export const metadata = {
-  title: 'Contact | Dimora Shop',
-}
 
 export const dynamic = 'force-static'
 
 export const revalidate = false
+
+export const metadata: Metadata = {
+  title: 'Contact ProBouwStore',
+  description: 'Reach out to our team for product inquiries, quotes, or expert support.',
+  openGraph: {
+    title: 'Contact ProBouwStore',
+    url: 'https://www.probouwstore.com/contact',
+  },
+}
 
 export default function ContactPage() {
   const t = useTranslations('contact_page')

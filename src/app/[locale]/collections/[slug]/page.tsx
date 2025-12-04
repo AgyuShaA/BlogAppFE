@@ -6,6 +6,7 @@ import { TileCard } from '@/components/catalog/tile-card'
 import { Breadcrumbs } from '@/components/bread-scrums/bread-scrums'
 
 import { unstable_cache } from 'next/cache'
+import { Metadata } from 'next'
 
 interface IProps {
   params: Promise<{ locale: string; slug: string }>
@@ -33,6 +34,31 @@ export async function generateStaticParams() {
       slug: item.slug,
     })),
   )
+}
+
+export async function generateMetadata({ params }: IProps): Promise<Metadata> {
+  const { slug } = await params
+
+  const collection = COLLECTIONS.find((c) => c.slug === slug)
+
+  if (!collection) {
+    return { title: 'Collection Not Found — ProBouwStore' }
+  }
+
+  return {
+    title: `${collection.label} Tiles — ProBouwStore`,
+    description: `Explore ${collection.label.toLowerCase()} tiles in all sizes, styles, and finishes.`,
+    openGraph: {
+      title: `${collection.label} Tiles — ProBouwStore`,
+      description: `Discover premium ${collection.label.toLowerCase()} tiles suitable for any interior or exterior project.`,
+      url: `https://www.probouwstore.com/collections/${slug}`,
+      images: ['https://www.probouwstore.com/1.webp'],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      images: ['https://www.probouwstore.com/1.webp'],
+    },
+  }
 }
 
 export default async function Page({ params }: IProps) {
