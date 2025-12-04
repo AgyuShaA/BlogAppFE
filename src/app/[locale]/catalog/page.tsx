@@ -5,12 +5,30 @@ import { routing } from '@/i18n/routing'
 import { catalogQueryOptions, tilesQueryOptions } from '@/service/queries/use-tile-query'
 import { getQueryClient } from '@/service/tanstack/get-query'
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
+import type { Metadata } from 'next'
 
 export async function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
 }
 
+// app/categories/page.tsx
+
+export const metadata: Metadata = {
+  title: 'Tile Categories — ProBouwStore',
+  description:
+    'Browse all tile categories: ceramic, marble, wood-look, concrete and more. Find the perfect tiles for your project.',
+  openGraph: {
+    title: 'Tile Categories — ProBouwStore',
+    description: 'Choose from a wide variety of tile categories for all styles and budgets.',
+    url: 'https://www.probouwstore.com/catalog',
+    images: ['https://www.probouwstore.com/1.webp'],
+  },
+  twitter: { card: 'summary_large_image' },
+}
+
 export const dynamic = 'force-static'
+
+export const revalidate = 600
 
 export default async function CatalogPage() {
   const queryClient = getQueryClient()

@@ -42,6 +42,10 @@ export async function generateMetadata({ params }: IProps): Promise<Metadata> {
   }
 }
 
+export const revalidate = 600
+
+export const dynamic = 'force-static'
+
 export async function generateStaticParams() {
   const tiles = await getTiles()
   const locales = routing.locales
