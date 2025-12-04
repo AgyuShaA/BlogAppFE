@@ -1,6 +1,6 @@
-"use client";
+'use client'
 
-import { useState } from "react";
+import { useState } from 'react'
 import {
   CommandDialog,
   CommandEmpty,
@@ -8,31 +8,31 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command";
+} from '@/components/ui/command'
 
-import { useTileStore } from "@/store/useTileStore";
+import { useTileStore } from '@/store/useTileStore'
 
-import { useRouter } from "@/i18n/navigation";
-import { COLLECTIONS } from "@/types/types";
-import { useTranslations } from "next-intl";
-import Image from "next/image";
+import { useRouter } from '@/i18n/navigation'
+import { COLLECTIONS } from '@/types/types'
+import { useTranslations } from 'next-intl'
+import Image from 'next/image'
 
 interface IProps {
-  className?: string;
+  className?: string
 }
 export function SearchDialog({ className }: IProps) {
-  const router = useRouter();
-  const tiles = useTileStore((s) => s.tiles);
+  const router = useRouter()
+  const tiles = useTileStore((s) => s.tiles)
 
-  const t = useTranslations("names");
-  const ht = useTranslations("header");
+  const t = useTranslations('names')
+  const ht = useTranslations('header')
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
 
   const handleSelect = (href: string) => {
-    setOpen(false);
-    router.push(href);
-  };
+    setOpen(false)
+    router.push(href)
+  }
 
   return (
     <>
@@ -41,49 +41,40 @@ export function SearchDialog({ className }: IProps) {
         onClick={() => setOpen(true)}
         className={`md:flex items-center hidden justify-start w-full  h-[50px] px-4 rounded-md bg-[#F3F3F3] text-gray-700 ${className}`}
       >
-        {ht("search")}...
+        {ht('search')}...
       </button>
 
       <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandInput placeholder="Search tiles or collections..." />
+        <CommandInput placeholder='Search tiles or collections...' />
 
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
 
           {/* Collections */}
-          <CommandGroup heading="Collections">
+          <CommandGroup heading='Collections'>
             {COLLECTIONS.map((c) => (
-              <CommandItem
-                key={c.slug}
-                value={c.label}
-                onSelect={() => handleSelect(`/collections/${c.slug}`)}
-              >
+              <CommandItem key={c.slug} value={c.label} onSelect={() => handleSelect(`/collections/${c.slug}`)}>
                 {c.label}
               </CommandItem>
             ))}
           </CommandGroup>
 
           {/* Tiles */}
-          <CommandGroup heading="Tiles">
+          <CommandGroup heading='Tiles'>
             {tiles.map((tile) => (
               <CommandItem
                 key={tile.id}
                 value={tile.name}
                 onSelect={() => handleSelect(`/catalog/${tile.name}`)}
-                className="flex justify-between p-2!"
+                className='flex justify-between p-2!'
               >
                 <span>{t(tile.name)} </span>
-                <Image
-                  src={tile.imageUrl || ""}
-                  width={25}
-                  height={25}
-                  alt={tile.name}
-                />
+                <Image src={tile.imageUrl || ''} width={25} height={25} alt={tile.name} />
               </CommandItem>
             ))}
           </CommandGroup>
         </CommandList>
       </CommandDialog>
     </>
-  );
+  )
 }

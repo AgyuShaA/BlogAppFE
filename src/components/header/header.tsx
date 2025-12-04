@@ -4,14 +4,17 @@ import { HeaderNavigation } from './elements/header-navigation'
 import { HeaderLogo } from './elements/header-logo'
 import { SearchDialog } from './elements/header-search'
 import { MobileMenu } from './elements/mobile-menu'
+import { Suspense } from 'react'
 
-export default function Header({ locale }: { locale: string }) {
+export default async function Header({ locale }: { locale: string }) {
   return (
     <header className='mx-auto sticky top-0 max-w-[1280px] h-[172px] flex flex-col gap-5'>
       <div className='flex items-center justify-between h-[74px] px-[5%] md:px-[2%]'>
         <HeaderLogo />
 
-        <SearchDialog className='md:max-w-[50%] lg:max-w-[60%] ' />
+        <Suspense>
+          <SearchDialog className='md:max-w-[50%] lg:max-w-[60%] ' />
+        </Suspense>
 
         <HeaderLanguageSelector locale={locale} />
 

@@ -4,7 +4,7 @@ interface LogoProps {
   className?: string
 }
 
-export const LogoIconWithText: React.FC<LogoProps> = ({ width = 239, height = 57, className = '' }) => (
+export const LogoIconWithTextCopy: React.FC<LogoProps> = ({ width = 239, height = 57, className = '' }) => (
   <svg
     width={width}
     height={height}
@@ -15,9 +15,9 @@ export const LogoIconWithText: React.FC<LogoProps> = ({ width = 239, height = 57
     xmlns='http://www.w3.org/2000/svg'
     xmlnsXlink='http://www.w3.org/1999/xlink'
   >
-    <rect width='239' height='57' fill='url(#pattern0_1_8739)' />
+    <rect width='239' height='57' fill='url(#pattern0_1_8738)' />
     <defs>
-      <pattern id='pattern0_1_8739' patternContentUnits='objectBoundingBox' width='1' height='1'>
+      <pattern id='pattern0_1_8738' patternContentUnits='objectBoundingBox' width='1' height='1'>
         <use xlinkHref='#image0_1_8739' transform='matrix(0.000629271 0 0 0.00263852 -0.00121438 0)' />
       </pattern>
       <image

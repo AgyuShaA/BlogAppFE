@@ -1,13 +1,11 @@
-'use client'
-
 import { Link } from '@/i18n/navigation'
-import { useTranslations } from 'next-intl'
 import { CategoryDropdown } from './dropdown-menu'
-import { useContactModalStore } from '@/store/useContactStore'
 
-export function HeaderNavigation() {
-  const t = useTranslations('header')
-  const { toggle } = useContactModalStore()
+import { HeaderContactButton } from './contact-toggle.button'
+import { getTranslations } from 'next-intl/server'
+
+export async function HeaderNavigation() {
+  const t = await getTranslations('header')
 
   return (
     <nav className='hidden md:flex h-[54px] px-[2%] justify-between items-center '>
@@ -29,9 +27,7 @@ export function HeaderNavigation() {
         </Link>
       ))}
 
-      <button onClick={toggle} className='border-2 cursor-pointer border-red-600 px-4 h-[38px] text-red-600'>
-        {t('contactUs')}
-      </button>
+      <HeaderContactButton />
     </nav>
   )
 }

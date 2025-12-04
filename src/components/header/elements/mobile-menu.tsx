@@ -2,9 +2,8 @@
 
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
 import { MenuIcon } from 'lucide-react'
-import { Link } from '@/i18n/navigation'
+import { Link, usePathname } from '@/i18n/navigation'
 import { useTranslations } from 'next-intl'
-import { usePathname } from 'next/navigation' // <-- NEW
 
 import { MobileCategorySection } from './mobile-category'
 import { MobileLanguageSelector } from './mobile-language-selector'
@@ -13,7 +12,7 @@ import { LogoIconWithText } from '../../../../public/header/logo'
 
 export function MobileMenu({ locale }: { locale: string }) {
   const t = useTranslations('header')
-  const pathname = usePathname() // <-- NEW
+  const pathname = usePathname()
   const cleanedPath = pathname.replace(`/${locale}`, '') || '/'
 
   const isActive = (href: string) => {
