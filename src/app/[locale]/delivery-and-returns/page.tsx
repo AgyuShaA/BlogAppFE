@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     description: 'Information about shipping, order processing, returns, and replacements at ProBouwStore.',
     url: 'https://www.probouwstore.com/delivery-and-returns',
     type: 'article',
-    images: ['https://www.probouwstore.com/1.webp'],
+    images: ['https://www.probouwstore.com/main-page/1.webp'],
   },
   twitter: {
     card: 'summary_large_image',

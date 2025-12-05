@@ -24,7 +24,7 @@ export default async function Header({ locale }: { locale: string }) {
       <div className='w-full md:hidden flex items-center gap-4  pb-2 px-[5%] md:px-[2%'>
         <MobileMenu locale={locale} />
 
-        <SearchDialog className='flex! ' />
+        <SearchDialog className='flex!' />
       </div>
 
       <HeaderNavigation />

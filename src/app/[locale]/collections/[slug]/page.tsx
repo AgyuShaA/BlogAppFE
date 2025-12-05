@@ -52,11 +52,11 @@ export async function generateMetadata({ params }: IProps): Promise<Metadata> {
       title: `${collection.label} Tiles — ProBouwStore`,
       description: `Discover premium ${collection.label.toLowerCase()} tiles suitable for any interior or exterior project.`,
       url: `https://www.probouwstore.com/collections/${slug}`,
-      images: ['https://www.probouwstore.com/1.webp'],
+      images: ['https://www.probouwstore.com/main-page/1.webp'],
     },
     twitter: {
       card: 'summary_large_image',
-      images: ['https://www.probouwstore.com/1.webp'],
+      images: ['https://www.probouwstore.com/main-page/1.webp'],
     },
   }
 }

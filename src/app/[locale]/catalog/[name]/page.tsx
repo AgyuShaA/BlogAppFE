@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: IProps): Promise<Metadata> {
 
       images: [
         {
-          url: tile.imageUrl || 'https://www.probouwstore.com/1.webp',
+          url: tile.imageUrl || 'https://www.probouwstore.com/main-page/1.webp',
           width: 1200,
           height: 630,
         },
@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: IProps): Promise<Metadata> {
     },
     twitter: {
       card: 'summary_large_image',
-      images: ['https://www.probouwstore.com/1.webp'],
+      images: ['https://www.probouwstore.com/main-page/1.webp'],
     },
   }
 }

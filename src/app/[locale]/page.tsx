@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://www.probouwstore.com/1.webp',
+        url: 'https://www.probouwstore.com/main-page/1.webp',
         width: 1200,
         height: 630,
         alt: 'ProBouwStore tiles catalog',
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'ProBouwStore — Tiles for every room · Floor & Wall Solutions',
     description: 'Shop tiles with fast delivery and competitive prices. Ceramic, marble, stone, wood-look & more.',
-    images: ['https://www.probouwstore.com/1.webp'],
+    images: ['https://www.probouwstore.com/main-page/1.webp'],
   },
 
   metadataBase: new URL('https://www.probouwstore.com'),

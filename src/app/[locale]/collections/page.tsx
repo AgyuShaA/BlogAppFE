@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     title: 'Tile Categories — ProBouwStore',
     description: 'Choose from a wide variety of tile categories for all styles and budgets.',
     url: 'https://www.probouwstore.com/collections',
-    images: ['https://www.probouwstore.com/1.webp'],
+    images: ['https://www.probouwstore.com/main-page/1.webp'],
   },
   twitter: { card: 'summary_large_image' },
 }
