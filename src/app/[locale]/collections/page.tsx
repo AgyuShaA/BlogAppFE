@@ -1,3 +1,5 @@
+'use cache'
+
 import { routing } from '@/i18n/routing'
 import { getTranslations } from 'next-intl/server'
 import { CollectionItem, COLLECTIONS } from '@/types/types'
@@ -8,10 +10,6 @@ import { Metadata } from 'next'
 export async function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
 }
-
-export const dynamic = 'force-static'
-
-export const revalidate = 600
 
 export const metadata: Metadata = {
   title: 'Tile Categories — ProBouwStore',

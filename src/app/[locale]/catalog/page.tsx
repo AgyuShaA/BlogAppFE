@@ -1,3 +1,5 @@
+'use cache'
+
 import { Breadcrumbs } from '@/components/bread-scrums/bread-scrums'
 import TileFilters from '@/components/catalog/tile-filters'
 import { TileList } from '@/components/catalog/tile-list'
@@ -11,8 +13,6 @@ export async function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
 }
 
-// app/categories/page.tsx
-
 export const metadata: Metadata = {
   title: 'Tile Categories — ProBouwStore',
   description:
@@ -25,10 +25,6 @@ export const metadata: Metadata = {
   },
   twitter: { card: 'summary_large_image' },
 }
-
-export const dynamic = 'force-static'
-
-export const revalidate = 600
 
 export default async function CatalogPage() {
   const queryClient = getQueryClient()

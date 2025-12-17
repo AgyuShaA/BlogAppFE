@@ -1,3 +1,5 @@
+'use cache'
+
 import AboutSection from '@/components/about/about'
 import { Breadcrumbs } from '@/components/bread-scrums/bread-scrums'
 import { routing } from '@/i18n/routing'
@@ -6,9 +8,6 @@ import { Metadata } from 'next'
 export async function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
 }
-export const dynamic = 'force-static'
-
-export const revalidate = false
 
 export const metadata: Metadata = {
   title: 'About ProBouwStore — Your Trusted Tile Partner',

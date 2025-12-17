@@ -1,3 +1,5 @@
+'use cache'
+
 import TileListPage from '@/components/catalog/viwer'
 import { routing } from '@/i18n/routing'
 

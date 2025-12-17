@@ -1,3 +1,5 @@
+'use cache'
+
 import { routing } from '@/i18n/routing'
 import { COLLECTIONS } from '@/types/types'
 
@@ -11,10 +13,6 @@ import { Metadata } from 'next'
 interface IProps {
   params: Promise<{ locale: string; slug: string }>
 }
-
-export const dynamic = 'force-static'
-
-export const revalidate = 600
 
 const getTiles = (dbName: string) =>
   unstable_cache(async () => {

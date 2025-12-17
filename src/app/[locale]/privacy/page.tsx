@@ -1,3 +1,5 @@
+'use cache'
+
 import { Breadcrumbs } from '@/components/bread-scrums/bread-scrums'
 import type { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
@@ -20,10 +22,6 @@ export const metadata: Metadata = {
     images: ['https://www.probouwstore.com/main-page/1.webp'],
   },
 }
-
-export const dynamic = 'force-static'
-
-export const revalidate = false
 
 export default async function PrivacyPolicyPage() {
   const t = await getTranslations('privacy')

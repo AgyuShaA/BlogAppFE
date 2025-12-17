@@ -1,10 +1,9 @@
+'use cache'
+
 import { Breadcrumbs } from '@/components/bread-scrums/bread-scrums'
 import { Metadata } from 'next'
-import { useTranslations } from 'next-intl'
 
-export const dynamic = 'force-static'
-
-export const revalidate = false
+import { getTranslations } from 'next-intl/server'
 
 export const metadata: Metadata = {
   title: 'Contact ProBouwStore',
@@ -15,8 +14,8 @@ export const metadata: Metadata = {
   },
 }
 
-export default function ContactPage() {
-  const t = useTranslations('contact_page')
+export default async function ContactPage() {
+  const t = await getTranslations('contact_page')
 
   return (
     <main className='mx-auto max-w-7xl px-[5%] w-full md:px-[2%] py-10 space-y-10'>

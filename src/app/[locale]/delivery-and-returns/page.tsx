@@ -1,3 +1,5 @@
+'use cache'
+
 import { Breadcrumbs } from '@/components/bread-scrums/bread-scrums'
 import type { Metadata } from 'next'
 
@@ -21,10 +23,6 @@ export const metadata: Metadata = {
     images: ['https://www.probouwstore.com/1.webo'],
   },
 }
-
-export const dynamic = 'force-static'
-
-export const revalidate = false
 
 export default async function ReturnsPolicyPage() {
   const t = await getTranslations('returns')

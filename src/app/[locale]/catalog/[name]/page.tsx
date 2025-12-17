@@ -1,3 +1,5 @@
+'use cache'
+
 import TileDetails from '@/components/tile-details/tile-details'
 import { routing } from '@/i18n/routing'
 import { getTiles, getTileByName } from '@/lib/get-tiles-list'
@@ -41,10 +43,6 @@ export async function generateMetadata({ params }: IProps): Promise<Metadata> {
     },
   }
 }
-
-export const revalidate = 600
-
-export const dynamic = 'force-static'
 
 export async function generateStaticParams() {
   const tiles = await getTiles()

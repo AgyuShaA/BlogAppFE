@@ -3,11 +3,11 @@ import { uploadImageToGCP } from '@/lib/upload-image'
 import { NextRequest, NextResponse } from 'next/server'
 import path from 'path'
 import fs from 'fs'
-import { console } from 'inspector/promises'
+
 
 const localesDir = path.join(process.cwd(), 'src/i18n/text')
 
-export const revalidate = 600
+
 
 const updateTranslation = (locale: string, key: string, value: string) => {
   const filePath = path.join(localesDir, `${locale}.json`)

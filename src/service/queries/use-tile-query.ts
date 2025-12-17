@@ -3,9 +3,6 @@ import { queryOptions, useMutation } from '@tanstack/react-query'
 import { getQueryClient } from '../tanstack/get-query'
 import { toast } from 'react-toastify'
 import { CatalogResponse, Tile } from '@/types/types'
-
- 
- 
  
 export const catalogQueryOptions = queryOptions<CatalogResponse>({
   queryKey: ['catalog'],
