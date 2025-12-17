@@ -59,7 +59,6 @@ export default function CreatePostForm({ onClose }: IProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    console.log()
 
     if (!name || !file || !englishName || !niderlandName) {
       toast.error('Names, translations and image are required')

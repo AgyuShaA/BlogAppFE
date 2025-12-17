@@ -226,7 +226,7 @@ export async function PATCH(req: NextRequest) {
 
 export async function DELETE(req: NextRequest) {
   const id = req.nextUrl.searchParams.get('id')
-  console.log(id)
+
 
   if (!id) return NextResponse.json({ error: 'Missing tile id' }, { status: 400 })
 
