@@ -9,6 +9,9 @@ import { Breadcrumbs } from '@/components/bread-scrums/bread-scrums'
 
 import { unstable_cache } from 'next/cache'
 import { Metadata } from 'next'
+import { hasLocale } from 'next-intl'
+import { notFound } from 'next/navigation'
+import { setRequestLocale } from 'next-intl/server'
 
 interface IProps {
   params: Promise<{ locale: string; slug: string }>
@@ -60,13 +63,19 @@ export async function generateMetadata({ params }: IProps): Promise<Metadata> {
 }
 
 export default async function Page({ params }: IProps) {
-  const { slug } = await params
+  const { slug, locale } = await params
 
   const collection = COLLECTIONS.find((c) => c.slug === slug)
 
   if (!collection) {
     return <div>Not found</div>
   }
+
+  if (!hasLocale(routing.locales, locale)) {
+    notFound()
+  }
+
+  setRequestLocale(locale)
 
   const tiles = await getTiles(collection.dbName)
 

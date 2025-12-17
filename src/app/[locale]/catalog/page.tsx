@@ -8,6 +8,9 @@ import { catalogQueryOptions, tilesQueryOptions } from '@/service/queries/use-ti
 import { getQueryClient } from '@/service/tanstack/get-query'
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 import type { Metadata } from 'next'
+import { hasLocale } from 'next-intl'
+import { setRequestLocale } from 'next-intl/server'
+import { notFound } from 'next/navigation'
 
 export async function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
@@ -26,13 +29,25 @@ export const metadata: Metadata = {
   twitter: { card: 'summary_large_image' },
 }
 
-export default async function CatalogPage() {
+type Props = {
+  params: Promise<{ locale: string }>
+}
+
+export default async function Page({ params }: Props) {
   const queryClient = getQueryClient()
 
   await queryClient.prefetchQuery(catalogQueryOptions)
   await queryClient.prefetchQuery(tilesQueryOptions)
 
   const dehydratedState = dehydrate(queryClient)
+
+  const { locale } = await params
+
+  if (!hasLocale(routing.locales, locale)) {
+    notFound()
+  }
+
+  setRequestLocale(locale)
 
   return (
     <HydrationBoundary state={dehydratedState}>

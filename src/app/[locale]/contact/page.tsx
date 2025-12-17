@@ -1,9 +1,12 @@
 'use cache'
 
 import { Breadcrumbs } from '@/components/bread-scrums/bread-scrums'
+import { routing } from '@/i18n/routing'
 import { Metadata } from 'next'
+import { hasLocale } from 'next-intl'
 
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { notFound } from 'next/navigation'
 
 export const metadata: Metadata = {
   title: 'Contact ProBouwStore',
@@ -14,8 +17,20 @@ export const metadata: Metadata = {
   },
 }
 
-export default async function ContactPage() {
+type Props = {
+  params: Promise<{ locale: string }>
+}
+
+export default async function Page({ params }: Props) {
   const t = await getTranslations('contact_page')
+
+  const { locale } = await params
+
+  if (!hasLocale(routing.locales, locale)) {
+    notFound()
+  }
+
+  setRequestLocale(locale)
 
   return (
     <main className='mx-auto max-w-7xl px-[5%] w-full md:px-[2%] py-10 space-y-10'>

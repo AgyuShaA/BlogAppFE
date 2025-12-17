@@ -6,6 +6,8 @@ import { getTiles, getTileByName } from '@/lib/get-tiles-list'
 import { notFound } from 'next/navigation'
 import { Tile } from '@/types/types'
 import { Metadata } from 'next'
+import { hasLocale } from 'next-intl'
+import { setRequestLocale } from 'next-intl/server'
 
 interface IProps {
   params: Promise<{ locale: string; name: string }>
@@ -57,7 +59,13 @@ export async function generateStaticParams() {
 }
 
 export default async function TilePage({ params }: IProps) {
-  const { name } = await params
+  const { name, locale } = await params
+
+  if (!hasLocale(routing.locales, locale)) {
+    notFound()
+  }
+
+  setRequestLocale(locale)
 
   const tile = (await getTileByName(name)) as Tile
   if (!tile) return notFound()

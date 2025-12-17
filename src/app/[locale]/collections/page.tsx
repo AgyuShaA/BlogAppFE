@@ -1,11 +1,13 @@
 'use cache'
 
 import { routing } from '@/i18n/routing'
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { CollectionItem, COLLECTIONS } from '@/types/types'
 import { Breadcrumbs } from '@/components/bread-scrums/bread-scrums'
 import { Link } from '@/i18n/navigation'
 import { Metadata } from 'next'
+import { hasLocale } from 'next-intl'
+import { notFound } from 'next/navigation'
 
 export async function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
@@ -24,8 +26,20 @@ export const metadata: Metadata = {
   twitter: { card: 'summary_large_image' },
 }
 
-export default async function CollectionsPage() {
+type Props = {
+  params: Promise<{ locale: string }>
+}
+
+export default async function Page({ params }: Props) {
   const t = await getTranslations('names')
+
+  const { locale } = await params
+
+  if (!hasLocale(routing.locales, locale)) {
+    notFound()
+  }
+
+  setRequestLocale(locale)
 
   return (
     <div className='flex flex-col mx-auto mb-20 md:mb-0 items-center max-w-[1280px] px-[5%] md:px-[2%]  w-full min-h-[75vh]'>
