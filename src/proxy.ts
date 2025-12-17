@@ -2,10 +2,7 @@ import createMiddleware from 'next-intl/middleware'
 import { NextRequest, NextResponse } from 'next/server'
 import { routing } from './i18n/routing'
 
-// --- next-intl middleware instance ---
-const intlMiddleware = createMiddleware(routing)
-
-export default function middleware(req: NextRequest) {
+export default function proxy(req: NextRequest) {
   const url = req.nextUrl.clone()
   const pathname = url.pathname
 
@@ -24,10 +21,21 @@ export default function middleware(req: NextRequest) {
     }
   }
 
-  // -------------------------
-  // 2. PASS TO next-intl
-  // -------------------------
-  return intlMiddleware(req)
+  const i18nRes = createMiddleware(routing)(req)
+
+  const country =
+    req.headers.get('cf-ipcountry') ||
+    req.headers.get('cloudfront-viewer-country') ||
+    req.headers.get('X-Country') ||
+    req.cookies.get('country')?.value ||
+    'N/A'
+
+  i18nRes.headers.set('x-country', country)
+  i18nRes.cookies.set('x-country', country)
+
+  return i18nRes
+
+
 }
 
 // -------------------------
