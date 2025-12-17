@@ -12,6 +12,7 @@ import { ContactUsButton } from '@/components/contact-us-global/contact-us-globa
 import ContactForm from '@/components/fomrs/contact-us-form'
 import RestApiProvider from '@/service/tanstack/react-query.provider'
 import { Metadata } from 'next'
+import { setRequestLocale } from 'next-intl/server'
 
 export async function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
@@ -42,6 +43,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   if (!hasLocale(routing.locales, locale)) {
     notFound()
   }
+  setRequestLocale(locale)
 
   return (
     <>
