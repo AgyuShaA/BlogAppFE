@@ -4,12 +4,15 @@ import { getQueryClient } from '../tanstack/get-query'
 import { toast } from 'react-toastify'
 import { CatalogResponse, Tile } from '@/types/types'
 
-/* eslint-disable */
+ 
+ 
+ 
 export const catalogQueryOptions = queryOptions<CatalogResponse>({
   queryKey: ['catalog'],
   queryFn: fetchCatalog,
 })
 
+/* eslint-disable */
 export const tilesQueryOptions = queryOptions<Tile[]>({
   queryKey: ['tiles'],
   queryFn: fetchTiles,
