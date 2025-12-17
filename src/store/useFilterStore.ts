@@ -65,9 +65,9 @@ function filterTiles(state: FilterStore, tiles: Tile[]) {
 
     const matchSize = matchAll(state.selectedSizes, tile.sizes?.map((s) => s.size.id) ?? [])
 
-    const matchSurface = matchAll(state.selectedSurfaces, tile.surfaces?.map((s) => s.surfaceId) ?? [])
+    const matchSurface = matchAll(state.selectedSurfaces, tile.surfaces?.map((s) => s.surface.id) ?? [])
 
-    const matchFeature = matchAll(state.selectedFeatures, tile.features?.map((f) => f.featureId) ?? [])
+    const matchFeature = matchAll(state.selectedFeatures, tile.features?.map((f) => f.feature.id) ?? [])
 
     const matchColor = matchAll(state.selectedColors, tile.colors?.map((c) => c.color.id) ?? [])
 
@@ -92,11 +92,11 @@ export const useFilterStore = create<FilterStore>((set, get) => ({
 
       const matchSurface = ignore('surface')
         ? true
-        : matchAll(state.selectedSurfaces, tile.surfaces?.map((s) => s.surfaceId) ?? [])
+        : matchAll(state.selectedSurfaces, tile.surfaces?.map((s) => s.surface.id) ?? [])
 
       const matchFeature = ignore('feature')
         ? true
-        : matchAll(state.selectedFeatures, tile.features?.map((f) => f.featureId) ?? [])
+        : matchAll(state.selectedFeatures, tile.features?.map((f) => f.feature.id) ?? [])
 
       const matchColor = ignore('color')
         ? true
@@ -151,10 +151,10 @@ export const useFilterStore = create<FilterStore>((set, get) => ({
         tile.sizes?.some((s) => s.size.id !== undefined && state.selectedSizes.includes(s.size.id))
       const matchSurface =
         state.selectedSurfaces.length === 0 ||
-        tile.surfaces?.some((f) => f.surfaceId !== undefined && state.selectedSurfaces.includes(f.surfaceId))
+        tile.surfaces?.some((f) => f.surfaceId !== undefined && state.selectedSurfaces.includes(f.surface.id))
       const matchFeature =
         state.selectedFeatures.length === 0 ||
-        tile.features?.some((f) => f.featureId !== undefined && state.selectedFeatures.includes(f.featureId))
+        tile.features?.some((f) => f.featureId !== undefined && state.selectedFeatures.includes(f.feature.id))
       const matchColor =
         state.selectedColors.length === 0 ||
         tile.colors?.some((c) => c.color.id !== undefined && state.selectedColors.includes(c.color.id))
