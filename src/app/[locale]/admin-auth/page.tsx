@@ -16,7 +16,7 @@ export default function AdminAuthPage() {
     })
 
     if (res.ok) {
-      router.replace('/admin') // or /en/panel based on locale
+      router.replace('/admin')
     } else {
       alert('Wrong password')
     }
