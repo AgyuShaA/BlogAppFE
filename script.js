@@ -3,7 +3,7 @@ import fs from "fs";
 import path from "path";
 import sharp from "sharp";
 
-// Folder to scan
+
 const PUBLIC_FOLDER = path.join(process.cwd(), "public");
 
 // Allowed image extensions to convert
